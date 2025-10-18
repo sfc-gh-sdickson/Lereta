@@ -85,8 +85,8 @@ CREATE OR REPLACE SEMANTIC VIEW SV_PROPERTY_LOAN_TAX_INTELLIGENCE
     properties.property_type AS property_type
       WITH SYNONYMS ('real estate type', 'dwelling type')
       COMMENT = 'Property type: SINGLE_FAMILY, CONDO, TOWNHOUSE, MULTI_FAMILY, MOBILE_HOME',
-    properties.flood_zone AS flood_zone
-      WITH SYNONYMS ('FEMA zone', 'flood designation')
+    properties.property_flood_zone AS flood_zone
+      WITH SYNONYMS ('FEMA zone', 'flood designation', 'property zone')
       COMMENT = 'FEMA flood zone designation',
     properties.property_status AS property_status
       WITH SYNONYMS ('property state', 'real estate status')
@@ -124,8 +124,8 @@ CREATE OR REPLACE SEMANTIC VIEW SV_PROPERTY_LOAN_TAX_INTELLIGENCE
     flood_certs.certification_date AS certification_date
       WITH SYNONYMS ('determination date', 'flood cert date')
       COMMENT = 'Date of flood certification',
-    flood_certs.flood_zone AS flood_cert_zone
-      WITH SYNONYMS ('certified zone', 'determined zone')
+    flood_certs.certified_flood_zone AS flood_zone
+      WITH SYNONYMS ('certified zone', 'determined zone', 'flood cert zone')
       COMMENT = 'Flood zone from certification',
     flood_certs.determination_method AS determination_method
       WITH SYNONYMS ('cert method', 'flood determination method')

@@ -2,7 +2,7 @@
 -- Lereta Intelligence Agent - Cortex Search Service Setup
 -- ============================================================================
 -- Purpose: Create unstructured data tables and Cortex Search services for
---          support transcripts, tax dispute documents, and training materials
+--          support transcripts, tax dispute documents, and flood determination reports
 -- Syntax verified against: https://docs.snowflake.com/en/sql-reference/sql/create-cortex-search
 -- EXACT COPY of MedTrainer structure with Lereta-specific content
 -- ============================================================================
@@ -49,21 +49,21 @@ CREATE OR REPLACE TABLE TAX_DISPUTE_DOCUMENTS (
 );
 
 -- ============================================================================
--- Step 3: Create table for training materials
+-- Step 3: Create table for flood determination reports
 -- ============================================================================
-CREATE OR REPLACE TABLE TRAINING_MATERIALS (
-    material_id VARCHAR(30) PRIMARY KEY,
-    title VARCHAR(500) NOT NULL,
-    content VARCHAR(16777216) NOT NULL,
-    material_category VARCHAR(50),
-    course_category VARCHAR(50),
-    tags VARCHAR(500),
-    author VARCHAR(100),
-    last_updated TIMESTAMP_NTZ DEFAULT CURRENT_TIMESTAMP(),
-    view_count NUMBER(10,0) DEFAULT 0,
-    helpfulness_score NUMBER(3,2),
-    is_published BOOLEAN DEFAULT TRUE,
-    created_at TIMESTAMP_NTZ DEFAULT CURRENT_TIMESTAMP()
+CREATE OR REPLACE TABLE FLOOD_DETERMINATION_REPORTS (
+    report_id VARCHAR(30) PRIMARY KEY,
+    certification_id VARCHAR(30),
+    property_id VARCHAR(30),
+    report_text VARCHAR(16777216) NOT NULL,
+    determination_type VARCHAR(50),
+    flood_zone_determined VARCHAR(20),
+    insurance_requirement_text VARCHAR(500),
+    report_date TIMESTAMP_NTZ NOT NULL,
+    created_by VARCHAR(100),
+    created_at TIMESTAMP_NTZ DEFAULT CURRENT_TIMESTAMP(),
+    FOREIGN KEY (certification_id) REFERENCES FLOOD_CERTIFICATIONS(certification_id),
+    FOREIGN KEY (property_id) REFERENCES PROPERTIES(property_id)
 );
 
 -- ============================================================================
@@ -71,7 +71,7 @@ CREATE OR REPLACE TABLE TRAINING_MATERIALS (
 -- ============================================================================
 ALTER TABLE SUPPORT_TRANSCRIPTS SET CHANGE_TRACKING = TRUE;
 ALTER TABLE TAX_DISPUTE_DOCUMENTS SET CHANGE_TRACKING = TRUE;
-ALTER TABLE TRAINING_MATERIALS SET CHANGE_TRACKING = TRUE;
+ALTER TABLE FLOOD_DETERMINATION_REPORTS SET CHANGE_TRACKING = TRUE;
 
 -- ============================================================================
 -- Step 5: Generate sample support transcripts
@@ -155,285 +155,34 @@ WHERE UNIFORM(0, 100, RANDOM()) < 50
 LIMIT 15000;
 
 -- ============================================================================
--- Step 7: Generate sample training materials
+-- Step 7: Generate sample flood determination reports
 -- ============================================================================
-INSERT INTO TRAINING_MATERIALS VALUES
-('MAT001', 'Property Tax Monitoring Best Practices',
-$$PROPERTY TAX MONITORING - BEST PRACTICES GUIDE
-
-INTRODUCTION
-Property tax monitoring is essential for protecting lender interests and ensuring borrower compliance. This guide covers monitoring procedures, delinquency detection, and resolution strategies.
-
-TAX PAYMENT CYCLE
-Understanding the tax cycle:
-- Assessment notices (January-March)
-- Tax bills issued (varies by jurisdiction)
-- Payment due dates (annual, semi-annual, or quarterly)
-- Delinquency notices (30-90 days after due date)
-- Tax lien filing (180-365 days delinquent)
-
-MONITORING PROCEDURES
-Daily tasks:
-- Review new tax bills received
-- Verify assessment amounts
-- Check payment due dates
-- Update escrow projections
-
-Weekly tasks:
-- Review delinquency reports
-- Contact counties on missing payments
-- Update payment status
-- Generate client reports
-
-Monthly tasks:
-- Reconcile all payments
-- Analyze assessment changes
-- Review jurisdiction compliance
-- Escrow analysis updates
-
-DELINQUENCY MANAGEMENT
-Early detection is critical:
-- Monitor due dates carefully
-- Verify payments within 30 days
-- Contact county if payment not posted
-- Initiate research immediately
-
-Common delinquency causes:
-- County processing delays
-- Payment misapplication
-- Escrow account shortfalls
-- Borrower direct payment conflicts
-
-Resolution strategies:
-- Trace payment with canceled checks
-- Contact county tax collector directly
-- Provide proof of payment
-- Negotiate penalty waivers
-
-ESCROW ANALYSIS
-Annual requirements:
-- Calculate projected taxes
-- Review insurance premiums
-- Determine monthly payment
-- Check for surplus or shortage
-
-Shortage resolution:
-- Spread over 12 months plus cushion
-- Notify borrower of increase
-- Update servicer records
-- Monitor next payment cycle
-
-JURISDICTION MANAGEMENT
-Track jurisdiction details:
-- Tax rates and schedules
-- Payment methods accepted
-- Contact information
-- Processing timelines
-
-Best practices:
-- Maintain jurisdiction database
-- Document payment procedures
-- Track processing delays
-- Build county relationships
-
-QUALITY CONTROL
-Verification procedures:
-- Double-check all payments
-- Reconcile monthly
-- Audit random samples
-- Review error reports
-
-TECHNOLOGY TOOLS
-- Automated payment tracking
-- OCR for tax bill processing
-- API integrations with counties
-- Real-time alerts and notifications
-
-For questions contact Lereta Tax Services.$$,
-'TRAINING', 'TAX_MONITORING', 'tax,monitoring,delinquency,escrow', 'Tax Operations Team', CURRENT_TIMESTAMP(), 3421, 4.7, TRUE, CURRENT_TIMESTAMP()),
-
-('MAT002', 'Flood Certification Procedures',
-$$FLOOD ZONE DETERMINATION - PROCEDURES GUIDE
-
-FEMA FLOOD ZONES
-Understanding zone designations:
-
-HIGH-RISK ZONES (Insurance Required):
-- Zone A: 100-year floodplain, no elevation data
-- Zone AE: 100-year floodplain with elevations
-- Zone AH: Shallow flooding area
-- Zone AO: Sheet flow flooding area
-- Zone V: Coastal high-risk
-- Zone VE: Coastal with elevation data
-
-MODERATE-TO-LOW RISK (Insurance Optional):
-- Zone X: Outside 100-year floodplain
-- Zone B: Legacy moderate risk designation
-- Zone C: Legacy minimal risk designation
-
-UNDETERMINED:
-- Zone D: Flood hazard undetermined
-
-DETERMINATION PROCESS
-Standard procedure:
-1. Receive property address
-2. Access FEMA Map Service Center
-3. Identify correct map panel
-4. Determine flood zone
-5. Note map date and panel number
-6. Assess insurance requirement
-7. Generate certification document
-
-Life-of-Loan Monitoring:
-- Enroll property in monitoring
-- Track FEMA map changes
-- Auto-generate new certs if zone changes
-- Notify all parties immediately
-
-LOMA REQUESTS
-Letter of Map Amendment process:
-- Borrower obtains elevation certificate
-- Submit to FEMA with evidence
-- FEMA reviews and issues LOMA
-- Update certification records
-- Remove insurance requirement if approved
-
-INSURANCE REQUIREMENTS
-When is flood insurance required?
-- Property in high-risk zone (A, AE, AH, AO, V, VE)
-- Building securing the loan
-- Community participates in NFIP
-
-Coverage requirements:
-- Lesser of: loan amount OR maximum available
-- Maximum: $250,000 residential building
-- Separate contents coverage available
-- Must remain in force for life of loan
-
-BORROWER NOTIFICATION
-Required notifications:
-- Flood zone designation
-- Insurance requirement status
-- Amount of coverage needed
-- Consequences of non-compliance
-- 45-day timeline to obtain insurance
-
-COMPLIANCE
-Biggert-Waters Act requirements:
-- Force-place if borrower does not obtain
-- Annual escrow analysis if escrowed
-- Premium increases upon renewal
-- No grandfathering for new policies
-
-MAP CHANGES
-When FEMA updates maps:
-- Review all properties in affected areas
-- Determine new zones
-- Issue new certifications
-- Update insurance requirements
-- Notify borrowers and lenders
-
-For questions contact Lereta Flood Services.$$,
-'TRAINING', 'FLOOD_CERTIFICATION', 'flood,fema,insurance,zones,determination', 'Flood Services Team', CURRENT_TIMESTAMP(), 2876, 4.8, TRUE, CURRENT_TIMESTAMP()),
-
-('MAT003', 'Escrow Account Management Guide',
-$$ESCROW ACCOUNT MANAGEMENT - COMPREHENSIVE GUIDE
-
-ESCROW BASICS
-Purpose of escrow accounts:
-- Collect funds for property taxes
-- Collect funds for insurance premiums
-- Protect lender interest in property
-- Ensure timely payments
-
-ESCROW ANALYSIS
-Annual requirements:
-- Review actual disbursements
-- Project next 12 months
-- Calculate monthly payment
-- Determine surplus or shortage
-
-Calculation method:
-1. Add all projected disbursements
-2. Add 2-month cushion (maximum)
-3. Subtract current balance
-4. Divide by 12 for monthly payment
-
-SHORTAGE MANAGEMENT
-When shortage detected:
-- Spread over 12 months minimum
-- Add to monthly payment
-- Notify borrower 30 days before change
-- Explain reason for increase
-
-Causes of shortages:
-- Tax increases
-- Insurance premium increases
-- Missed payments
-- Disbursement errors
-
-SURPLUS MANAGEMENT
-When surplus exceeds regulations:
-- Refund amount over $50
-- Or apply to next year escrow
-- Borrower choice if allowed
-- Process within 30 days
-
-DISBURSEMENT PROCEDURES
-Tax payment process:
-- Verify bill accuracy
-- Confirm due date
-- Initiate payment 10 days before due
-- Obtain confirmation
-- Update account records
-
-Insurance payment:
-- Verify coverage current
-- Confirm premium amount
-- Pay before expiration
-- Obtain proof of payment
-- Update policy records
-
-REGULATORY COMPLIANCE
-RESPA requirements:
-- Annual escrow analysis
-- Initial analysis at closing
-- Shortage/surplus calculation
-- Borrower notification requirements
-- Refund processing timelines
-
-Maximum cushion:
-- 2 months of escrow payments
-- Based on projected disbursements
-- Cannot exceed regulatory limit
-
-COMMON ISSUES
-Payment misapplication:
-- County applies to wrong parcel
-- Check lost in mail
-- Electronic payment errors
-
-Resolution:
-- Trace payment immediately
-- Contact tax collector
-- Provide proof of payment
-- Protect borrower from penalties
-
-TECHNOLOGY
-Automation benefits:
-- Accurate projections
-- Timely disbursements
-- Automatic reconciliation
-- Real-time balance tracking
-
-Best practices:
-- Maintain complete records
-- Reconcile monthly
-- Monitor for exceptions
-- Document all transactions
-
-For questions contact Lereta Escrow Services.$$,
-'TRAINING', 'ESCROW_MANAGEMENT', 'escrow,analysis,disbursement,respa', 'Compliance Team', CURRENT_TIMESTAMP(), 1923, 4.6, TRUE, CURRENT_TIMESTAMP());
+INSERT INTO FLOOD_DETERMINATION_REPORTS
+SELECT
+    'FLDRPT' || LPAD(SEQ4(), 10, '0') AS report_id,
+    fc.certification_id,
+    fc.property_id,
+    'FLOOD ZONE DETERMINATION REPORT - Property: ' || p.property_address || ', ' || p.property_city || ', ' || p.property_state || '. Flood Zone: ' || fc.flood_zone || '. Determination Date: ' || fc.certification_date::VARCHAR || '. ' ||
+    CASE 
+        WHEN fc.flood_zone IN ('AE', 'A', 'AH', 'AO', 'VE', 'V') THEN 'FLOOD INSURANCE REQUIRED. This property is located in a Special Flood Hazard Area (SFHA). Federal law requires flood insurance for loans secured by buildings in high-risk zones. Borrower must obtain coverage within 45 days of this determination. Minimum coverage: Lesser of outstanding loan amount or maximum available. Maximum building coverage: $250,000 for single-family homes. NFIP participation confirmed. Policy must remain in force for life of loan.'
+        WHEN fc.flood_zone IN ('X', 'B', 'C') THEN 'FLOOD INSURANCE NOT REQUIRED. Property located in moderate-to-low risk flood zone outside the 100-year floodplain. While not required, flood insurance is available and recommended. Approximately 25% of flood claims come from moderate-to-low risk areas. Premiums significantly lower than high-risk zones.'
+        ELSE 'FLOOD INSURANCE STATUS UNDETERMINED. Area where flood hazards are undetermined but possible. Flood studies have not been completed for this area. Lender may require flood insurance at their discretion based on local knowledge or property history.'
+    END || ' Determination Method: ' || fc.determination_method || '. FEMA Panel Number: ' || fc.panel_number || '. Map Date: ' || fc.map_date::VARCHAR || '. Life-of-Loan Monitoring: ' ||
+    CASE WHEN fc.life_of_loan_tracking THEN 'ACTIVE. Property enrolled in continuous monitoring. If FEMA revises flood maps affecting this property, a new determination will be issued automatically and all parties notified.' ELSE 'NOT ACTIVE' END AS report_text,
+    ARRAY_CONSTRUCT('STANDARD_DETERMINATION', 'LIFE_OF_LOAN', 'LOMA_REVIEW')[UNIFORM(0, 2, RANDOM())] AS determination_type,
+    fc.flood_zone AS flood_zone_determined,
+    CASE 
+        WHEN fc.flood_zone IN ('AE', 'A', 'AH', 'AO', 'VE', 'V') THEN 'Flood insurance required - high risk zone'
+        WHEN fc.flood_zone IN ('X', 'B', 'C') THEN 'Flood insurance not required - moderate to low risk'
+        ELSE 'Flood insurance status undetermined'
+    END AS insurance_requirement_text,
+    fc.certification_date AS report_date,
+    'Flood Specialist ' || UNIFORM(1, 8, RANDOM())::VARCHAR AS created_by,
+    fc.created_at AS created_at
+FROM RAW.FLOOD_CERTIFICATIONS fc
+JOIN RAW.PROPERTIES p ON fc.property_id = p.property_id
+WHERE UNIFORM(0, 100, RANDOM()) < 50
+LIMIT 20000;
 
 -- ============================================================================
 -- Step 8: Create Cortex Search Service for Support Transcripts
@@ -482,28 +231,27 @@ AS
   FROM RAW.TAX_DISPUTE_DOCUMENTS;
 
 -- ============================================================================
--- Step 10: Create Cortex Search Service for Training Materials
+-- Step 10: Create Cortex Search Service for Flood Determination Reports
 -- ============================================================================
-CREATE OR REPLACE CORTEX SEARCH SERVICE TRAINING_MATERIALS_SEARCH
-  ON content
-  ATTRIBUTES material_category, course_category, title
+CREATE OR REPLACE CORTEX SEARCH SERVICE FLOOD_DETERMINATION_REPORTS_SEARCH
+  ON report_text
+  ATTRIBUTES property_id, determination_type, flood_zone_determined, report_date
   WAREHOUSE = LERETA_WH
-  TARGET_LAG = '24 hours'
-  COMMENT = 'Cortex Search service for training materials - enables semantic search across training documentation'
+  TARGET_LAG = '1 hour'
+  COMMENT = 'Cortex Search service for flood determination reports - enables semantic search across flood documentation'
 AS
   SELECT
-    material_id,
-    title,
-    content,
-    material_category,
-    course_category,
-    tags,
-    author,
-    last_updated,
-    view_count,
-    helpfulness_score,
+    report_id,
+    report_text,
+    certification_id,
+    property_id,
+    determination_type,
+    flood_zone_determined,
+    insurance_requirement_text,
+    report_date,
+    created_by,
     created_at
-  FROM RAW.TRAINING_MATERIALS;
+  FROM RAW.FLOOD_DETERMINATION_REPORTS;
 
 -- ============================================================================
 -- Step 11: Verify Cortex Search Services Created
@@ -520,7 +268,7 @@ FROM (
   UNION ALL
   SELECT 'TAX_DISPUTE_DOCUMENTS_SEARCH'
   UNION ALL
-  SELECT 'TRAINING_MATERIALS_SEARCH'
+  SELECT 'FLOOD_DETERMINATION_REPORTS_SEARCH'
 );
 
 -- ============================================================================
@@ -530,5 +278,5 @@ SELECT 'SUPPORT_TRANSCRIPTS' AS table_name, COUNT(*) AS row_count FROM SUPPORT_T
 UNION ALL
 SELECT 'TAX_DISPUTE_DOCUMENTS', COUNT(*) FROM TAX_DISPUTE_DOCUMENTS
 UNION ALL
-SELECT 'TRAINING_MATERIALS', COUNT(*) FROM TRAINING_MATERIALS
+SELECT 'FLOOD_DETERMINATION_REPORTS', COUNT(*) FROM FLOOD_DETERMINATION_REPORTS
 ORDER BY table_name;

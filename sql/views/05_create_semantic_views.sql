@@ -64,11 +64,11 @@ CREATE OR REPLACE SEMANTIC VIEW SV_PROPERTY_LOAN_TAX_INTELLIGENCE
     clients.client_type AS client_type
       WITH SYNONYMS ('client segment view1', 'institution type')
       COMMENT = 'Client type: NATIONAL_SERVICER, REGIONAL_LENDER, CREDIT_UNION',
-    clients.state AS client_state
-      WITH SYNONYMS ('client location state', 'lender state')
+    clients.state AS state
+      WITH SYNONYMS ('client location state view1', 'lender state', 'client state')
       COMMENT = 'Client state location',
-    clients.city AS client_city
-      WITH SYNONYMS ('client location city', 'lender city')
+    clients.city AS city
+      WITH SYNONYMS ('client location city view1', 'lender city', 'client city')
       COMMENT = 'Client city location',
     properties.property_address AS property_address
       WITH SYNONYMS ('address', 'property location')
@@ -214,8 +214,8 @@ CREATE OR REPLACE SEMANTIC VIEW SV_SUBSCRIPTION_REVENUE_INTELLIGENCE
     clients.client_type AS client_type
       WITH SYNONYMS ('subscription client type', 'revenue customer segment')
       COMMENT = 'Client type: NATIONAL_SERVICER, REGIONAL_LENDER, CREDIT_UNION',
-    clients.state AS client_state_revenue
-      WITH SYNONYMS ('subscription client state', 'revenue location state')
+    clients.state AS state
+      WITH SYNONYMS ('subscription client state view2', 'revenue location state')
       COMMENT = 'Client state location',
     subscriptions.service_type AS service_type
       WITH SYNONYMS ('subscription type', 'service category')

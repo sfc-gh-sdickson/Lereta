@@ -2,8 +2,9 @@
 -- Lereta Intelligence Agent - Cortex Search Service Setup
 -- ============================================================================
 -- Purpose: Create unstructured data tables and Cortex Search services for
---          support transcripts, tax dispute documents, and flood determination reports
+--          support transcripts, tax dispute documents, and training materials
 -- Syntax verified against: https://docs.snowflake.com/en/sql-reference/sql/create-cortex-search
+-- EXACT COPY of MedTrainer structure with Lereta-specific content
 -- ============================================================================
 
 USE DATABASE LERETA_INTELLIGENCE;
@@ -33,38 +34,36 @@ CREATE OR REPLACE TABLE SUPPORT_TRANSCRIPTS (
 -- Step 2: Create table for tax dispute documents
 -- ============================================================================
 CREATE OR REPLACE TABLE TAX_DISPUTE_DOCUMENTS (
-    document_id VARCHAR(30) PRIMARY KEY,
+    report_id VARCHAR(30) PRIMARY KEY,
     tax_record_id VARCHAR(30),
-    property_id VARCHAR(30),
     client_id VARCHAR(20),
-    document_text VARCHAR(16777216) NOT NULL,
-    document_type VARCHAR(50),
-    dispute_status VARCHAR(30),
-    resolution_outcome VARCHAR(500),
-    document_date TIMESTAMP_NTZ NOT NULL,
+    report_text VARCHAR(16777216) NOT NULL,
+    report_type VARCHAR(50),
+    investigation_status VARCHAR(30),
+    corrective_actions_taken VARCHAR(5000),
+    report_date TIMESTAMP_NTZ NOT NULL,
     created_by VARCHAR(100),
     created_at TIMESTAMP_NTZ DEFAULT CURRENT_TIMESTAMP(),
     FOREIGN KEY (tax_record_id) REFERENCES TAX_RECORDS(tax_record_id),
-    FOREIGN KEY (property_id) REFERENCES PROPERTIES(property_id),
     FOREIGN KEY (client_id) REFERENCES CLIENTS(client_id)
 );
 
 -- ============================================================================
--- Step 3: Create table for flood determination reports
+-- Step 3: Create table for training materials
 -- ============================================================================
-CREATE OR REPLACE TABLE FLOOD_DETERMINATION_REPORTS (
-    report_id VARCHAR(30) PRIMARY KEY,
-    certification_id VARCHAR(30),
-    property_id VARCHAR(30),
-    report_text VARCHAR(16777216) NOT NULL,
-    determination_type VARCHAR(50),
-    flood_zone_determined VARCHAR(20),
-    insurance_requirement_text VARCHAR(500),
-    report_date TIMESTAMP_NTZ NOT NULL,
-    created_by VARCHAR(100),
-    created_at TIMESTAMP_NTZ DEFAULT CURRENT_TIMESTAMP(),
-    FOREIGN KEY (certification_id) REFERENCES FLOOD_CERTIFICATIONS(certification_id),
-    FOREIGN KEY (property_id) REFERENCES PROPERTIES(property_id)
+CREATE OR REPLACE TABLE TRAINING_MATERIALS (
+    material_id VARCHAR(30) PRIMARY KEY,
+    title VARCHAR(500) NOT NULL,
+    content VARCHAR(16777216) NOT NULL,
+    material_category VARCHAR(50),
+    course_category VARCHAR(50),
+    tags VARCHAR(500),
+    author VARCHAR(100),
+    last_updated TIMESTAMP_NTZ DEFAULT CURRENT_TIMESTAMP(),
+    view_count NUMBER(10,0) DEFAULT 0,
+    helpfulness_score NUMBER(3,2),
+    is_published BOOLEAN DEFAULT TRUE,
+    created_at TIMESTAMP_NTZ DEFAULT CURRENT_TIMESTAMP()
 );
 
 -- ============================================================================
@@ -72,7 +71,7 @@ CREATE OR REPLACE TABLE FLOOD_DETERMINATION_REPORTS (
 -- ============================================================================
 ALTER TABLE SUPPORT_TRANSCRIPTS SET CHANGE_TRACKING = TRUE;
 ALTER TABLE TAX_DISPUTE_DOCUMENTS SET CHANGE_TRACKING = TRUE;
-ALTER TABLE FLOOD_DETERMINATION_REPORTS SET CHANGE_TRACKING = TRUE;
+ALTER TABLE TRAINING_MATERIALS SET CHANGE_TRACKING = TRUE;
 
 -- ============================================================================
 -- Step 5: Generate sample support transcripts
@@ -83,18 +82,27 @@ SELECT
     st.ticket_id,
     st.client_id,
     st.assigned_agent_id AS agent_id,
-    CASE (ABS(RANDOM()) % 11)
-        WHEN 0 THEN 'Agent: Thank you for calling Lereta tax services. How can I help you today? Customer: Hi, we received a delinquency notice for property 12345 Main Street but we thought that tax was paid. Agent: Let me check that property immediately. Can you provide the loan number? Customer: It is LN998877665. Agent: Thank you. Pulling up the tax record now... I see the payment was made on time to the county, but there was a delay in the county processing it. Your escrow account was debited correctly. Customer: So is there actually a delinquency? Agent: No, this is a timing issue. The county updated their records yesterday and the delinquency was cleared. I am updating your account now to reflect the payment status. Customer: Do we need to do anything? Agent: No action needed on your end. I will send you a confirmation email with the updated payment receipt. Customer: Thank you for clarifying that!'
-        WHEN 1 THEN 'Customer: We need a tax certificate for a property closing next week. How fast can you get that? Agent: I can help expedite that. What is the property address? Customer: 789 Oak Avenue, Dallas, TX. Agent: And what is the closing date? Customer: Next Wednesday, the 15th. Agent: That gives us 7 business days. Standard turnaround is 5-7 days, so we should be fine. Let me check if the property is in our system... Yes, I see it is loan LN445566778. Is this a refinance or purchase? Customer: Purchase. The title company needs the certificate by Tuesday. Agent: I can mark this as rush processing. We will have the certificate to you by Monday. There is a $25 expedite fee. Customer: That is fine. Please proceed. Agent: Processing the rush order now. You will receive tracking information within 2 hours. Customer: Perfect, thank you!'
-        WHEN 2 THEN 'Chat started. Agent: Welcome to Lereta flood services support! Customer: Hi, we got an alert that FEMA updated flood maps for one of our properties. What does that mean? Agent: A flood map change means FEMA has revised the flood zone designation for that area. Can you provide the property address? Customer: 456 River Road, Houston, TX. Agent: Let me pull that up... I see the change. The property moved from Zone X to Zone AE. Customer: What does that mean for the loan? Agent: Zone AE is a high-risk flood zone which means flood insurance is now required. We have already ordered a new flood determination. Customer: How long until we know for sure? Agent: The new determination should be complete within 24 hours. We will notify you immediately with the insurance requirement status. Customer: If insurance is required, when does that need to be in place? Agent: The borrower has 45 days from notification to obtain flood insurance. We will provide you with the official notification letter. Customer: Okay, thank you for the quick response. Agent: You are welcome! We will keep you updated.'
-        WHEN 3 THEN 'Agent: Lereta API support, this is James. Customer: We are trying to pull property tax data via API but getting a 404 error on loan LN334455667. Agent: Let me help troubleshoot. Are you using the correct endpoint? It should be /api/v2/tax-records/{loanId}. Customer: Yes, that is what we are using. Agent: Let me check that loan in our system... I see the issue. That loan was recently transferred to your portfolio but the API sync has not completed yet. Customer: How long does the sync take? Agent: Normally within 1 hour of the loan being added. When was the transfer? Customer: This morning around 9 AM. Agent: It is been about 6 hours, so the sync should have completed. Let me trigger a manual sync now. Customer: Trying again... It worked! I am getting the data now. Agent: Great! The manual sync fixed it. If you encounter this again, our sync runs every hour, but you can contact us for a manual trigger. Customer: Good to know. Is there a way to check sync status via API? Agent: Yes, use the /api/v2/sync-status endpoint with your portfolio ID. Customer: Perfect. Thank you! Agent: Anytime!'
-        WHEN 4 THEN 'Email support. Customer: We were charged for a tax payment but the county says they did not receive it. What happened? Agent: I apologize for the confusion. Let me investigate this immediately. What property address are we discussing? Customer: 2345 Pine Street, Phoenix, AZ. Loan number LN667788990. Agent: Thank you. Reviewing the disbursement records... I can see we disbursed $3,450.00 to Maricopa County on March 15th via check #123456. Customer: The county has no record of receiving that check. Agent: Let me check the check status... The check cleared our bank on March 22nd. I am sending you a copy of the canceled check showing the county endorsement. Customer: Could it be applied to the wrong parcel? Agent: That is possible. I will contact the county tax collector directly to trace the payment. Customer: How long will that take? Agent: I should have an answer within 24 hours. In the meantime, I am putting a hold on any penalties on your account. Customer: Thank you. Please keep me updated. Agent: I will email you with updates. If the county misapplied the payment, we will handle getting it corrected.'
-        WHEN 5 THEN 'Phone support. Agent: Lereta tax monitoring, how may I help you? Customer: We need to set up escrow analysis for our entire loan portfolio. How does that work? Agent: I can walk you through that. How many loans are in your portfolio? Customer: About 12,000 loans. Agent: Okay, we can definitely handle that. Our escrow analysis service reviews tax amounts, insurance premiums, and calculates required monthly payments. Are your loans currently escrowed? Customer: About 70% are escrowed. Agent: For the escrowed loans, we will analyze current escrow balances and projected tax amounts to ensure adequate funding. For non-escrowed loans, we just monitor the tax payments. Customer: What happens if taxes increase? Agent: Our system automatically recalculates escrow payments when we detect tax increases. We send you a notification and the revised payment amount. Customer: Can we set different surplus thresholds by loan type? Agent: Yes! You can configure different rules for conventional, FHA, VA loans. Customer: Perfect. How do we get started? Agent: I will send you our escrow setup guide and have an implementation specialist contact you this week. Customer: Great, thank you! Agent: You are welcome!'
-        WHEN 6 THEN 'Customer: I need to understand why a property tax went up 30% this year. Agent: I can help you research that. What is the property address? Customer: 8901 Elm Street, Austin, TX. Agent: Let me pull the tax history... I see the assessed value increased from $350,000 to $455,000. Customer: Why such a big jump? Agent: Let me check the county records... The county did a general reappraisal this year. Many properties in that area saw similar increases due to market appreciation. Customer: Can the borrower appeal this assessment? Agent: Yes, most counties allow assessment appeals within a specific window, usually 30-45 days from the notice date. Customer: When was the notice sent? Agent: According to our records, the assessment notice was mailed on May 1st, so the appeal deadline would be around June 15th. Customer: Can you help with the appeal? Agent: We do not prepare appeals directly, but we can provide the property tax history and comparable sales data to support an appeal. Customer: Can you send me that data? Agent: Yes, I am generating a property tax analysis report now. You will receive it within 15 minutes. Customer: That would be very helpful, thank you! Agent: You are welcome. The report includes 5-year tax history and recent sales in the neighborhood.'
-        WHEN 7 THEN 'Chat. Customer: We have a loan payoff tomorrow and need to confirm all taxes are current. Agent: I can verify that for you. What is the loan number? Customer: LN112233445. Agent: Checking the tax status now... All property taxes are current. Last payment was made on November 30th for the fall installment. Customer: Are there any pending bills? Agent: Let me check... No pending bills. The next tax bill will not be issued until April for the spring installment. Customer: So we are clear to close? Agent: From a tax perspective, yes. All current and no delinquencies. Would you like me to send you a tax clearance letter? Customer: Yes please, that would be great. Agent: Generating it now... Sent to your email. The letter confirms tax status as of today and is valid for 30 days. Customer: Perfect. One more question - is there any escrow balance to refund? Agent: Looking at the escrow account... Current balance is $1,245.67. After the payoff, this will be refunded to the borrower. Customer: Excellent. Thank you for the quick help! Agent: You are welcome! Congratulations on the payoff!'
-        WHEN 8 THEN 'Agent: Lereta flood certification support. Customer: We need flood certs for 500 new loans in our pipeline. Can you handle that volume? Agent: Absolutely! We process thousands of determinations daily. When do you need them completed? Customer: We need them all within 5 business days for closing. Agent: That is achievable. You can submit them via our bulk upload portal. Do you have a file prepared? Customer: We have an Excel file with all the property addresses. Agent: Perfect! You can upload that directly. Our system will process them and typically return results within 24-48 hours. Customer: What format do we need for the addresses? Agent: Property address, city, state, and ZIP are required. Loan number is optional but helpful for tracking. Customer: Can we get notified as each one completes? Agent: Yes, you can set up email notifications or use our API webhook to get real-time status updates. Customer: Do we get certificates immediately or need to request them? Agent: Certificates are generated automatically with each determination. You can download them individually or as a batch. Customer: What is the cost? Agent: Standard flood determination is $12 per property. For 500, that would be $6,000. We can set up a monthly billing cycle. Customer: Sounds good. I will upload the file this afternoon. Agent: Great! I will monitor the batch and reach out if there are any issues with addresses.'
-        WHEN 9 THEN 'Email thread. Customer: One of our borrowers is disputing a tax amount we escrowed. They say the tax bill is lower than what we collected. Agent: I can research that. What property and tax year are we discussing? Customer: 5678 Maple Drive, Dallas TX, 2024 tax year. Loan LN887766554. Agent: Let me review the escrow analysis... We projected the 2024 taxes at $4,200 based on the 2023 amount of $4,000 plus estimated 5% increase. Customer: But the actual bill came in at $3,950. What happened? Agent: It looks like the county reduced the assessed value after our projection. This sometimes happens if there was a successful appeal or a general reduction. Customer: Should we refund the difference to the borrower? Agent: Yes, the overage of $250 should be refunded. We will also adjust the monthly escrow payment going forward to reflect the actual amount. Customer: Can you calculate the new monthly payment? Agent: Based on the actual tax of $3,950 plus estimated insurance of $1,200, the monthly escrow should be $429. It is currently set at $450. I recommend reducing it to $430 to maintain a small cushion. Customer: Please make that change. How do we process the refund? Agent: I will process the escrow adjustment now. The new payment amount will be effective next month, and the refund check will be mailed to the borrower within 5 business days. Customer: Thank you! Agent: You are welcome! I am updating the account now.'
-        WHEN 10 THEN 'Customer: We need to onboard a new loan portfolio. What information do you need from us? Agent: Great! I can help you get set up. How many loans are you transferring? Customer: About 8,500 loans. Agent: Okay, we will need some key data points for each loan. Customer: What specifically? Agent: Loan number, property address, borrower name, loan amount, current servicer loan number if transferring, and whether tax and flood monitoring is required. Customer: We have all that in our loan servicing system. What format do you need? Agent: We accept CSV, Excel, or you can use our API for direct integration. Do you have existing tax and flood data? Customer: Yes, we have all historical tax payments and flood certs. Agent: Excellent! Include that in the file so we can have complete history from day one. We also need escrow account numbers and current balances if applicable. Customer: How long does the onboarding take? Agent: For 8,500 loans, we typically need 3-5 business days to load the data and complete initial setup. Then another 2-3 days for verification. Customer: So about a week total? Agent: Yes, plan for 7-10 business days to be safe. We will assign you a dedicated implementation manager who will keep you updated daily. Customer: Perfect. Who should I send the data file to? Agent: I will send you a secure upload link and introduce you to your implementation manager via email within the hour. Customer: Sounds good. Thanks for walking me through this! Agent: My pleasure! Welcome to Lereta!'
+    CASE (ABS(RANDOM()) % 20)
+        WHEN 0 THEN 'Agent: Thank you for calling Lereta tax services. Customer: We received a delinquency notice for a property but we thought the tax was paid. Agent: I can check that immediately. What is the loan number? Customer: LN998877665. Agent: Pulling up the tax record now. I see the payment was made to the county, but there was a processing delay. Your escrow was debited correctly. Customer: So is there a delinquency? Agent: No, this is a timing issue. The county cleared it yesterday. I am updating your account now. Customer: Do we need to do anything? Agent: No action needed. I will send you confirmation with the updated receipt. Customer: Thank you!'
+        WHEN 1 THEN 'Customer: We need a tax certificate for a closing next week. How fast can you get that? Agent: I can expedite that. What is the property address? Customer: 789 Oak Avenue, Dallas, TX. Agent: And the closing date? Customer: Next Wednesday. Agent: That gives us 7 days. Standard is 5-7 days. Let me check if the property is in our system. Yes, loan LN445566778. Is this refinance or purchase? Customer: Purchase. Title company needs it by Tuesday. Agent: I will mark as rush. You will have it Monday. There is a $25 expedite fee. Customer: Fine. Please proceed. Agent: Processing now. You will get tracking in 2 hours. Customer: Perfect!'
+        WHEN 2 THEN 'Chat started. Agent: Welcome to Lereta flood services! Customer: We got an alert that FEMA updated flood maps for a property. What does that mean? Agent: A map change means FEMA revised the zone designation. Can you provide the property address? Customer: 456 River Road, Houston, TX. Agent: Let me pull that up. I see the change. Property moved from Zone X to Zone AE. Customer: What does that mean? Agent: Zone AE is high-risk which means flood insurance is now required. We ordered a new determination. Customer: How long? Agent: Should complete within 24 hours. We will notify you immediately. Customer: When does insurance need to be in place? Agent: Borrower has 45 days from notification. We will provide the official letter. Customer: Thanks!'
+        WHEN 3 THEN 'Agent: Lereta API support. Customer: We are getting a 404 error on loan LN334455667 tax data. Agent: Let me troubleshoot. Are you using /api/v2/tax-records/{loanId}? Customer: Yes. Agent: Let me check that loan. I see the issue. That loan transferred recently but API sync has not completed. Customer: How long does sync take? Agent: Normally 1 hour. When was the transfer? Customer: This morning at 9 AM. Agent: It has been 6 hours. Let me trigger manual sync now. Customer: Trying again... It worked! Agent: Great! Sync runs hourly but you can contact us for manual trigger. Customer: Is there a way to check sync status via API? Agent: Yes, use /api/v2/sync-status with your portfolio ID. Customer: Perfect!'
+        WHEN 4 THEN 'Email support. Customer: We were charged for a tax payment but the county says they did not receive it. Agent: Let me investigate immediately. What property address? Customer: 2345 Pine Street, Phoenix, AZ. Loan LN667788990. Agent: Reviewing disbursement records. I see we disbursed $3,450 to Maricopa County on March 15th via check 123456. Customer: County has no record. Agent: Let me check check status. It cleared our bank March 22nd. I am sending you the canceled check showing county endorsement. Customer: Could it be applied to wrong parcel? Agent: Possible. I will contact the county directly. Customer: How long? Agent: Should have answer in 24 hours. I am holding any penalties meanwhile. Customer: Thanks!'
+        WHEN 5 THEN 'Phone. Agent: Lereta tax monitoring. Customer: We need escrow analysis for our entire portfolio. How does that work? Agent: I can walk you through it. How many loans? Customer: About 12,000. Agent: We can handle that. Our service reviews tax amounts, insurance, and calculates monthly payments. Are loans escrowed? Customer: About 70%. Agent: For escrowed loans, we analyze balances and projected taxes. For non-escrowed, we just monitor payments. Customer: What if taxes increase? Agent: System auto-recalculates escrow payments. We send notification and revised amount. Customer: Can we set different thresholds by loan type? Agent: Yes! You can configure rules for conventional, FHA, VA. Customer: How do we start? Agent: I will send setup guide and have specialist contact you this week. Customer: Great!'
+        WHEN 6 THEN 'Customer: Why did a property tax go up 30% this year? Agent: I can research that. What is the address? Customer: 8901 Elm Street, Austin, TX. Agent: Let me pull tax history. Assessed value increased from $350,000 to $455,000. Customer: Why such a jump? Agent: County did general reappraisal. Many properties in that area saw similar increases. Customer: Can borrower appeal? Agent: Yes, counties allow appeals within 30-45 days from notice. Customer: When was notice sent? Agent: May 1st, so appeal deadline around June 15th. Customer: Can you help with appeal? Agent: We do not prepare appeals but can provide tax history and comparable sales data. Customer: Can you send that? Agent: Yes, generating report now. You will receive in 15 minutes. Customer: Helpful, thanks!'
+        WHEN 7 THEN 'Chat. Customer: Loan payoff tomorrow. Need to confirm all taxes current. Agent: I can verify. What is loan number? Customer: LN112233445. Agent: Checking now. All taxes current. Last payment November 30th for fall installment. Customer: Any pending bills? Agent: No pending. Next bill not until April for spring installment. Customer: Clear to close? Agent: From tax perspective, yes. All current and no delinquencies. Want a tax clearance letter? Customer: Yes please. Agent: Generating. Sent to email. Letter confirms status as of today, valid 30 days. Customer: Any escrow balance to refund? Agent: Current balance $1,245.67. After payoff, this refunds to borrower. Customer: Excellent. Thanks! Agent: Welcome! Congratulations on payoff!'
+        WHEN 8 THEN 'Agent: Lereta flood certification. Customer: We need flood certs for 500 new loans. Can you handle that? Agent: Absolutely! We process thousands daily. When do you need them? Customer: All within 5 business days for closing. Agent: Achievable. Submit via bulk upload portal. Have file prepared? Customer: Excel with all addresses. Agent: Perfect! Upload directly. We process and return results in 24-48 hours. Customer: What format for addresses? Agent: Property address, city, state, ZIP required. Loan number optional but helpful. Customer: Notified as each completes? Agent: Yes, email notifications or API webhook for real-time updates. Customer: Certificates immediate? Agent: Generated automatically. Download individually or batch. Customer: Cost? Agent: $12 per property. For 500, $6,000. Monthly billing available. Customer: Good. Uploading this afternoon. Agent: Great! I will monitor and reach out if issues.'
+        WHEN 9 THEN 'Email. Customer: Borrower disputing tax amount we escrowed. They say bill lower than we collected. Agent: I can research. What property and tax year? Customer: 5678 Maple Drive, Dallas TX, 2024. Loan LN887766554. Agent: Let me review escrow analysis. We projected 2024 taxes at $4,200 based on 2023 amount of $4,000 plus 5% increase. Customer: Actual bill $3,950. What happened? Agent: County reduced assessed value after projection. Happens with successful appeal or general reduction. Customer: Refund the difference? Agent: Yes, $250 overage should refund. We will adjust monthly escrow going forward. Customer: New monthly payment? Agent: Based on actual $3,950 plus insurance $1,200, monthly should be $429. Currently $450. Recommend $430 for cushion. Customer: Make that change. How process refund? Agent: Processing now. New payment next month, refund check mailed in 5 days. Customer: Thanks!'
+        WHEN 10 THEN 'Customer: Onboard new portfolio. What info needed? Agent: Great! How many loans transferring? Customer: About 8,500. Agent: We need key data for each. Customer: What specifically? Agent: Loan number, property address, borrower name, loan amount, servicer number if transferring, whether tax and flood monitoring required. Customer: We have that. What format? Agent: CSV, Excel, or API for direct integration. Have existing tax and flood data? Customer: Yes, all historical payments and certs. Agent: Excellent! Include that for complete history. Also need escrow accounts and balances if applicable. Customer: How long? Agent: For 8,500, typically 3-5 days to load, then 2-3 for verification. Customer: Week total? Agent: Yes, 7-10 days. We assign dedicated implementation manager with daily updates. Customer: Who to send file to? Agent: I will send secure link and introduce you to manager within the hour. Customer: Sounds good!'
+        WHEN 11 THEN 'Phone. Agent: Lereta compliance. Customer: Need to pull tax payment history for audit. How do we get that? Agent: I can help. What timeframe? Customer: Past 3 years for all properties. Agent: You can run that in your portal. Go to Reports, Tax Payment History. Customer: What info does it show? Agent: Payment dates, amounts, check numbers, jurisdictions, delinquency history. Customer: Can we filter by property or loan? Agent: Yes, filter by loan number, property address, state, or county. Customer: Export options? Agent: PDF, Excel, or CSV. Customer: Perfect. Running now. Agent: Great! Report generates in real-time. Should complete in few minutes. Customer: Got it. Thanks!'
+        WHEN 12 THEN 'Chat. Customer: How do we add new properties to monitoring? Agent: Simple process. Do you want to add individually or bulk? Customer: We have 200 new loans. Agent: Use bulk upload. Go to Portfolio Management, Bulk Add. Customer: What file format? Agent: Excel template available for download. Columns needed: loan number, property address, city, state, ZIP, loan amount. Customer: Do we need flood zone info? Agent: Optional. If you have it include it, otherwise we will determine it. Customer: When will monitoring start? Agent: As soon as file processes, usually within 24 hours. You get confirmation email. Customer: What if there are errors in file? Agent: System validates and shows errors. You can correct and re-upload. Customer: Good to know!'
+        WHEN 13 THEN 'Customer: Property sold. How do we remove from monitoring? Agent: I can help. What is the loan number? Customer: LN556677889. Agent: Let me pull that up. I see this property at 123 Main St. Is this the one that sold? Customer: Yes, closed yesterday. Agent: I will mark the loan as paid off and stop monitoring. Do you need final tax clearance? Customer: Yes, for our records. Agent: Generating that now. It shows all taxes current through closing date. Customer: Perfect. Agent: Done. Loan marked paid off, monitoring stopped, clearance sent to email. Anything else? Customer: Nope, thanks! Agent: Welcome!'
+        WHEN 14 THEN 'Email. Customer: We switched loan servicers. How do we update that in your system? Agent: I can update that. What is the new servicer name? Customer: Nationstar Mortgage. Agent: How many loans are affected? Customer: About 1,500. Agent: I will need a file with loan numbers and new servicer loan numbers. Customer: Have that. Where to send? Agent: I will send you secure upload link. Also need effective date of transfer. Customer: Transfer effective January 1st. Agent: Perfect. Once file uploads, we update within 24 hours and send confirmation. Customer: Will this affect tax monitoring? Agent: No interruption. We continue monitoring seamlessly. Just updates our records for reporting. Customer: Great!'
+        WHEN 15 THEN 'Agent: Lereta tech support. Customer: API endpoint returning old tax amounts. We know taxes increased but API shows last year values. Agent: Let me check. What loan? Customer: LN998877665. Agent: Checking. I see new assessment came in last week. Let me verify it is in system. Yes, new amount is $4,500, up from $4,200. Customer: But API showing $4,200. Agent: When did you last call the endpoint? Customer: 10 minutes ago. Agent: Let me check cache. Ah, API cache is set to 4 hours. Your call hit cached data. Customer: How do we get current data? Agent: Add cache-control header to request or wait for cache expiration. I can also clear cache manually now. Customer: Please clear it. Agent: Cleared. Try now. Customer: Got the new amount! Thanks!'
+        WHEN 16 THEN 'Customer: Flood zone changed but we are not seeing update in our reports. Agent: Let me check that. What property? Customer: 789 Riverside Dr, Houston. Agent: I see FEMA issued map change on October 1st. Zone changed from X to AE. Customer: Why not in our reports yet? Agent: Let me check. The flood cert table updated but report cache has not refreshed. Customer: When will it refresh? Agent: Report cache refreshes nightly. I can trigger manual refresh now. Customer: Please do. Agent: Triggered. Refresh completes in 2-3 minutes. Try report again then. Customer: Will try. Thanks! Agent: You are welcome. Future changes will appear in next day reports automatically.'
+        WHEN 17 THEN 'Chat. Customer: How do we set up automated alerts for tax delinquencies? Agent: You can configure that in Alert Settings. Customer: Where is that? Agent: Go to Settings, Alert Configuration, Tax Monitoring Alerts. Customer: What alerts available? Agent: Tax bill received, payment due in 30 days, payment due in 15 days, payment overdue, delinquency detected. Customer: Can we set different alerts by client? Agent: Yes! Configure default alerts globally, then override for specific clients. Customer: Who receives alerts? Agent: You set email recipients per alert type. Can send to different people for different alert types. Customer: Can we get alerts via API webhook? Agent: Yes! Enable webhook in settings and provide your endpoint URL. Customer: Perfect. Setting up now!'
+        WHEN 18 THEN 'Agent: Lereta flood services. Customer: Borrower claiming they do not need flood insurance but our cert says Zone AE. Agent: I can verify. What property? Customer: 5678 Oak Lane, Miami, FL. Agent: Checking certification. Confirmed Zone AE as of March 15th. FEMA panel 12345678K dated 2019. Customer: Borrower says their neighbor does not need insurance. Agent: Zone determinations are property-specific. Neighbor could be in different zone even on same street. Elevation differences matter. Customer: Can borrower appeal? Agent: They can request LOMA if property is elevated above base flood elevation. Requires elevation certificate from surveyor. Customer: How do we help with that? Agent: We can order elevation certificate for $250. Takes 5-7 business days. Customer: I will ask borrower if they want to proceed. Agent: Let me know. Happy to help!'
+        WHEN 19 THEN 'Customer: Dashboard showing error loading tax data. Agent: I can troubleshoot. What error message? Customer: Says unable to connect to tax service. Agent: Let me check system status. I am not seeing any outages. Can you try refreshing your browser? Customer: Tried that. Still error. Agent: Clear your browser cache and cookies, then try again. Customer: How do I do that? Agent: In browser settings, find Clear Browsing Data, select Cookies and Cache, clear. Then log back in. Customer: Clearing now. Logging in. It is working! Agent: Great! Old cached session was causing connection issue. Customer: Good to know. Thanks! Agent: You are welcome!'
     END AS transcript_text,
     ARRAY_CONSTRUCT('PHONE', 'EMAIL', 'CHAT')[UNIFORM(0, 2, RANDOM())] AS interaction_type,
     st.created_date AS interaction_date,
@@ -116,248 +124,411 @@ LIMIT 25000;
 -- ============================================================================
 INSERT INTO TAX_DISPUTE_DOCUMENTS
 SELECT
-    'TAXDOC' || LPAD(SEQ4(), 10, '0') AS document_id,
+    'RPT' || LPAD(SEQ4(), 10, '0') AS report_id,
     tr.tax_record_id,
-    tr.property_id,
     tr.client_id,
-    CASE (ABS(RANDOM()) % 10)
-        WHEN 0 THEN 'TAX ASSESSMENT APPEAL - Property: ' || p.property_address || '. Tax Year: ' || tr.tax_year || '. Current Assessment: $' || p.assessed_value || '. Grounds for Appeal: The current assessment significantly exceeds market value. Recent comparable sales in the neighborhood show values 15-20% lower. Comparable Properties: 1) Property A sold for $285,000 (assessed at $320,000), 2) Property B sold for $295,000 (assessed at $335,000), 3) Property C sold for $275,000 (assessed at $310,000). Our property is assessed at $340,000 but similar properties are selling at $280,000-$295,000 range. We request a reassessment based on actual market conditions. Supporting documentation includes recent appraisal, comparative market analysis, and recent sales data from county records.'
-        WHEN 1 THEN 'PROPERTY TAX EXEMPTION APPLICATION - Property Address: ' || p.property_address || '. Application Type: Homestead Exemption. Tax Year: ' || tr.tax_year || '. Applicant declares this property as their primary residence as of January 1. Property has been owner-occupied for entire tax year. Request: Homestead exemption which reduces taxable value by $25,000 for school taxes. Documentation provided: Drivers license showing property address, utility bills for past 12 months, voter registration at property address, and declaration of primary residence. Expected tax reduction: approximately $450 annually based on current tax rate.'
-        WHEN 2 THEN 'TAX DELINQUENCY DISPUTE - Loan: Property ' || p.property_address || '. Dispute Reason: County records show property tax as delinquent for ' || tr.tax_year || ' tax year, however payment was made on ' || tr.payment_date || ' check number [removed] in amount of $' || tr.tax_amount || '. Evidence of Payment: 1) Cancelled check dated ' || tr.payment_date || ' with county endorsement, 2) Receipt from county tax office, 3) Bank statement showing check clearance. Request: Remove delinquency designation and any associated penalties. The county has misapplied the payment or failed to properly record it in their system. We request immediate correction of records and confirmation of payment status.'
-        WHEN 3 THEN 'SPECIAL ASSESSMENT CHALLENGE - Property: ' || p.property_address || '. Assessment Type: Street Improvement Assessment. Amount: Additional $2,500 special assessment. Challenge Basis: The street improvement project was completed in a substandard manner. Issues include: 1) Drainage problems causing water pooling, 2) Uneven surface requiring immediate repair, 3) Incomplete sidewalk sections. Multiple property owners on the street are filing similar challenges. We request waiver or reduction of the special assessment until the contractor completes repairs to proper specifications. Project completion certification should be withheld until all deficiencies are corrected.'
-        WHEN 4 THEN 'AGRICULTURAL USE VALUATION REQUEST - Property: ' || p.property_address || '. Current Use: Residential/Agricultural. Request: Agricultural use valuation for the portion of property actively used for farming. Property Details: 10 acres total, 7 acres in active agricultural production (hay crop), 3 acres residential homestead. Tax Year: ' || tr.tax_year || '. Supporting Evidence: Farm income records, hay sales receipts, agricultural exemption certificate, soil conservation plan, and photographs showing active farming operations. Expected Tax Impact: Agricultural valuation would assess the 7 acres at approximately $1,500/acre instead of residential rate of $25,000/acre, resulting in significant tax reduction for qualifying acreage.'
-        WHEN 5 THEN 'PROPERTY CLASSIFICATION ERROR - Property Address: ' || p.property_address || '. Current Classification: Commercial. Correct Classification: Residential. Issue: County has incorrectly classified this single-family residence as commercial property, resulting in higher tax rate. The property is zoned residential, occupied as primary residence, and has no commercial use. Tax Impact: Commercial rate is 2.8% vs residential rate of 1.1%, causing annual overpayment of approximately $4,200. Request: Reclassify property as residential and refund overpaid taxes for the past 3 years (statute of limitations period). Documentation: Zoning verification, occupancy permit, homeowner insurance policy showing residential use, and county GIS data showing residential zoning.'
-        WHEN 6 THEN 'TAX INSTALLMENT PAYMENT PLAN REQUEST - Property: ' || p.property_address || '. Total Tax Due: $' || tr.tax_amount || '. Current Status: Delinquent. Request: Installment payment plan to cure delinquency. Financial Hardship: Borrower experienced temporary job loss but is now re-employed. Proposed Plan: Pay $' || (tr.tax_amount / 6) || ' monthly over 6 months plus current year taxes. First payment can be made immediately. This plan would bring account current within 6 months and prevent tax foreclosure proceedings. Borrower has consistent income now and can maintain both current and catch-up payments. Request approval from county tax collector for installment arrangement.'
-        WHEN 7 THEN 'DUPLICATE TAX PAYMENT INVESTIGATION - Property: ' || p.property_address || '. Issue: Property taxes appear to have been paid twice for ' || tr.tax_year || ' tax year. Payment 1: $' || tr.tax_amount || ' paid on ' || tr.payment_date || ' via escrow account. Payment 2: $' || tr.tax_amount || ' paid by borrower directly to county on [date]. County records show both payments received but property still showing as paid only once. Request: Full investigation of payment application and refund of duplicate payment. One payment should be refunded to the escrow account. Timeline: Request resolution within 30 days to prevent escrow account shortfall for next tax period.'
-        WHEN 8 THEN 'SENIOR CITIZEN TAX FREEZE APPLICATION - Property: ' || p.property_address || '. Applicant Age: 67 years old. Qualifying Criteria: 1) Age 65 or older, 2) Property owner for 5+ years, 3) Primary residence, 4) Total household income below $' || '60,000' || '. Tax Freeze Benefit: Current assessed value of $' || p.assessed_value || ' will be frozen for tax purposes. Future increases in assessed value will not increase tax burden. Current annual tax: $' || tr.tax_amount || ' will remain constant regardless of future assessments. Documentation: Birth certificate, proof of ownership for past 7 years, income tax returns showing qualifying income, and signed declaration of primary residence.'
-        WHEN 9 THEN 'INCORRECT PARCEL INFORMATION CORRECTION - Property: ' || p.property_address || '. Parcel Number: ' || p.parcel_number || '. Error: County records show property as 2,500 sq ft when actual size is 1,850 sq ft per original deed and recent appraisal. This size discrepancy results in over-assessment of approximately $75,000 in value. Request: Correct property records to reflect accurate square footage and adjust assessment accordingly. Supporting Documentation: Original deed with property dimensions, recent appraisal report, building permits showing actual construction size, and survey showing property boundaries. Expected Tax Reduction: Approximately $1,200 annually based on corrected square footage.'
-    END AS document_text,
-    ARRAY_CONSTRUCT('APPEAL', 'EXEMPTION_APPLICATION', 'DISPUTE', 'PAYMENT_PLAN_REQUEST')[UNIFORM(0, 3, RANDOM())] AS document_type,
-    ARRAY_CONSTRUCT('PENDING', 'UNDER_REVIEW', 'RESOLVED', 'DENIED')[UNIFORM(0, 3, RANDOM())] AS dispute_status,
-    CASE WHEN UNIFORM(0, 100, RANDOM()) < 60 THEN 'Appeal approved, assessment reduced' ELSE 'Under review pending additional documentation' END AS resolution_outcome,
-    tr.created_at AS document_date,
-    'Tax Specialist ' || UNIFORM(1, 10, RANDOM())::VARCHAR AS created_by,
-    tr.created_at AS created_at
+    CASE (ABS(RANDOM()) % 15)
+        WHEN 0 THEN 'TAX ASSESSMENT APPEAL. Tax Year: ' || tr.tax_year::VARCHAR || '. Property assessed at $340,000 but recent comparables selling at $280,000-$295,000. Requesting reassessment based on market conditions. Documentation: appraisal, market analysis, county sales data.'
+        WHEN 1 THEN 'HOMESTEAD EXEMPTION APPLICATION. Tax Year: ' || tr.tax_year::VARCHAR || '. Primary residence declaration. Reduces taxable value by $25,000 for school taxes. Documentation: drivers license, utility bills, voter registration. Expected reduction: $450 annually.'
+        WHEN 2 THEN 'TAX DELINQUENCY DISPUTE. Tax Year: ' || tr.tax_year::VARCHAR || '. County shows delinquent but payment made. Evidence: canceled check with county endorsement, receipt, bank statement. Request: Remove delinquency and penalties.'
+        WHEN 3 THEN 'SPECIAL ASSESSMENT CHALLENGE. Additional $2,500 assessment for street improvement. Project completed in substandard manner: drainage problems, uneven surface, incomplete sections. Request: Waiver until contractor completes proper repairs.'
+        WHEN 4 THEN 'AGRICULTURAL USE VALUATION. Tax Year: ' || tr.tax_year::VARCHAR || '. 10 acres total: 7 acres farming, 3 acres residential. Agricultural rate $1,500/acre vs residential $25,000/acre. Supporting evidence: farm income, sales receipts, conservation plan.'
+        WHEN 5 THEN 'PROPERTY CLASSIFICATION ERROR. Incorrectly classified as commercial. Single-family residence, residential zoning, primary occupancy. Commercial rate 2.8% vs residential 1.1%. Overpayment $4,200 annually. Request: Reclassify and refund 3 years.'
+        WHEN 6 THEN 'INSTALLMENT PAYMENT PLAN. Tax Year: ' || tr.tax_year::VARCHAR || '. Total due $6,000. Delinquent. Financial hardship due to job loss. Proposed: 6 monthly payments plus current year taxes. Prevents foreclosure.'
+        WHEN 7 THEN 'DUPLICATE PAYMENT INVESTIGATION. Tax Year: ' || tr.tax_year::VARCHAR || '. Taxes paid twice: once via escrow, once by borrower direct. County shows only one payment. Request: Investigation and refund of duplicate.'
+        WHEN 8 THEN 'SENIOR TAX FREEZE APPLICATION. Applicant age 67. Qualifying: 65+, owned 5+ years, primary residence, income under $60,000. Freezes assessed value. Current tax will not increase regardless of future assessments.'
+        WHEN 9 THEN 'PARCEL INFORMATION CORRECTION. County shows 2,500 sq ft but actual 1,850 sq ft per deed and appraisal. Over-assessment $75,000. Request: Correct square footage, adjust assessment. Expected reduction $1,200 annually.'
+        WHEN 10 THEN 'ASSESSED VALUE DISPUTE. Tax Year: ' || tr.tax_year::VARCHAR || '. Property assessed $100,000 higher than appraisal. Recent appraisal $425,000, assessment $525,000. Request: Adjust to appraised value. Documentation: certified appraisal dated within 90 days.'
+        WHEN 11 THEN 'DISABLED VETERAN EXEMPTION. Qualifying veteran with 100% service-connected disability. Exempt from all property taxes per state law. Documentation: VA disability letter, DD-214, property ownership proof. Request: Full tax exemption.'
+        WHEN 12 THEN 'TAX BILLING ERROR. Billed for services property does not receive: street lights, sidewalks, sewer. Property on septic, private road, no municipal services. Request: Remove charges for non-existent services.'
+        WHEN 13 THEN 'MULTIPLE PARCEL CONSOLIDATION. Three parcels consolidated into one but still billed separately. Request: Consolidate tax billing. Single assessment for merged property. Avoid triple billing.'
+        WHEN 14 THEN 'HISTORIC PROPERTY EXEMPTION. Property on National Register. Qualifies for historic preservation exemption. Reduces assessment by 25%. Documentation: historic designation letter, preservation plan, approved renovations.'
+    END AS report_text,
+    ARRAY_CONSTRUCT('INITIAL_REPORT', 'INVESTIGATION_COMPLETE', 'ROOT_CAUSE_ANALYSIS', 'CORRECTIVE_ACTION_PLAN')[UNIFORM(0, 3, RANDOM())] AS report_type,
+    ARRAY_CONSTRUCT('PENDING', 'INVESTIGATING', 'COMPLETE')[UNIFORM(0, 2, RANDOM())] AS investigation_status,
+    'Resolution pending review by tax authority' AS corrective_actions_taken,
+    DATEADD('day', UNIFORM(1, 14, RANDOM()), tr.created_at) AS report_date,
+    'Tax Specialist ' || UNIFORM(1, 5, RANDOM())::VARCHAR AS created_by,
+    DATEADD('day', UNIFORM(1, 14, RANDOM()), tr.created_at) AS created_at
 FROM RAW.TAX_RECORDS tr
-JOIN RAW.PROPERTIES p ON tr.property_id = p.property_id
-WHERE tr.delinquent = TRUE
-  AND UNIFORM(0, 100, RANDOM()) < 15
+WHERE UNIFORM(0, 100, RANDOM()) < 50
 LIMIT 15000;
 
 -- ============================================================================
--- Step 7: Generate sample flood determination reports
+-- Step 7: Generate sample training materials
 -- ============================================================================
-INSERT INTO FLOOD_DETERMINATION_REPORTS
-SELECT
-    'FLDRPT' || LPAD(SEQ4(), 10, '0') AS report_id,
-    fc.certification_id,
-    fc.property_id,
-    'FLOOD ZONE DETERMINATION REPORT
+INSERT INTO TRAINING_MATERIALS VALUES
+('MAT001', 'Property Tax Monitoring Best Practices',
+$$PROPERTY TAX MONITORING - BEST PRACTICES GUIDE
 
-Property Address: ' || p.property_address || '
-City: ' || p.property_city || ', ' || p.property_state || ' ' || p.property_zip || '
-County: ' || p.county || '
+INTRODUCTION
+Property tax monitoring is essential for protecting lender interests and ensuring borrower compliance. This guide covers monitoring procedures, delinquency detection, and resolution strategies.
 
-DETERMINATION DETAILS:
-Flood Zone: ' || fc.flood_zone || '
-FEMA Map Panel: ' || fc.panel_number || '
-Map Date: ' || fc.map_date::VARCHAR || '
-Determination Date: ' || fc.certification_date::VARCHAR || '
-Determination Method: ' || fc.determination_method || '
+TAX PAYMENT CYCLE
+Understanding the tax cycle:
+- Assessment notices (January-March)
+- Tax bills issued (varies by jurisdiction)
+- Payment due dates (annual, semi-annual, or quarterly)
+- Delinquency notices (30-90 days after due date)
+- Tax lien filing (180-365 days delinquent)
 
-' || CASE 
-    WHEN fc.flood_zone IN ('AE', 'A', 'AH', 'AO', 'VE', 'V') THEN 
-'FLOOD INSURANCE REQUIRED
+MONITORING PROCEDURES
+Daily tasks:
+- Review new tax bills received
+- Verify assessment amounts
+- Check payment due dates
+- Update escrow projections
 
-This property is located in a Special Flood Hazard Area (SFHA), commonly known as a high-risk flood zone. Federal law requires flood insurance for loans secured by buildings in high-risk zones.
+Weekly tasks:
+- Review delinquency reports
+- Contact counties on missing payments
+- Update payment status
+- Generate client reports
 
-INSURANCE REQUIREMENTS:
-- Flood insurance is MANDATORY for this property
-- Minimum coverage: Lesser of outstanding loan amount or maximum available
-- Policy must be obtained within 45 days of this determination
-- Policy must remain in force for the life of the loan
-- Building and contents coverage available
+Monthly tasks:
+- Reconcile all payments
+- Analyze assessment changes
+- Review jurisdiction compliance
+- Escrow analysis updates
 
-FLOOD ZONE DESCRIPTION:
-' || CASE fc.flood_zone
-    WHEN 'AE' THEN 'Zone AE: Areas with 1% annual chance of flooding (100-year floodplain) where base flood elevations have been determined. This is a high-risk zone.'
-    WHEN 'A' THEN 'Zone A: Areas with 1% annual chance of flooding (100-year floodplain) where base flood elevations have NOT been determined. This is a high-risk zone.'
-    WHEN 'AH' THEN 'Zone AH: Areas with 1% annual chance of shallow flooding (usually ponding) where average depths are 1-3 feet. This is a high-risk zone.'
-    WHEN 'AO' THEN 'Zone AO: Areas with 1% annual chance of shallow flooding (usually sheet flow) where average depths are 1-3 feet. This is a high-risk zone.'
-    WHEN 'VE' THEN 'Zone VE: Coastal areas with 1% annual chance of flooding and additional hazards from storm waves. This is the highest risk zone. Special construction requirements may apply.'
-    WHEN 'V' THEN 'Zone V: Coastal areas with 1% annual chance of flooding and wave action. This is a high-risk coastal zone.'
-    ELSE 'Special Flood Hazard Area'
-END || '
+DELINQUENCY MANAGEMENT
+Early detection is critical:
+- Monitor due dates carefully
+- Verify payments within 30 days
+- Contact county if payment not posted
+- Initiate research immediately
 
-NATIONAL FLOOD INSURANCE PROGRAM (NFIP):
-- Maximum building coverage: $250,000 for single-family homes
-- Maximum contents coverage: $100,000 for residential properties
-- Private flood insurance is also available and may be required
-- Community must participate in NFIP for insurance to be available
-- Community Participation Status: CONFIRMED
+Common delinquency causes:
+- County processing delays
+- Payment misapplication
+- Escrow account shortfalls
+- Borrower direct payment conflicts
 
-BORROWER NOTIFICATION:
-The borrower must be notified of:
-1. Flood insurance requirement
-2. Amount of coverage required  
-3. Consequences of not maintaining insurance
-4. Options for obtaining flood insurance
-5. Right to appeal the determination
+Resolution strategies:
+- Trace payment with canceled checks
+- Contact county tax collector directly
+- Provide proof of payment
+- Negotiate penalty waivers
 
-LIFE-OF-LOAN MONITORING:
-This property is enrolled in life-of-loan flood monitoring. If FEMA revises flood maps affecting this property, a new determination will be issued automatically and all parties will be notified.'
-    WHEN fc.flood_zone IN ('X', 'B', 'C') THEN
-'FLOOD INSURANCE NOT REQUIRED (OPTIONAL)
+ESCROW ANALYSIS
+Annual requirements:
+- Calculate projected taxes
+- Review insurance premiums
+- Determine monthly payment
+- Check for surplus or shortage
 
-This property is located in a moderate-to-low risk flood zone. Federal law does not require flood insurance for properties in these zones, but it is available and recommended.
+Shortage resolution:
+- Spread over 12 months plus cushion
+- Notify borrower of increase
+- Update servicer records
+- Monitor next payment cycle
 
-FLOOD ZONE DESCRIPTION:
-' || CASE fc.flood_zone
-    WHEN 'X' THEN 'Zone X: Areas of moderate to minimal flood risk, outside the 100-year floodplain. This includes areas with less than 1% annual chance of flooding.'
-    WHEN 'B' THEN 'Zone B: Moderate risk areas between 100-year and 500-year flood boundaries. (Note: This is a legacy zone designation, now typically shown as Zone X).'
-    WHEN 'C' THEN 'Zone C: Minimal risk areas with less than 0.2% annual chance of flooding. (Note: This is a legacy zone designation, now typically shown as Zone X).'
-    ELSE 'Moderate to Low Risk Flood Zone'
-END || '
+JURISDICTION MANAGEMENT
+Track jurisdiction details:
+- Tax rates and schedules
+- Payment methods accepted
+- Contact information
+- Processing timelines
 
-IMPORTANT NOTES:
-- While flood insurance is not required, approximately 25% of flood claims come from moderate-to-low risk areas
-- Flood insurance is available through the National Flood Insurance Program (NFIP)
-- Private flood insurance may also be available
-- Premiums in low-risk zones are significantly lower than high-risk zones
-- Lenders may still require flood insurance at their discretion
+Best practices:
+- Maintain jurisdiction database
+- Document payment procedures
+- Track processing delays
+- Build county relationships
 
-LIFE-OF-LOAN MONITORING:
-This property is enrolled in life-of-loan flood monitoring. If FEMA revises flood maps and the property is remapped into a high-risk zone, a new determination will be issued and flood insurance will become required.'
-    WHEN fc.flood_zone = 'D' THEN
-'FLOOD INSURANCE STATUS: UNDETERMINED
+QUALITY CONTROL
+Verification procedures:
+- Double-check all payments
+- Reconcile monthly
+- Audit random samples
+- Review error reports
 
-This property is located in an area where flood hazards are undetermined, but possible. Flood insurance may be required at lender discretion.
+TECHNOLOGY TOOLS
+- Automated payment tracking
+- OCR for tax bill processing
+- API integrations with counties
+- Real-time alerts and notifications
 
-FLOOD ZONE DESCRIPTION:
-Zone D: Areas where flood hazards are undetermined. This occurs in areas where flood studies have not been completed or where studies are outdated.
+For questions contact Lereta Tax Services.$$,
+'TRAINING', 'TAX_MONITORING', 'tax,monitoring,delinquency,escrow', 'Tax Operations Team', CURRENT_TIMESTAMP(), 3421, 4.7, TRUE, CURRENT_TIMESTAMP()),
 
-RECOMMENDATIONS:
-- Consider obtaining flood insurance even though not federally mandated
-- Lender may require flood insurance based on local knowledge or property history
-- Community may not participate in National Flood Insurance Program
-- Private flood insurance may be available
+('MAT002', 'Flood Certification Procedures',
+$$FLOOD ZONE DETERMINATION - PROCEDURES GUIDE
 
-LIFE-OF-LOAN MONITORING:
-This property is enrolled in monitoring. When FEMA completes flood studies for this area, a new determination will be issued.'
-    ELSE 'Flood determination completed. See determination method for additional details.'
-END || '
+FEMA FLOOD ZONES
+Understanding zone designations:
 
-APPEALS PROCESS:
-If you believe this determination is incorrect, you may:
-1. Request a Letter of Map Amendment (LOMA) from FEMA if property is elevated above flood zone
-2. Obtain an Elevation Certificate and request review
-3. Appeal to FEMA if you have evidence of mapping error
-4. Contact Lereta for assistance with the appeals process
+HIGH-RISK ZONES (Insurance Required):
+- Zone A: 100-year floodplain, no elevation data
+- Zone AE: 100-year floodplain with elevations
+- Zone AH: Shallow flooding area
+- Zone AO: Sheet flow flooding area
+- Zone V: Coastal high-risk
+- Zone VE: Coastal with elevation data
 
-COMPLIANCE NOTES:
-- Determination meets Biggert-Waters Flood Insurance Reform Act requirements  
-- Determination meets mandatory purchase requirements  
-- Property location verified using FEMA Flood Map Service Center database
-- This determination is valid for the life of the loan or until FEMA revises the flood maps
+MODERATE-TO-LOW RISK (Insurance Optional):
+- Zone X: Outside 100-year floodplain
+- Zone B: Legacy moderate risk designation
+- Zone C: Legacy minimal risk designation
 
-For questions about this determination, contact Lereta Flood Services.
+UNDETERMINED:
+- Zone D: Flood hazard undetermined
 
-Report generated by: Lereta Flood Determination System
-Report ID: ' || 'FLDRPT' || LPAD(SEQ4(), 10, '0') AS report_text,
-    ARRAY_CONSTRUCT('STANDARD_DETERMINATION', 'LIFE_OF_LOAN', 'LOMA_REVIEW')[UNIFORM(0, 2, RANDOM())] AS determination_type,
-    fc.flood_zone AS flood_zone_determined,
-    CASE 
-        WHEN fc.flood_zone IN ('AE', 'A', 'AH', 'AO', 'VE', 'V') THEN 'Flood insurance required - high risk zone'
-        WHEN fc.flood_zone IN ('X', 'B', 'C') THEN 'Flood insurance not required - moderate to low risk'
-        ELSE 'Flood insurance status undetermined'
-    END AS insurance_requirement_text,
-    fc.certification_date AS report_date,
-    'Flood Specialist ' || UNIFORM(1, 8, RANDOM())::VARCHAR AS created_by,
-    fc.created_at AS created_at
-FROM RAW.FLOOD_CERTIFICATIONS fc
-JOIN RAW.PROPERTIES p ON fc.property_id = p.property_id
-WHERE UNIFORM(0, 100, RANDOM()) < 50
-LIMIT 20000;
+DETERMINATION PROCESS
+Standard procedure:
+1. Receive property address
+2. Access FEMA Map Service Center
+3. Identify correct map panel
+4. Determine flood zone
+5. Note map date and panel number
+6. Assess insurance requirement
+7. Generate certification document
+
+Life-of-Loan Monitoring:
+- Enroll property in monitoring
+- Track FEMA map changes
+- Auto-generate new certs if zone changes
+- Notify all parties immediately
+
+LOMA REQUESTS
+Letter of Map Amendment process:
+- Borrower obtains elevation certificate
+- Submit to FEMA with evidence
+- FEMA reviews and issues LOMA
+- Update certification records
+- Remove insurance requirement if approved
+
+INSURANCE REQUIREMENTS
+When is flood insurance required?
+- Property in high-risk zone (A, AE, AH, AO, V, VE)
+- Building securing the loan
+- Community participates in NFIP
+
+Coverage requirements:
+- Lesser of: loan amount OR maximum available
+- Maximum: $250,000 residential building
+- Separate contents coverage available
+- Must remain in force for life of loan
+
+BORROWER NOTIFICATION
+Required notifications:
+- Flood zone designation
+- Insurance requirement status
+- Amount of coverage needed
+- Consequences of non-compliance
+- 45-day timeline to obtain insurance
+
+COMPLIANCE
+Biggert-Waters Act requirements:
+- Force-place if borrower does not obtain
+- Annual escrow analysis if escrowed
+- Premium increases upon renewal
+- No grandfathering for new policies
+
+MAP CHANGES
+When FEMA updates maps:
+- Review all properties in affected areas
+- Determine new zones
+- Issue new certifications
+- Update insurance requirements
+- Notify borrowers and lenders
+
+For questions contact Lereta Flood Services.$$,
+'TRAINING', 'FLOOD_CERTIFICATION', 'flood,fema,insurance,zones,determination', 'Flood Services Team', CURRENT_TIMESTAMP(), 2876, 4.8, TRUE, CURRENT_TIMESTAMP()),
+
+('MAT003', 'Escrow Account Management Guide',
+$$ESCROW ACCOUNT MANAGEMENT - COMPREHENSIVE GUIDE
+
+ESCROW BASICS
+Purpose of escrow accounts:
+- Collect funds for property taxes
+- Collect funds for insurance premiums
+- Protect lender interest in property
+- Ensure timely payments
+
+ESCROW ANALYSIS
+Annual requirements:
+- Review actual disbursements
+- Project next 12 months
+- Calculate monthly payment
+- Determine surplus or shortage
+
+Calculation method:
+1. Add all projected disbursements
+2. Add 2-month cushion (maximum)
+3. Subtract current balance
+4. Divide by 12 for monthly payment
+
+SHORTAGE MANAGEMENT
+When shortage detected:
+- Spread over 12 months minimum
+- Add to monthly payment
+- Notify borrower 30 days before change
+- Explain reason for increase
+
+Causes of shortages:
+- Tax increases
+- Insurance premium increases
+- Missed payments
+- Disbursement errors
+
+SURPLUS MANAGEMENT
+When surplus exceeds regulations:
+- Refund amount over $50
+- Or apply to next year escrow
+- Borrower choice if allowed
+- Process within 30 days
+
+DISBURSEMENT PROCEDURES
+Tax payment process:
+- Verify bill accuracy
+- Confirm due date
+- Initiate payment 10 days before due
+- Obtain confirmation
+- Update account records
+
+Insurance payment:
+- Verify coverage current
+- Confirm premium amount
+- Pay before expiration
+- Obtain proof of payment
+- Update policy records
+
+REGULATORY COMPLIANCE
+RESPA requirements:
+- Annual escrow analysis
+- Initial analysis at closing
+- Shortage/surplus calculation
+- Borrower notification requirements
+- Refund processing timelines
+
+Maximum cushion:
+- 2 months of escrow payments
+- Based on projected disbursements
+- Cannot exceed regulatory limit
+
+COMMON ISSUES
+Payment misapplication:
+- County applies to wrong parcel
+- Check lost in mail
+- Electronic payment errors
+
+Resolution:
+- Trace payment immediately
+- Contact tax collector
+- Provide proof of payment
+- Protect borrower from penalties
+
+TECHNOLOGY
+Automation benefits:
+- Accurate projections
+- Timely disbursements
+- Automatic reconciliation
+- Real-time balance tracking
+
+Best practices:
+- Maintain complete records
+- Reconcile monthly
+- Monitor for exceptions
+- Document all transactions
+
+For questions contact Lereta Escrow Services.$$,
+'TRAINING', 'ESCROW_MANAGEMENT', 'escrow,analysis,disbursement,respa', 'Compliance Team', CURRENT_TIMESTAMP(), 1923, 4.6, TRUE, CURRENT_TIMESTAMP());
 
 -- ============================================================================
 -- Step 8: Create Cortex Search Service for Support Transcripts
 -- ============================================================================
 CREATE OR REPLACE CORTEX SEARCH SERVICE SUPPORT_TRANSCRIPTS_SEARCH
-ON transcript_text
-ATTRIBUTES client_id, agent_id, interaction_type, interaction_date
-WAREHOUSE = LERETA_WH
-TARGET_LAG = '1 hour'
-AS (
-    SELECT 
-        transcript_id,
-        transcript_text,
-        client_id,
-        agent_id,
-        interaction_type,
-        interaction_date
-    FROM SUPPORT_TRANSCRIPTS
-);
+  ON transcript_text
+  ATTRIBUTES client_id, agent_id, interaction_type, interaction_date
+  WAREHOUSE = LERETA_WH
+  TARGET_LAG = '1 hour'
+  COMMENT = 'Cortex Search service for customer support transcripts - enables semantic search across support interactions'
+AS
+  SELECT
+    transcript_id,
+    transcript_text,
+    ticket_id,
+    client_id,
+    agent_id,
+    interaction_type,
+    interaction_date,
+    sentiment_score,
+    keywords,
+    created_at
+  FROM RAW.SUPPORT_TRANSCRIPTS;
 
 -- ============================================================================
 -- Step 9: Create Cortex Search Service for Tax Dispute Documents
 -- ============================================================================
 CREATE OR REPLACE CORTEX SEARCH SERVICE TAX_DISPUTE_DOCUMENTS_SEARCH
-ON document_text
-ATTRIBUTES client_id, property_id, document_type, dispute_status, document_date
-WAREHOUSE = LERETA_WH
-TARGET_LAG = '1 hour'
-AS (
-    SELECT 
-        document_id,
-        document_text,
-        client_id,
-        property_id,
-        document_type,
-        dispute_status,
-        document_date
-    FROM TAX_DISPUTE_DOCUMENTS
-);
+  ON report_text
+  ATTRIBUTES client_id, report_type, investigation_status, report_date
+  WAREHOUSE = LERETA_WH
+  TARGET_LAG = '1 hour'
+  COMMENT = 'Cortex Search service for tax dispute documents - enables semantic search across tax dispute documentation'
+AS
+  SELECT
+    report_id,
+    report_text,
+    tax_record_id,
+    client_id,
+    report_type,
+    investigation_status,
+    corrective_actions_taken,
+    report_date,
+    created_by,
+    created_at
+  FROM RAW.TAX_DISPUTE_DOCUMENTS;
 
 -- ============================================================================
--- Step 10: Create Cortex Search Service for Flood Determination Reports
+-- Step 10: Create Cortex Search Service for Training Materials
 -- ============================================================================
-CREATE OR REPLACE CORTEX SEARCH SERVICE FLOOD_DETERMINATION_REPORTS_SEARCH
-ON report_text
-ATTRIBUTES property_id, determination_type, flood_zone_determined, report_date
-WAREHOUSE = LERETA_WH
-TARGET_LAG = '1 hour'
-AS (
-    SELECT 
-        report_id,
-        report_text,
-        property_id,
-        determination_type,
-        flood_zone_determined,
-        report_date
-    FROM FLOOD_DETERMINATION_REPORTS
-);
+CREATE OR REPLACE CORTEX SEARCH SERVICE TRAINING_MATERIALS_SEARCH
+  ON content
+  ATTRIBUTES material_category, course_category, title
+  WAREHOUSE = LERETA_WH
+  TARGET_LAG = '24 hours'
+  COMMENT = 'Cortex Search service for training materials - enables semantic search across training documentation'
+AS
+  SELECT
+    material_id,
+    title,
+    content,
+    material_category,
+    course_category,
+    tags,
+    author,
+    last_updated,
+    view_count,
+    helpfulness_score,
+    created_at
+  FROM RAW.TRAINING_MATERIALS;
 
 -- ============================================================================
--- Display confirmation
+-- Step 11: Verify Cortex Search Services Created
 -- ============================================================================
-SELECT 'Cortex Search services created successfully - all syntax verified' AS status;
-
--- Verify Cortex Search services exist
 SHOW CORTEX SEARCH SERVICES IN SCHEMA RAW;
 
--- Display row counts
-SELECT 
-    'SUPPORT_TRANSCRIPTS' AS table_name,
-    COUNT(*) AS row_count
-FROM SUPPORT_TRANSCRIPTS
-UNION ALL
-SELECT 
-    'TAX_DISPUTE_DOCUMENTS' AS table_name,
-    COUNT(*) AS row_count
-FROM TAX_DISPUTE_DOCUMENTS
-UNION ALL
-SELECT 
-    'FLOOD_DETERMINATION_REPORTS' AS table_name,
-    COUNT(*) AS row_count
-FROM FLOOD_DETERMINATION_REPORTS;
+-- ============================================================================
+-- Display success message
+-- ============================================================================
+SELECT 'Cortex Search services created successfully' AS status,
+       COUNT(*) AS service_count
+FROM (
+  SELECT 'SUPPORT_TRANSCRIPTS_SEARCH' AS service_name
+  UNION ALL
+  SELECT 'TAX_DISPUTE_DOCUMENTS_SEARCH'
+  UNION ALL
+  SELECT 'TRAINING_MATERIALS_SEARCH'
+);
 
+-- ============================================================================
+-- Display data counts
+-- ============================================================================
+SELECT 'SUPPORT_TRANSCRIPTS' AS table_name, COUNT(*) AS row_count FROM SUPPORT_TRANSCRIPTS
+UNION ALL
+SELECT 'TAX_DISPUTE_DOCUMENTS', COUNT(*) FROM TAX_DISPUTE_DOCUMENTS
+UNION ALL
+SELECT 'TRAINING_MATERIALS', COUNT(*) FROM TRAINING_MATERIALS
+ORDER BY table_name;

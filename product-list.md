@@ -22,10 +22,10 @@ Based on meeting notes from November 5, 2025
   <img src="future-state-architecture.svg" alt="Future State Architecture" width="100%"/>
 </div>
 
-### Network Diagram with Product Logos
+### Network Diagram - System Architecture
 
 <div align="center">
-  <img src="network-diagram.png" alt="Network Diagram with Logos" width="100%"/>
+  <img src="network-diagram.svg" alt="Network Architecture Diagram" width="100%"/>
 </div>
 
 ---

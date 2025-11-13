@@ -8,6 +8,22 @@ Based on meeting notes from November 5, 2025
 
 ---
 
+## Architecture Diagrams
+
+### Current State Data Flow
+
+<div align="center">
+  <img src="current-state-data-flow.svg" alt="Current State Data Flow" width="100%"/>
+</div>
+
+### Future State Architecture with Snowflake
+
+<div align="center">
+  <img src="future-state-architecture.svg" alt="Future State Architecture" width="100%"/>
+</div>
+
+---
+
 ## SOURCE SYSTEMS
 
 ### Current Production Systems

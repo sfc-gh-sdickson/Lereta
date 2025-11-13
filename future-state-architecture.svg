@@ -117,7 +117,7 @@
   
   <!-- Data Governance -->
   <rect x="1070" y="100" width="160" height="80" fill="#FFF9E6" stroke="#FF9800" stroke-width="2" rx="5"/>
-  <text x="1150" y="125" font-size="12" font-weight="bold" text-anchor="middle">Atakama</text>
+  <text x="1150" y="125" font-size="12" font-weight="bold" text-anchor="middle">Atacama</text>
   <text x="1150" y="140" font-size="9" text-anchor="middle">Data Quality</text>
   <text x="1150" y="155" font-size="9" text-anchor="middle">Data Catalog</text>
   <text x="1150" y="170" font-size="9" text-anchor="middle">CDEs Management</text>
@@ -169,7 +169,7 @@
   <line x1="440" y1="120" x2="520" y2="265" stroke="#666" stroke-width="2" marker-end="url(#arrowhead2)"/>
   <line x1="440" y1="220" x2="520" y2="265" stroke="#666" stroke-width="2" marker-end="url(#arrowhead2)"/>
   
-  <!-- Snowflake to Atakama -->
+  <!-- Snowflake to Atacama -->
   <line x1="1020" y1="130" x2="1070" y2="140" stroke="#666" stroke-width="2" stroke-dasharray="5,5"/>
   <line x1="1070" y1="150" x2="1020" y2="140" stroke="#666" stroke-width="2" stroke-dasharray="5,5"/>
   

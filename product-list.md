@@ -115,7 +115,7 @@ Based on meeting notes from November 5, 2025
 
 ## DATA GOVERNANCE & QUALITY
 
-- **Atakama (Atacama)** - Enterprise data governance platform
+- **Atacama (Atacama)** - Enterprise data governance platform
   - Data quality monitoring
   - Data catalog and glossary
   - Critical Data Elements (CDEs) management

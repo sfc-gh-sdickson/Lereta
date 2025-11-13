@@ -28,6 +28,9 @@ Based on meeting transcript from November 5, 2025
 
 ### Decision Already Made
 - **KPMG selected** as migration partner (beat out West Monroe, Seven Rivers)
+  - Contract value: **$1,020,000** (KPMG investing $118K-128K)
+  - Net client cost: ~$892K-902K
+  - Duration: 20-22 weeks starting December 1, 2025
 - **Snowflake chosen** over alternatives (already decided)
 - **Atacama** selected for data governance (training happening now, live in 3 weeks)
 - **Business Critical Edition** - they know they need the top tier
@@ -47,6 +50,189 @@ Based on meeting transcript from November 5, 2025
 
 ---
 
+## **KPMG Proposal Details:**
+
+### Contract Overview
+- **Total Investment:** $1,020,000 over 20-22 weeks
+- **KPMG Alliance Investment:** $118K-128K (Snowflake Architect at no cost)
+- **Net Client Cost:** ~$892K-902K
+- **Start Date:** December 1, 2025
+- **Payment Terms:** 30 days net; Phase 1 milestone-based, Phase 2 monthly
+- **Out-of-Pocket Expenses:** Up to 15% of professional fees
+- **Project Sponsor:** Suzanne Powell (Chief Transformation Officer)
+
+### Phase 1: Rapid Assessment, Roadmap & Design (6 weeks - $300K)
+
+**Duration:** Week 1-6 (Dec 1 - Mid-January 2026)
+
+**Key Activities:**
+- **Mobilization**
+  - Program kickoff and stakeholder alignment
+  - Gather existing artifacts (max 30 documents reviewed)
+  - Schedule max 8 discovery interviews (majority by week 2)
+  - Develop detailed project plan
+
+- **Current State Assessment**
+  - Data profiling and inventory
+  - Database architecture, ETL, and data warehousing assessment
+  - Metadata registries and enterprise interfaces review
+  - Security, observability, and API integrations assessment
+  - Migration volume and pattern analysis
+
+- **Roadmap Development**
+  - Gap analysis (current vs. future state)
+  - Initiative blueprints with timelines and dependencies
+  - Prioritized implementation roadmap
+
+- **Foundations & Design**
+  - **Data Management Workstream:**
+    - Tactical Data Governance Operating Model
+    - Coordination with Atacama Professional Services
+    - Data Migration functional requirements
+  
+  - **Snowflake Workstream:**
+    - Onboard/customize Snowflake accelerators
+    - Design Snowflake architecture
+    - Establish guardrails, roles, permissions, access controls
+    - Identify critical datasets for pilot
+
+**Deliverables:**
+1. Engagement Kickoff & Plan (schedule, meetings, roles/responsibilities)
+2. Current-State Maturity & Impact Assessment (gaps, risks, scorecard)
+3. Executive Summary with presentation
+4. Prioritized Business Outcome Roadmap (vision, initiatives, timelines, value)
+5. Executive Presentation & Business Case
+6. Migration Governance Operating Model
+7. Data Migration Playbook
+8. Architectural Diagram (current to target-state)
+9. Snowflake Technical Diagram (detailed configuration)
+
+**Milestone Payments:**
+- $150K at Week 3 milestone
+- $150K at Week 6 milestone
+
+### Phase 2: Initial Enablement (14-16 weeks - $630K-720K)
+
+**Duration:** Week 7-22 (Mid-January - May 2026)
+
+**Scope:** To be finalized during Phase 1 based on 1-2 prioritized use cases
+
+**Key Activities:**
+- **Data Management Enablement Workstream:**
+  - Identify strategic pilot use cases
+  - Conduct data profiling for pilot datasets
+  - Prepare Critical Data Element (CDE) glossary
+  - Stakeholder validation sessions for CDEs
+  - Translate business rules into functional DQ rules
+  - Onboard metadata into Atacama Catalog
+  - Configure observability and DQ rules in Atacama
+  - Execute DQ rules and document remediation activities
+
+- **Snowflake Enablement Workstream:**
+  - Provision Cloud environment and prerequisites
+  - Migrate legacy EDW data to Bronze/Silver/Gold layers
+  - Construct ETL/ELT pipelines for data ingestion
+  - Develop data processing logic and data hygiene
+  - Develop semantic layer and configure data visualization
+  - Setup cross-account access
+  - **Activate GenAI** using Cortex Analyst, Copilot, and out-of-box products
+  - Conduct testing, validation, and gather stakeholder feedback
+
+**Representative Deliverables:**
+1. Data profiling assessment and recommendations report
+2. Critical Data Element (CDE) business glossary
+3. Functional Data Quality rules for Atacama DQ
+4. Pilot Snowflake environment (provisioned and configured)
+5. Working data products for pilot use cases
+
+**Payment:**
+- $45K-50K per week (varies by week: $45K/week baseline, $50K/week with full offshore team)
+- Monthly invoicing
+
+### KPMG Team Structure
+
+**Phase 1 Staffing:**
+
+| Role | Location | FTE % | Notes |
+|------|----------|-------|-------|
+| Strategy & Oversight | Onshore | 10% | Jonathan Shiery (Partner) |
+| Engagement Lead | Onshore | 35% | Gary Torpey |
+| Snowflake Enablement Lead | Onshore | 35% | Garrett Flynn / Danielle Beringer |
+| **Snowflake Data Architect** | Onshore | 100% | **$48K KPMG investment** |
+| Snowflake Enablement Manager | Onshore | 60% | |
+| Senior Data Engineer | Onshore | 100% | |
+| Data Mgmt. Enablement Manager | Onshore | 50% | |
+| Data Mgmt. Enablement Consultant | Onshore | 100% | |
+| Data Mgmt. – Offshore | Offshore | 100% | |
+| Subject Matter Professional | Onshore | 10% | |
+
+**Phase 2 Staffing (To be finalized):**
+
+| Role | Location | FTE % | Notes |
+|------|----------|-------|-------|
+| Strategy & Oversight | Onshore | 10% | Reduced oversight |
+| Engagement Lead | Onshore | 10% | Reduced from 35% |
+| Snowflake Enablement Lead | Onshore | 10% | Reduced from 35% |
+| **Snowflake Data Architect** | Onshore | 100% | **Continues at no cost** |
+| Snowflake Enablement Manager | Onshore | 50% | |
+| Senior Data Engineer | Onshore | 100% | |
+| Data Mgmt. Enablement Manager | Onshore | 50% | |
+| Data Mgmt. Enablement Consultant | Onshore | 100% | |
+| Data Mgmt. – Offshore | Offshore | 100% | |
+| Data Eng Mgr. – Offshore | Offshore | 100% | **New for Phase 2** |
+| Data Analyst – Offshore | Offshore | 100% | **New for Phase 2** |
+| Data Engineer – Offshore | Offshore | 100% | **New for Phase 2** |
+| Subject Matter Professional | Onshore | 5% | |
+
+### Key KPMG Contacts
+
+- **Client Relationship Partner:** Jonathan Shiery - Overall engagement quality
+- **Client Service Partners:** Garrett Flynn & Danielle Beringer - Engagement quality and satisfaction
+- **Engagement Manager:** Gary Torpey - Primary coordinator for all work and deliverables
+- **Engagement Staff:** Professionals with necessary skills assigned as appropriate
+
+### Critical Assumptions & Constraints
+
+**Lereta Responsibilities:**
+- Timely availability and responsiveness of resources (affects fees)
+- Provide secure remote access (VPN if needed)
+- Accept/provide feedback on deliverables within 3 business days
+- Provide up to 30 artifacts for review by Week 1
+- Assign engaged, experienced personnel with:
+  - Working knowledge of subject matter
+  - Authority to make management decisions
+  - Senior position for internal communications
+  - Ability to select assumptions and make final decisions
+- Responsible for all licensing and consumption costs
+- Administer all IT environments (including production)
+
+**KPMG Constraints:**
+- Most work performed remotely (onsite as needed)
+- Max 8 discovery interviews (majority by week 2)
+- Max 30 artifact documents assessed
+- English is official language
+- 3-day turnaround for deliverable feedback
+- Not responsible for third-party software/hardware performance
+- Not responsible for data cleansing activities
+- Will not act as Lereta management or employee
+- Deliverables for internal use only, not suitable for third parties
+
+### RACI Matrices
+
+**Phase 1 Key Activities:**
+- KPMG = Responsible for most assessment, design, and roadmap activities
+- Lereta = Accountable/Approver
+- Lereta = Responsible for IT environment administration
+- Lereta = Responsible for identifying stakeholders and providing artifacts
+
+**Phase 2 Key Activities:**
+- KPMG = Responsible for data profiling, CDE development, DQ rules, Snowflake implementation
+- Lereta = Accountable/Approver for strategic decisions
+- Lereta = Consulted on environment provisioning and GenAI activation
+- Lereta = Responsible for IT environment administration and strategic use case approval
+
+---
+
 ## **What We Don't Know Yet:**
 
 ### Technical Unknowns
@@ -59,18 +245,121 @@ Based on meeting transcript from November 5, 2025
 7. **OpenFlow testing timeline** - When they'll validate CDC capabilities
 
 ### Business Unknowns
-8. **Final contract terms** - MSA in progress, not finalized
-9. **Multi-year commitment length** - 1, 2, or 3 years?
-10. **Total compute budget** - Storage is clear, compute spend unknown
+8. ~~**Final contract terms**~~ - ✅ **NOW KNOWN:** $1.02M, 20-22 weeks, Dec 1 start
+9. **Multi-year Snowflake commitment length** - 1, 2, or 3 years? (Separate from KPMG contract)
+10. **Total Snowflake compute budget** - Storage is clear, compute spend unknown
 11. **Training headcount** - "~15" but need exact number for fundamentals class
-12. **Phase 3 scope** - What gets deferred and when it comes back
+12. **Phase 3 scope** - What gets deferred after Phase 2 and when it comes back
 13. **Out-of-scope items** - What KPMG won't handle that might need additional support
+14. **Pilot use case selection** - Which 1-2 use cases will KPMG prioritize in Phase 1?
+15. **Atacama-KPMG coordination** - How will KPMG work with Atacama PS team?
 
 ### Competitive/Risk Unknowns
-14. **Board's vendor preferences** - They brought KPMG and others; are there other "board vendors" waiting?
-15. **Microsoft relationship status** - How much Microsoft resistance exists?
-16. **Databricks consideration** - Was it formally evaluated and rejected, or never considered?
-17. **Internal resistance points** - Who might push back on changes (report decommissioning, etc.)?
+16. **Board's vendor preferences** - They brought KPMG and others; are there other "board vendors" waiting?
+17. **Microsoft relationship status** - How much Microsoft resistance exists?
+18. **Databricks consideration** - Was it formally evaluated and rejected, or never considered?
+19. **Internal resistance points** - Who might push back on changes (report decommissioning, etc.)?
+
+---
+
+## **Strategic Considerations from KPMG Proposal:**
+
+### Critical Success Factors
+
+**1. Resource Availability is Key**
+- ⚠️ **RISK:** "Timely execution directly dependent on availability and responsiveness of Lereta resources"
+- **IMPLICATION:** Lereta team availability affects KPMG fees - delays cost money
+- **ACTION:** Ensure Ryan, Robert, Jimmy, and key stakeholders are protected from other commitments
+
+**2. Tight Timelines for Deliverables**
+- ⚠️ **CONSTRAINT:** 3-day turnaround for feedback or deliverables considered final
+- **IMPLICATION:** Lereta must review quickly or lose ability to refine
+- **ACTION:** Pre-schedule review sessions, dedicate time for deliverable review
+
+**3. Limited Discovery Window**
+- ⚠️ **CONSTRAINT:** Max 8 discovery interviews, majority by Week 2
+- **IMPLICATION:** Must identify right people quickly and get them scheduled
+- **ACTION:** Suzanne needs to line up stakeholders NOW (before Dec 1)
+
+**4. Artifact Limit**
+- ⚠️ **CONSTRAINT:** Max 30 documents reviewed, due by Week 1
+- **IMPLICATION:** Must prioritize which artifacts matter most
+- **ACTION:** Ryan to curate list of 30 most critical documents immediately
+
+**5. Phase 2 Scope Uncertainty**
+- ⚠️ **RISK:** Phase 2 scope "to be finalized during Phase 1"
+- **IMPLICATION:** Could be 14 weeks ($630K) or 16 weeks ($720K)
+- **ACTION:** Influence pilot use case selection to control scope/cost
+
+### Snowflake Opportunities in Proposal
+
+**1. GenAI Activation is In Scope**
+- ✅ Phase 2 includes "Activate GenAI on consumption layer using Cortex Analyst, Copilot"
+- **OPPORTUNITY:** Perfect chance to showcase Snowflake Intelligence early
+- **ACTION:** Coordinate with KPMG on Tax Companion document analysis use case
+
+**2. Snowflake Architect Provided Free**
+- ✅ 100% FTE Snowflake Data Architect for entire engagement ($48K KPMG investment)
+- **OPPORTUNITY:** Ensure this is a true Snowflake-aligned architect
+- **ACTION:** Sandy to connect with KPMG architect, ensure they're using native patterns
+
+**3. Data Products are Explicit Deliverable**
+- ✅ "Implement data cleansing, metadata enrichment, and activate data products"
+- **OPPORTUNITY:** Frame pilot around revenue-generating data product
+- **ACTION:** Guide use case selection toward client-facing or monetizable output
+
+**4. Cross-Account Access Setup**
+- ✅ "Setup cross account access" in Phase 2 scope
+- **OPPORTUNITY:** Enable data sharing with clients early
+- **ACTION:** Position this for the 20-25 external customer reporting transformation
+
+### Red Flags to Monitor
+
+**1. KPMG Offshore Team Expansion**
+- ⚠️ Phase 2 adds 3 new offshore resources (Data Eng Mgr, Data Analyst, Data Engineer)
+- **RISK:** Quality control, communication barriers, knowledge transfer
+- **MITIGATION:** Sandy's RSA must be deeply embedded to ensure quality
+
+**2. Reduced KPMG Leadership in Phase 2**
+- ⚠️ Engagement Lead drops from 35% to 10%, Snowflake Lead drops from 35% to 10%
+- **RISK:** Less senior oversight when actual implementation happens
+- **MITIGATION:** Snowflake team must increase presence in Phase 2, not decrease
+
+**3. "Not Responsible for Data Cleansing"**
+- ⚠️ "KPMG is not responsible for any data cleansing activities"
+- **RISK:** Data quality issues could derail migration
+- **MITIGATION:** Atacama integration must catch issues early, not during migration
+
+**4. No Third-Party Software Responsibility**
+- ⚠️ "KPMG will have no responsibility for performance of any 3rd party software"
+- **RISK:** If Snowflake performance issues arise, KPMG may point fingers
+- **MITIGATION:** This is where our RSA earns their keep - be the technical authority
+
+**5. Deliverables "Not Suitable for Third Parties"**
+- ⚠️ Deliverables are "for internal use of Lereta"
+- **RISK:** Can't use KPMG deliverables in board presentations or investor pitches
+- **MITIGATION:** Snowflake needs to provide complementary materials that ARE shareable
+
+### Value Capture Opportunities
+
+**1. Influence Pilot Use Case Selection**
+- **GOAL:** Drive toward cases that show board-visible value
+- **CANDIDATES:**
+  - Client SLA reporting (20-25 customers, immediate revenue protection)
+  - Tax Companion document analysis (GenAI showcase, efficiency gain)
+  - CoreLogic competitive feature (revenue generation angle)
+
+**2. Maximize $118K KPMG Investment**
+- **GOAL:** Ensure Snowflake Architect is truly delivering Snowflake-first approach
+- **ACTION:** Weekly sync between KPMG architect, Sandy's RSA, and Stephen
+
+**3. Position for Phase 3**
+- **GOAL:** Create momentum for continuation beyond Phase 2
+- **ACTION:** Identify "Phase 3 scope" items that Snowflake can solve without KPMG
+
+**4. Training Transition**
+- **GOAL:** Move from KPMG enablement to Snowflake training
+- **ACTION:** Phase 2 Week 14-16 is perfect time to deliver Snowflake Fundamentals class
 
 ---
 
@@ -257,21 +546,45 @@ Based on meeting transcript from November 5, 2025
 
 ## **Summary - Critical Next Steps:**
 
-### **This Week:**
-1. ✅ Review Ryan's warehouse sizing proposal (Monday deadline)
-2. ✅ Connect Sandy's team with KPMG (Diane)
-3. ✅ Finalize MSA/contract options (Tom + legal)
+### **IMMEDIATE (Before Dec 1 Kickoff):**
+1. ✅ Review Ryan's warehouse sizing proposal
+2. ✅ **URGENT:** Suzanne to identify 8 stakeholders for KPMG interviews (need majority by Week 2)
+3. ✅ **URGENT:** Ryan to curate 30 critical documents for KPMG review (due Week 1)
+4. ✅ Connect Sandy's team with KPMG Snowflake Architect + Gary Torpey
+5. ✅ Finalize Snowflake MSA/contract (separate from KPMG)
+6. ✅ Set up initial Snowflake instance for hands-on access
+7. ✅ OpenFlow demo for Ryan's team
+8. ✅ RSA confirmed and scheduled for Dec 1 start
 
-### **Before Dec Kickoff:**
-4. ✅ Set up initial Snowflake instance for hands-on access
-5. ✅ OpenFlow demo/trial
-6. ✅ Mainframe extraction POC planning
-7. ✅ RSA confirmed and scheduled
+### **Phase 1: Weeks 1-6 (Dec 1 - Mid-January):**
+- ✅ **Week 1:** KPMG kickoff, artifacts delivered, interviews scheduled
+- ✅ **Week 2:** Complete majority of 8 discovery interviews
+- ✅ **Week 3:** $150K milestone payment, current state assessment complete
+- ✅ **Weeks 4-5:** Design and roadmap development
+- ✅ **Week 6:** $150K milestone payment, all Phase 1 deliverables complete
+- ✅ **Snowflake Actions:**
+  - Weekly sync: KPMG architect + Sandy's RSA + Stephen
+  - Migration specialist engaged (6 weeks)
+  - Influence pilot use case selection (Target: Client reporting or Tax Companion)
+  - Ensure Atacama-KPMG coordination is working
 
-### **Phase 1 (Dec-Jan):**
-8. ✅ Weekly stakeholder meetings established
-9. ✅ Migration specialist embedded with KPMG
-10. ✅ POC technical guidance and success criteria defined
+### **Phase 2: Weeks 7-22 (Mid-January - May 2026):**
+- ✅ **Weeks 7-10:** Pilot use case data profiling, CDE development
+- ✅ **Weeks 11-14:** Snowflake environment build, data migration to Bronze/Silver/Gold
+- ✅ **Weeks 15-18:** ETL/ELT pipelines, GenAI activation (Cortex)
+- ✅ **Weeks 19-22:** Testing, validation, stakeholder feedback
+- ✅ **Monthly:** KPMG invoicing ($45K-50K/week)
+- ✅ **Snowflake Actions:**
+  - Increase presence as KPMG leadership decreases
+  - Deliver Snowflake Fundamentals training (Week 14-16 ideal)
+  - Position Phase 3 scope items
+  - Showcase quick wins to Mitch/Suzanne/Board
+
+### **Post-Phase 2 (June 2026+):**
+- ✅ Transition from KPMG enablement to Snowflake-led expansion
+- ✅ Identify Phase 3 scope (items deferred from Phase 2)
+- ✅ Launch additional use cases without KPMG
+- ✅ Quarterly business reviews and innovation workshops
 
 ---
 
@@ -295,5 +608,6 @@ Based on meeting transcript from November 5, 2025
 ---
 
 *Document created: November 13, 2025*  
+*Updated with KPMG proposal details: November 13, 2025*  
 *Based on meeting transcript: November 5, 2025*
 

@@ -22,12 +22,6 @@ Based on meeting notes from November 5, 2025
   <img src="future-state-architecture.svg" alt="Future State Architecture" width="100%"/>
 </div>
 
-### Network Diagram - System Interconnections
-
-<div align="center">
-  <img src="network-diagram.svg" alt="Network Diagram" width="100%"/>
-</div>
-
 ---
 
 ## SOURCE SYSTEMS

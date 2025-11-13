@@ -24,17 +24,9 @@ Based on meeting notes from November 5, 2025
 
 ### Network Diagram with Product Logos
 
-**🔷 [View Interactive Network Diagram (Recommended)](network-diagram-preview.html)** - Full size with zoom controls
-
 <div align="center">
-  <a href="network-diagram-preview.html">
-    <img src="https://img.shields.io/badge/View%20Interactive-Network%20Diagram-29B5E8?style=for-the-badge&logo=snowflake&logoColor=white" alt="View Interactive Network Diagram"/>
-  </a>
+  <img src="network-diagram.png" alt="Network Diagram with Logos" width="100%"/>
 </div>
-
-*The interactive viewer includes zoom controls and displays all product logos at full resolution. Download the HTML file and open it locally for the best experience.*
-
-Alternative: [View SVG directly](network-diagram-with-logos.svg)
 
 ---
 

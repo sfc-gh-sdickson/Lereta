@@ -22,6 +22,12 @@ Based on meeting notes from November 5, 2025
   <img src="future-state-architecture.svg" alt="Future State Architecture" width="100%"/>
 </div>
 
+### Network Diagram with Product Logos
+
+<div align="center">
+  <img src="network-diagram-with-logos.svg" alt="Network Diagram with Logos" width="100%"/>
+</div>
+
 ---
 
 ## SOURCE SYSTEMS
@@ -403,4 +409,3 @@ Based on meeting notes from November 5, 2025
 
 *Document created from meeting transcript dated November 5, 2025*  
 *Last updated: November 13, 2025*
-

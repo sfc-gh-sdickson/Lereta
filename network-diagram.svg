@@ -1,220 +1,185 @@
-<svg viewBox="0 0 1800 900" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 1600 900" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <title>Lereta Network Architecture</title>
+  
   <!-- Title -->
-  <text x="900" y="30" font-size="22" font-weight="bold" text-anchor="middle" fill="#333">Lereta Data Modernization - Network Architecture</text>
+  <text x="800" y="35" font-size="24" font-weight="bold" text-anchor="middle" fill="#2C3E50">Lereta Data Modernization - Network Architecture</text>
   
   <!-- Arrows -->
   <defs>
-    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
       <polygon points="0 0, 10 3, 0 6" fill="#666"/>
     </marker>
   </defs>
   
-  <!-- Background Sections -->
-  <rect x="40" y="70" width="280" height="520" fill="#ECF0F1" stroke="#2C3E50" stroke-width="2" rx="5"/>
-  <text x="180" y="100" font-size="14" font-weight="bold" text-anchor="middle" fill="#2C3E50">SOURCE SYSTEMS</text>
+  <!-- Source Systems -->
+  <rect x="50" y="100" width="180" height="70" fill="white" stroke="#0066CC" stroke-width="2" rx="5"/>
+  <image x="60" y="110" width="50" height="50" xlink:href="logos/IBM Mainframe Logo.png"/>
+  <text x="155" y="130" font-size="13" font-weight="bold" text-anchor="middle">IBM Mainframe</text>
+  <text x="155" y="148" font-size="10" text-anchor="middle">Database</text>
   
-  <rect x="360" y="70" width="280" height="520" fill="#FFF3E0" stroke="#E67E22" stroke-width="2" rx="5"/>
-  <text x="500" y="100" font-size="14" font-weight="bold" text-anchor="middle" fill="#E65100">INTEGRATION</text>
+  <rect x="50" y="190" width="180" height="70" fill="white" stroke="#0066CC" stroke-width="2" rx="5"/>
+  <image x="60" y="200" width="50" height="50" xlink:href="logos/microsoft-sql-server-logo.svg"/>
+  <text x="155" y="225" font-size="13" font-weight="bold" text-anchor="middle">SQL Server</text>
+  <text x="155" y="243" font-size="10" text-anchor="middle">On-Premises</text>
   
-  <rect x="680" y="70" width="480" height="520" fill="#E1F5FE" stroke="#29B5E8" stroke-width="3" rx="5"/>
-  <text x="920" y="100" font-size="14" font-weight="bold" text-anchor="middle" fill="#1565C0">SNOWFLAKE PLATFORM</text>
+  <rect x="50" y="280" width="180" height="70" fill="white" stroke="#0066CC" stroke-width="2" rx="5"/>
+  <image x="60" y="290" width="50" height="50" xlink:href="logos/Microsoft Azure SQL.png"/>
+  <text x="155" y="315" font-size="13" font-weight="bold" text-anchor="middle">Azure SQL</text>
+  <text x="155" y="333" font-size="10" text-anchor="middle">Elevate • LeretaNet</text>
   
-  <rect x="1200" y="70" width="280" height="520" fill="#F3E5F5" stroke="#8B008B" stroke-width="2" rx="5"/>
-  <text x="1340" y="100" font-size="14" font-weight="bold" text-anchor="middle" fill="#6A1B9A">CONSUMPTION</text>
+  <rect x="50" y="370" width="180" height="70" fill="white" stroke="#0066CC" stroke-width="2" rx="5"/>
+  <image x="60" y="380" width="50" height="50" xlink:href="logos/Oracle_DB_Logo.svg"/>
+  <text x="155" y="405" font-size="13" font-weight="bold" text-anchor="middle">Oracle</text>
+  <text x="155" y="423" font-size="10" text-anchor="middle">On-Prem (Limited)</text>
   
-  <rect x="1520" y="70" width="240" height="520" fill="#FFEBEE" stroke="#E74C3C" stroke-width="2" rx="5"/>
-  <text x="1640" y="100" font-size="14" font-weight="bold" text-anchor="middle" fill="#C62828">USERS</text>
+  <!-- Integration -->
+  <rect x="280" y="100" width="180" height="70" fill="white" stroke="#E67E22" stroke-width="2" rx="5"/>
+  <text x="370" y="130" font-size="13" font-weight="bold" text-anchor="middle">SQL Gateway</text>
+  <text x="370" y="148" font-size="10" text-anchor="middle">Software AG</text>
   
-  <!-- SOURCE SYSTEMS -->
-  <rect x="70" y="130" width="220" height="70" fill="#1E3A8A" stroke="#0066CC" stroke-width="2" rx="5"/>
-  <text x="180" y="160" font-size="14" font-weight="bold" text-anchor="middle" fill="white">IBM Mainframe</text>
-  <text x="180" y="178" font-size="11" text-anchor="middle" fill="white">Database</text>
-  <text x="180" y="193" font-size="10" text-anchor="middle" fill="#E0E0E0">→ Linux Containers</text>
+  <rect x="280" y="190" width="180" height="90" fill="white" stroke="#E67E22" stroke-width="2" rx="5"/>
+  <text x="370" y="220" font-size="13" font-weight="bold" text-anchor="middle">SSIS</text>
+  <text x="370" y="238" font-size="10" text-anchor="middle">Current ETL</text>
+  <line x1="290" y1="253" x2="450" y2="253" stroke="#E67E22" stroke-dasharray="3,3"/>
+  <image x="295" y="257" width="30" height="20" xlink:href="logos/OpenFlow_Logo.svg"/>
+  <text x="370" y="273" font-size="12" font-weight="bold" text-anchor="middle" fill="#29B5E8">OpenFlow</text>
   
-  <rect x="70" y="220" width="220" height="60" fill="#CC2927" stroke="#0066CC" stroke-width="2" rx="5"/>
-  <text x="180" y="247" font-size="14" font-weight="bold" text-anchor="middle" fill="white">SQL Server</text>
-  <text x="180" y="265" font-size="11" text-anchor="middle" fill="white">On-Premises</text>
+  <rect x="280" y="300" width="180" height="70" fill="white" stroke="#E67E22" stroke-width="2" rx="5"/>
+  <image x="290" y="310" width="50" height="50" xlink:href="logos/Azure Data Lake Storage.png"/>
+  <text x="390" y="330" font-size="12" font-weight="bold" text-anchor="middle">Azure Cloud</text>
+  <text x="390" y="348" font-size="10" text-anchor="middle">Blob / ADLS</text>
   
-  <rect x="70" y="300" width="220" height="70" fill="#0078D4" stroke="#0066CC" stroke-width="2" rx="5"/>
-  <text x="180" y="328" font-size="14" font-weight="bold" text-anchor="middle" fill="white">Azure SQL</text>
-  <text x="180" y="346" font-size="11" text-anchor="middle" fill="white">Elevate • LeretaNet</text>
+  <!-- Snowflake -->
+  <rect x="510" y="110" width="380" height="370" fill="#E1F5FE" stroke="#29B5E8" stroke-width="3" rx="5"/>
+  <image x="650" y="120" width="100" height="35" xlink:href="logos/Snowflake_Logo.svg"/>
+  <text x="700" y="175" font-size="12" text-anchor="middle" fill="#0277BD">Business Critical Edition</text>
   
-  <rect x="70" y="390" width="220" height="60" fill="#F80000" stroke="#0066CC" stroke-width="2" rx="5"/>
-  <text x="180" y="417" font-size="14" font-weight="bold" text-anchor="middle" fill="white">Oracle Database</text>
-  <text x="180" y="435" font-size="11" text-anchor="middle" fill="white">On-Prem (Limited)</text>
+  <text x="700" y="205" font-size="13" font-weight="bold" text-anchor="middle" fill="#0277BD">Medallion</text>
+  <rect x="560" y="215" width="80" height="45" fill="#FFE082" stroke="#F57C00" stroke-width="2" rx="4"/>
+  <text x="600" y="235" font-size="11" font-weight="bold" text-anchor="middle">Bronze</text>
   
-  <!-- INTEGRATION -->
-  <rect x="390" y="130" width="220" height="70" fill="white" stroke="#E67E22" stroke-width="2" rx="5"/>
-  <text x="500" y="160" font-size="14" font-weight="bold" text-anchor="middle">SQL Gateway</text>
-  <text x="500" y="178" font-size="11" text-anchor="middle">Software AG</text>
-  <text x="500" y="193" font-size="10" text-anchor="middle" fill="#7F8C8D">Mainframe Extract</text>
+  <rect x="660" y="215" width="80" height="45" fill="#C0C0C0" stroke="#757575" stroke-width="2" rx="4"/>
+  <text x="700" y="235" font-size="11" font-weight="bold" text-anchor="middle">Silver</text>
   
-  <rect x="390" y="220" width="220" height="90" fill="white" stroke="#E67E22" stroke-width="2" rx="5"/>
-  <text x="500" y="250" font-size="14" font-weight="bold" text-anchor="middle">SSIS</text>
-  <text x="500" y="268" font-size="11" text-anchor="middle">Current ETL</text>
-  <line x1="400" y1="283" x2="600" y2="283" stroke="#E67E22" stroke-width="1" stroke-dasharray="3,3"/>
-  <text x="500" y="298" font-size="14" font-weight="bold" text-anchor="middle" fill="#29B5E8">OpenFlow</text>
+  <rect x="760" y="215" width="80" height="45" fill="#FFD700" stroke="#DAA520" stroke-width="2" rx="4"/>
+  <text x="800" y="235" font-size="11" font-weight="bold" text-anchor="middle">Gold</text>
   
-  <rect x="390" y="330" width="220" height="70" fill="white" stroke="#E67E22" stroke-width="2" rx="5"/>
-  <text x="500" y="360" font-size="14" font-weight="bold" text-anchor="middle">Azure Cloud</text>
-  <text x="500" y="378" font-size="11" text-anchor="middle">Blob / ADLS</text>
-  <text x="500" y="393" font-size="10" text-anchor="middle" fill="#7F8C8D">Iceberg Tables</text>
+  <text x="700" y="285" font-size="12" font-weight="bold" text-anchor="middle" fill="#0277BD">Compute Warehouses</text>
+  <rect x="540" y="295" width="90" height="30" fill="#B3E5FC" stroke="#0288D1" stroke-width="1" rx="3"/>
+  <text x="585" y="313" font-size="9" text-anchor="middle">Loading</text>
   
-  <!-- SNOWFLAKE -->
-  <rect x="710" y="140" width="420" height="60" fill="#29B5E8" stroke="#1565C0" stroke-width="2" rx="5"/>
-  <text x="920" y="170" font-size="18" font-weight="bold" text-anchor="middle" fill="white">❄ SNOWFLAKE</text>
-  <text x="920" y="190" font-size="12" text-anchor="middle" fill="white">Business Critical Edition</text>
+  <rect x="640" y="295" width="90" height="30" fill="#B3E5FC" stroke="#0288D1" stroke-width="1" rx="3"/>
+  <text x="685" y="313" font-size="9" text-anchor="middle">Transform</text>
   
-  <text x="920" y="225" font-size="13" font-weight="bold" text-anchor="middle" fill="#0277BD">Medallion Architecture</text>
-  <rect x="750" y="235" width="100" height="50" fill="#FFE082" stroke="#F57C00" stroke-width="2" rx="5"/>
-  <text x="800" y="257" font-size="12" font-weight="bold" text-anchor="middle">Bronze</text>
-  <text x="800" y="273" font-size="10" text-anchor="middle">Raw</text>
+  <rect x="740" y="295" width="90" height="30" fill="#B3E5FC" stroke="#0288D1" stroke-width="1" rx="3"/>
+  <text x="785" y="313" font-size="9" text-anchor="middle">Accounting</text>
   
-  <rect x="870" y="235" width="100" height="50" fill="#C0C0C0" stroke="#757575" stroke-width="2" rx="5"/>
-  <text x="920" y="257" font-size="12" font-weight="bold" text-anchor="middle">Silver</text>
-  <text x="920" y="273" font-size="10" text-anchor="middle">Cleansed</text>
+  <rect x="540" y="335" width="90" height="30" fill="#B3E5FC" stroke="#0288D1" stroke-width="1" rx="3"/>
+  <text x="585" y="353" font-size="9" text-anchor="middle">Operations</text>
   
-  <rect x="990" y="235" width="100" height="50" fill="#FFD700" stroke="#DAA520" stroke-width="2" rx="5"/>
-  <text x="1040" y="257" font-size="12" font-weight="bold" text-anchor="middle">Gold</text>
-  <text x="1040" y="273" font-size="10" text-anchor="middle">Analytics</text>
+  <rect x="640" y="335" width="90" height="30" fill="#B3E5FC" stroke="#0288D1" stroke-width="1" rx="3"/>
+  <text x="685" y="353" font-size="9" text-anchor="middle">Client Reports</text>
   
-  <text x="920" y="315" font-size="12" font-weight="bold" text-anchor="middle" fill="#0277BD">Compute Warehouses</text>
-  <rect x="730" y="325" width="95" height="35" fill="#E1F5FE" stroke="#0288D1" stroke-width="1" rx="3"/>
-  <text x="777" y="345" font-size="10" text-anchor="middle">Data Loading</text>
+  <rect x="740" y="335" width="90" height="30" fill="#B3E5FC" stroke="#0288D1" stroke-width="1" rx="3"/>
+  <text x="785" y="353" font-size="9" text-anchor="middle">Dev/Test</text>
   
-  <rect x="835" y="325" width="95" height="35" fill="#E1F5FE" stroke="#0288D1" stroke-width="1" rx="3"/>
-  <text x="882" y="345" font-size="10" text-anchor="middle">Transform</text>
+  <rect x="530" y="380" width="340" height="60" fill="#B3E5FC" stroke="#0277BD" stroke-width="2" rx="4"/>
+  <text x="700" y="400" font-size="10" font-weight="bold" text-anchor="middle">Features: Dynamic Tables • Streams • Tasks • Cortex AI</text>
+  <text x="700" y="416" font-size="10" font-weight="bold" text-anchor="middle">Security: RBAC • Masking • Lineage • Tags</text>
+  <text x="700" y="432" font-size="9" text-anchor="middle">Storage: 32TB • $8,800/yr</text>
   
-  <rect x="940" y="325" width="95" height="35" fill="#E1F5FE" stroke="#0288D1" stroke-width="1" rx="3"/>
-  <text x="987" y="345" font-size="10" text-anchor="middle">Accounting</text>
+  <!-- Consumption -->
+  <rect x="940" y="120" width="180" height="60" fill="white" stroke="#8B008B" stroke-width="2" rx="5"/>
+  <image x="950" y="130" width="40" height="40" xlink:href="logos/Powerbi logo.avif"/>
+  <text x="1060" y="150" font-size="13" font-weight="bold" text-anchor="middle">Power BI</text>
+  <text x="1060" y="165" font-size="10" text-anchor="middle">Live Query</text>
   
-  <rect x="1045" y="325" width="95" height="35" fill="#E1F5FE" stroke="#0288D1" stroke-width="1" rx="3"/>
-  <text x="1092" y="345" font-size="10" text-anchor="middle">Operations</text>
+  <rect x="940" y="195" width="180" height="70" fill="white" stroke="#8B008B" stroke-width="2" rx="5"/>
+  <image x="950" y="205" width="40" height="40" xlink:href="logos/Snowflake.svg"/>
+  <text x="1050" y="225" font-size="12" font-weight="bold" text-anchor="middle">Snowflake</text>
+  <text x="1050" y="242" font-size="12" font-weight="bold" text-anchor="middle">Intelligence</text>
+  <text x="1050" y="257" font-size="9" text-anchor="middle">AI Agents</text>
   
-  <rect x="730" y="370" width="95" height="35" fill="#E1F5FE" stroke="#0288D1" stroke-width="1" rx="3"/>
-  <text x="777" y="387" font-size="9" text-anchor="middle">Client Reports</text>
+  <rect x="940" y="280" width="180" height="60" fill="white" stroke="#8B008B" stroke-width="2" rx="5"/>
+  <image x="950" y="290" width="40" height="40" xlink:href="logos/Sigma logo.png"/>
+  <text x="1060" y="310" font-size="13" font-weight="bold" text-anchor="middle">Sigma</text>
+  <text x="1060" y="325" font-size="10" text-anchor="middle">Analytics</text>
   
-  <rect x="835" y="370" width="95" height="35" fill="#E1F5FE" stroke="#0288D1" stroke-width="1" rx="3"/>
-  <text x="882" y="390" font-size="10" text-anchor="middle">Dev/Test</text>
+  <rect x="940" y="355" width="180" height="60" fill="white" stroke="#8B008B" stroke-width="2" rx="5"/>
+  <text x="1030" y="380" font-size="13" font-weight="bold" text-anchor="middle">External APIs</text>
+  <text x="1030" y="398" font-size="10" text-anchor="middle">Microservices • Portals</text>
   
-  <rect x="710" y="420" width="420" height="75" fill="#B3E5FC" stroke="#0277BD" stroke-width="2" rx="5"/>
-  <text x="920" y="445" font-size="11" font-weight="bold" text-anchor="middle" fill="#01579B">Core Features</text>
-  <text x="920" y="462" font-size="9" text-anchor="middle">Dynamic Tables • Streams • Tasks • Time Travel • Zero-Copy Cloning</text>
-  <text x="920" y="477" font-size="9" text-anchor="middle">Cortex AI • ML Models • RBAC • Dynamic Masking • Lineage • Tags</text>
+  <!-- Users -->
+  <ellipse cx="1320" cy="270" rx="90" ry="110" fill="#FFCDD2" stroke="#E74C3C" stroke-width="2"/>
+  <text x="1320" y="220" font-size="14" font-weight="bold" text-anchor="middle">End Users</text>
+  <text x="1320" y="250" font-size="11" text-anchor="middle">Management</text>
+  <text x="1320" y="270" font-size="11" text-anchor="middle">Accounting</text>
+  <text x="1320" y="290" font-size="11" text-anchor="middle">Operations</text>
+  <text x="1320" y="310" font-size="11" text-anchor="middle">Developers</text>
+  <text x="1320" y="335" font-size="11" font-weight="bold" text-anchor="middle">External Clients</text>
+  <text x="1320" y="352" font-size="9" text-anchor="middle">(20-25)</text>
   
-  <rect x="710" y="510" width="420" height="45" fill="#81D4FA" stroke="#0277BD" stroke-width="2" rx="5"/>
-  <text x="920" y="532" font-size="10" font-weight="bold" text-anchor="middle" fill="#01579B">Storage: ~32TB (5:1 compression) • $8,800/year</text>
-  <text x="920" y="547" font-size="9" text-anchor="middle" fill="#01579B">Original: 160TB → Compressed: 32TB</text>
+  <!-- Partners -->
+  <rect x="80" y="520" width="200" height="75" fill="white" stroke="#4CAF50" stroke-width="2" rx="5"/>
+  <image x="90" y="530" width="50" height="50" xlink:href="logos/KPMG Logo.png"/>
+  <text x="180" y="555" font-size="13" font-weight="bold" text-anchor="middle">KPMG</text>
+  <text x="180" y="573" font-size="10" text-anchor="middle">$1.02M Migration</text>
   
-  <!-- GOVERNANCE -->
-  <rect x="790" y="600" width="260" height="70" fill="#FFF9E6" stroke="#FF9800" stroke-width="2" rx="5"/>
-  <text x="920" y="628" font-size="14" font-weight="bold" text-anchor="middle">Atacama</text>
-  <text x="920" y="646" font-size="11" text-anchor="middle">Data Quality • Catalog</text>
-  <text x="920" y="661" font-size="10" text-anchor="middle" fill="#7F8C8D">CDEs • DQ Rules • Lineage</text>
+  <rect x="310" y="520" width="230" height="75" fill="white" stroke="#4CAF50" stroke-width="2" rx="5"/>
+  <image x="320" y="535" width="40" height="40" xlink:href="logos/Snowflake.svg"/>
+  <text x="450" y="555" font-size="12" font-weight="bold" text-anchor="middle">Snowflake PS</text>
+  <text x="450" y="573" font-size="10" text-anchor="middle">RSA • Training</text>
   
-  <!-- CONSUMPTION -->
-  <rect x="1230" y="140" width="220" height="55" fill="#F2C811" stroke="#8B008B" stroke-width="2" rx="5"/>
-  <text x="1340" y="168" font-size="14" font-weight="bold" text-anchor="middle">Power BI</text>
-  <text x="1340" y="185" font-size="11" text-anchor="middle">Live Query</text>
+  <rect x="570" y="520" width="200" height="75" fill="white" stroke="#FF9800" stroke-width="2" rx="5"/>
+  <image x="580" y="530" width="50" height="50" xlink:href="logos/atacama_logo.png"/>
+  <text x="710" y="555" font-size="13" font-weight="bold" text-anchor="middle">Atacama</text>
+  <text x="710" y="573" font-size="10" text-anchor="middle">Data Governance</text>
   
-  <rect x="1230" y="210" width="220" height="65" fill="#B3E5FC" stroke="#8B008B" stroke-width="2" rx="5"/>
-  <text x="1340" y="235" font-size="13" font-weight="bold" text-anchor="middle">Snowflake Intelligence</text>
-  <text x="1340" y="252" font-size="11" text-anchor="middle">AI Agents / Cortex</text>
+  <!-- Connections -->
+  <line x1="230" y1="135" x2="280" y2="135" stroke="#666" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="230" y1="225" x2="280" y2="235" stroke="#666" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="230" y1="315" x2="280" y2="240" stroke="#666" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="230" y1="405" x2="280" y2="245" stroke="#666" stroke-width="2" marker-end="url(#arrow)"/>
   
-  <rect x="1230" y="290" width="220" height="55" fill="#E1BEE7" stroke="#8B008B" stroke-width="2" rx="5"/>
-  <text x="1340" y="318" font-size="14" font-weight="bold" text-anchor="middle">Sigma Analytics</text>
-  <text x="1340" y="335" font-size="11" text-anchor="middle">Excel-like Interface</text>
+  <line x1="460" y1="190" x2="510" y2="240" stroke="#666" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="460" y1="280" x2="510" y2="300" stroke="#666" stroke-width="3" marker-end="url(#arrow)"/>
   
-  <rect x="1230" y="360" width="220" height="65" fill="#E0E0E0" stroke="#8B008B" stroke-width="2" rx="5"/>
-  <text x="1340" y="385" font-size="13" font-weight="bold" text-anchor="middle">External APIs</text>
-  <text x="1340" y="402" font-size="11" text-anchor="middle">Microservices</text>
-  <text x="1340" y="417" font-size="10" text-anchor="middle" fill="#7F8C8D">Client Portals</text>
+  <line x1="890" y1="200" x2="940" y2="150" stroke="#666" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="890" y1="230" x2="940" y2="230" stroke="#666" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="890" y1="280" x2="940" y2="310" stroke="#666" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="890" y1="350" x2="940" y2="385" stroke="#666" stroke-width="2" marker-end="url(#arrow)"/>
   
-  <!-- USERS -->
-  <ellipse cx="1640" cy="320" rx="100" ry="130" fill="#FFCDD2" stroke="#E74C3C" stroke-width="3"/>
-  <text x="1640" y="260" font-size="15" font-weight="bold" text-anchor="middle" fill="#C62828">End Users</text>
-  <text x="1640" y="295" font-size="12" text-anchor="middle">Management</text>
-  <text x="1640" y="320" font-size="12" text-anchor="middle">Accounting</text>
-  <text x="1640" y="345" font-size="12" text-anchor="middle">Operations</text>
-  <text x="1640" y="370" font-size="12" text-anchor="middle">Developers</text>
-  <text x="1640" y="400" font-size="12" font-weight="bold" text-anchor="middle">Clients</text>
-  <text x="1640" y="418" font-size="10" text-anchor="middle" fill="#7F8C8D">(20-25 external)</text>
+  <line x1="1120" y1="150" x2="1230" y2="230" stroke="#666" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="1120" y1="230" x2="1230" y2="250" stroke="#666" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="1120" y1="310" x2="1230" y2="280" stroke="#666" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="1120" y1="385" x2="1230" y2="320" stroke="#666" stroke-width="2" marker-end="url(#arrow)"/>
   
-  <!-- PARTNERS -->
-  <rect x="70" y="640" width="240" height="75" fill="#E8F5E9" stroke="#4CAF50" stroke-width="2" rx="5"/>
-  <text x="190" y="668" font-size="14" font-weight="bold" text-anchor="middle">KPMG</text>
-  <text x="190" y="686" font-size="11" text-anchor="middle">Migration Partner</text>
-  <text x="190" y="703" font-size="10" text-anchor="middle" fill="#7F8C8D">$1.02M / 20-22 weeks</text>
+  <line x1="700" y1="480" x2="675" y2="520" stroke="#666" stroke-width="2" stroke-dasharray="5,5"/>
   
-  <rect x="350" y="640" width="260" height="75" fill="#E3F2FD" stroke="#4CAF50" stroke-width="2" rx="5"/>
-  <text x="480" y="668" font-size="13" font-weight="bold" text-anchor="middle">Snowflake Professional Services</text>
-  <text x="480" y="686" font-size="11" text-anchor="middle">RSA • Migration Specialist</text>
-  <text x="480" y="703" font-size="10" text-anchor="middle" fill="#7F8C8D">Training • Enablement</text>
+  <!-- Lereta Logo -->
+  <image x="1350" y="800" width="200" height="60" xlink:href="logos/LERETA_Logo_02_09_18.png"/>
   
-  <!-- Atacama -->
-  <rect x="650" y="640" width="240" height="75" fill="#FFF9E6" stroke="#FF9800" stroke-width="2" rx="5"/>
-  <text x="770" y="668" font-size="14" font-weight="bold" text-anchor="middle">Atacama</text>
-  <text x="770" y="686" font-size="11" text-anchor="middle">Data Governance</text>
-  <text x="770" y="703" font-size="10" text-anchor="middle" fill="#7F8C8D">Quality • Catalog • CDEs</text>
+  <!-- Stats -->
+  <rect x="50" y="650" width="720" height="200" fill="#F8F9FA" stroke="#333" stroke-width="2" rx="5"/>
+  <text x="410" y="678" font-size="14" font-weight="bold" text-anchor="middle">Key Metrics & Timeline</text>
   
-  <!-- CONNECTIONS -->
-  <line x1="290" y1="165" x2="390" y2="165" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)"/>
-  <line x1="290" y1="250" x2="390" y2="255" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)"/>
-  <line x1="290" y1="335" x2="390" y2="260" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)"/>
-  <line x1="290" y1="420" x2="390" y2="265" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <text x="70" y="705" font-size="11" font-weight="bold">Current State:</text>
+  <text x="70" y="723" font-size="10">• Data: 160TB (8TB PSA, 13.7B records)</text>
+  <text x="70" y="738" font-size="10">• Reports: 500+ across organization</text>
+  <text x="70" y="753" font-size="10">• Team: 2 engineers + 1 lead</text>
+  <text x="70" y="768" font-size="10">• Refresh: 90% daily, some 8x/day</text>
+  <text x="70" y="783" font-size="10">• Integration: SSIS, SQL Gateway</text>
   
-  <line x1="610" y1="165" x2="710" y2="250" stroke="#666" stroke-width="3" marker-end="url(#arrowhead)"/>
-  <line x1="610" y1="255" x2="710" y2="300" stroke="#666" stroke-width="3" marker-end="url(#arrowhead)"/>
-  <line x1="610" y1="365" x2="710" y2="350" stroke="#666" stroke-width="3" marker-end="url(#arrowhead)"/>
+  <text x="420" y="705" font-size="11" font-weight="bold">Future (Snowflake):</text>
+  <text x="420" y="723" font-size="10">• Storage: 32TB (5:1 compression)</text>
+  <text x="420" y="738" font-size="10">• Cost: $8,800/year storage</text>
+  <text x="420" y="753" font-size="10">• Architecture: Bronze/Silver/Gold</text>
+  <text x="420" y="768" font-size="10">• Domains: Agency, Customer, Loan</text>
+  <text x="420" y="783" font-size="10">• Integration: OpenFlow CDC</text>
   
-  <line x1="1160" y1="220" x2="1230" y2="167" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)"/>
-  <line x1="1160" y1="250" x2="1230" y2="242" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)"/>
-  <line x1="1160" y1="300" x2="1230" y2="317" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)"/>
-  <line x1="1160" y1="350" x2="1230" y2="392" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)"/>
-  
-  <line x1="1450" y1="167" x2="1540" y2="260" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)"/>
-  <line x1="1450" y1="242" x2="1540" y2="300" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)"/>
-  <line x1="1450" y1="317" x2="1540" y2="340" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)"/>
-  <line x1="1450" y1="392" x2="1540" y2="380" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)"/>
-  
-  <line x1="920" y1="555" x2="770" y2="640" stroke="#666" stroke-width="2" stroke-dasharray="5,5"/>
-  <line x1="500" y1="640" x2="920" y2="555" stroke="#666" stroke-width="2" stroke-dasharray="5,5"/>
-  
-  <!-- STATS -->
-  <rect x="930" y="640" width="720" height="75" fill="#FFFEF7" stroke="#34495E" stroke-width="2" rx="5"/>
-  <text x="1290" y="663" font-size="13" font-weight="bold" text-anchor="middle" fill="#2C3E50">📊 Key Metrics</text>
-  
-  <text x="960" y="685" font-size="11" font-weight="bold" fill="#2C3E50">Current:</text>
-  <text x="960" y="703" font-size="10">160TB • 13.7B records • 500+ reports</text>
-  
-  <text x="1180" y="685" font-size="11" font-weight="bold" fill="#2C3E50">Snowflake:</text>
-  <text x="1180" y="703" font-size="10">32TB • $8.8K/yr storage</text>
-  
-  <text x="1410" y="685" font-size="11" font-weight="bold" fill="#2C3E50">Timeline:</text>
-  <text x="1410" y="703" font-size="10">Dec 2025 - May 2026</text>
-  
-  <!-- Legend -->
-  <rect x="40" y="750" width="1610" height="120" fill="#F8F9FA" stroke="#34495E" stroke-width="2" rx="5"/>
-  <text x="900" y="775" font-size="13" font-weight="bold" text-anchor="middle" fill="#2C3E50">Product Key</text>
-  
-  <text x="70" y="800" font-size="11" font-weight="bold">Sources:</text>
-  <text x="70" y="818" font-size="10">IBM Mainframe (navy) • SQL Server (red) • Azure SQL (blue) • Oracle (red)</text>
-  
-  <text x="70" y="840" font-size="11" font-weight="bold">Integration:</text>
-  <text x="70" y="858" font-size="10">SQL Gateway (Software AG) • SSIS → OpenFlow (Snowflake) • Azure Cloud (ADLS)</text>
-  
-  <text x="700" y="800" font-size="11" font-weight="bold">Platform:</text>
-  <text x="700" y="818" font-size="10">Snowflake (Bronze/Silver/Gold) • 6 Compute Warehouses • Atacama Governance</text>
-  
-  <text x="700" y="840" font-size="11" font-weight="bold">Consumption:</text>
-  <text x="700" y="858" font-size="10">Power BI • Snowflake Intelligence • Sigma Analytics • External APIs</text>
-  
-  <text x="1330" y="800" font-size="11" font-weight="bold">Partners:</text>
-  <text x="1330" y="818" font-size="10">KPMG ($1.02M) • Snowflake PS</text>
-  
-  <text x="1330" y="840" font-size="11" font-weight="bold">Users:</text>
-  <text x="1330" y="858" font-size="10">Internal (Mgmt/Acct/Ops/Dev) • 20-25 External Clients</text>
+  <text x="420" y="813" font-size="11" font-weight="bold">Implementation:</text>
+  <text x="420" y="831" font-size="10">KPMG Partner: $1.02M / 20-22 weeks | Phase 1: Dec 2025 (6 wks) | Phase 2: Jan-May 2026 (14-16 wks)</text>
   
   <!-- Footer -->
-  <text x="900" y="895" font-size="11" font-weight="bold" text-anchor="middle" fill="#2C3E50">Lereta Data Modernization | November 2025 | Powered by Snowflake</text>
+  <text x="800" y="885" font-size="11" text-anchor="middle" fill="#666">Lereta Data Modernization Initiative | November 2025 | Powered by Snowflake</text>
 </svg>

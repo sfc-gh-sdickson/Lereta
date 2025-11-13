@@ -24,9 +24,15 @@ Based on meeting notes from November 5, 2025
 
 ### Network Diagram with Product Logos
 
+**[Click here to view the Network Diagram with Product Logos](network-diagram-with-logos.svg)**
+
 <div align="center">
-  <img src="network-diagram-with-logos.svg" alt="Network Diagram with Logos" width="100%"/>
+  <a href="network-diagram-with-logos.svg">
+    <img src="https://img.shields.io/badge/View-Network%20Diagram-blue?style=for-the-badge&logo=snowflake" alt="View Network Diagram"/>
+  </a>
 </div>
+
+*Note: Click the link above to view the interactive diagram with all product logos embedded.*
 
 ---
 

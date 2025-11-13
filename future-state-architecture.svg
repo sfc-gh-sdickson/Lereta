@@ -1,0 +1,208 @@
+<svg viewBox="0 0 1400 900" xmlns="http://www.w3.org/2000/svg">
+  <!-- Title -->
+  <text x="700" y="30" font-size="20" font-weight="bold" text-anchor="middle" fill="#333">Future State - Snowflake Architecture</text>
+  
+  <!-- Source Systems -->
+  <rect x="50" y="80" width="160" height="60" fill="#E8F4F8" stroke="#0066CC" stroke-width="2" rx="5"/>
+  <text x="130" y="105" font-size="12" font-weight="bold" text-anchor="middle">Mainframe</text>
+  <text x="130" y="120" font-size="9" text-anchor="middle">(Linux/Containerized)</text>
+  
+  <rect x="50" y="160" width="160" height="50" fill="#E8F4F8" stroke="#0066CC" stroke-width="2" rx="5"/>
+  <text x="130" y="180" font-size="12" font-weight="bold" text-anchor="middle">SQL Server</text>
+  <text x="130" y="195" font-size="9" text-anchor="middle">(On-prem)</text>
+  
+  <rect x="50" y="230" width="160" height="50" fill="#E8F4F8" stroke="#0066CC" stroke-width="2" rx="5"/>
+  <text x="130" y="250" font-size="12" font-weight="bold" text-anchor="middle">Azure SQL</text>
+  <text x="130" y="265" font-size="9" text-anchor="middle">(Elevate, LeretaNet)</text>
+  
+  <rect x="50" y="300" width="160" height="50" fill="#E8F4F8" stroke="#0066CC" stroke-width="2" rx="5"/>
+  <text x="130" y="320" font-size="12" font-weight="bold" text-anchor="middle">Oracle</text>
+  <text x="130" y="335" font-size="9" text-anchor="middle">(On-prem)</text>
+  
+  <!-- Integration Layer -->
+  <rect x="280" y="80" width="160" height="80" fill="#FFF4E6" stroke="#FF8C00" stroke-width="2" rx="5"/>
+  <text x="360" y="105" font-size="12" font-weight="bold" text-anchor="middle">SQL Gateway</text>
+  <text x="360" y="125" font-size="9" text-anchor="middle">Cloud Storage</text>
+  <text x="360" y="140" font-size="9" text-anchor="middle">Iceberg Tables</text>
+  <text x="360" y="155" font-size="9" text-anchor="middle">(Azure Blob)</text>
+  
+  <rect x="280" y="180" width="160" height="80" fill="#FFF4E6" stroke="#FF8C00" stroke-width="2" rx="5"/>
+  <text x="360" y="205" font-size="12" font-weight="bold" text-anchor="middle">OpenFlow</text>
+  <text x="360" y="220" font-size="9" text-anchor="middle">Snowflake CDC</text>
+  <text x="360" y="235" font-size="9" text-anchor="middle">Incremental Loads</text>
+  <text x="360" y="250" font-size="9" text-anchor="middle">Auto-detection</text>
+  
+  <!-- Snowflake Platform -->
+  <rect x="520" y="60" width="500" height="550" fill="#F0F8FF" stroke="#29B5E8" stroke-width="3" rx="10"/>
+  <text x="770" y="85" font-size="16" font-weight="bold" text-anchor="middle" fill="#29B5E8">SNOWFLAKE</text>
+  
+  <!-- Cloud Services Layer -->
+  <rect x="540" y="100" width="460" height="60" fill="#B3E5FC" stroke="#0277BD" stroke-width="2" rx="5"/>
+  <text x="770" y="125" font-size="12" font-weight="bold" text-anchor="middle">Cloud Services Layer</text>
+  <text x="770" y="145" font-size="9" text-anchor="middle">Metadata | Security | Optimization | Cost Management</text>
+  
+  <!-- Storage Layer -->
+  <rect x="540" y="180" width="220" height="130" fill="#E1F5E1" stroke="#228B22" stroke-width="2" rx="5"/>
+  <text x="650" y="200" font-size="12" font-weight="bold" text-anchor="middle">Storage Layer</text>
+  <text x="650" y="220" font-size="10" font-weight="bold" text-anchor="middle">Medallion Architecture</text>
+  
+  <rect x="550" y="235" width="60" height="60" fill="#FFE082" stroke="#F57C00" stroke-width="2" rx="3"/>
+  <text x="580" y="255" font-size="11" font-weight="bold" text-anchor="middle">Bronze</text>
+  <text x="580" y="270" font-size="8" text-anchor="middle">Raw</text>
+  <text x="580" y="282" font-size="8" text-anchor="middle">Data</text>
+  
+  <rect x="620" y="235" width="60" height="60" fill="#C0C0C0" stroke="#757575" stroke-width="2" rx="3"/>
+  <text x="650" y="255" font-size="11" font-weight="bold" text-anchor="middle">Silver</text>
+  <text x="650" y="270" font-size="8" text-anchor="middle">Cleansed</text>
+  <text x="650" y="282" font-size="8" text-anchor="middle">Historical</text>
+  
+  <rect x="690" y="235" width="60" height="60" fill="#FFD700" stroke="#DAA520" stroke-width="2" rx="3"/>
+  <text x="720" y="255" font-size="11" font-weight="bold" text-anchor="middle">Gold</text>
+  <text x="720" y="270" font-size="8" text-anchor="middle">Modeled</text>
+  <text x="720" y="282" font-size="8" text-anchor="middle">Analytics</text>
+  
+  <!-- Compute Warehouses -->
+  <rect x="780" y="180" width="210" height="200" fill="#E8EAF6" stroke="#3F51B5" stroke-width="2" rx="5"/>
+  <text x="885" y="200" font-size="12" font-weight="bold" text-anchor="middle">Compute Warehouses</text>
+  
+  <rect x="790" y="210" width="90" height="40" fill="#FFF9C4" stroke="#F57F17" stroke-width="1" rx="3"/>
+  <text x="835" y="228" font-size="9" font-weight="bold" text-anchor="middle">Data Loading</text>
+  <text x="835" y="240" font-size="8" text-anchor="middle">(Shared)</text>
+  
+  <rect x="890" y="210" width="90" height="40" fill="#FFF9C4" stroke="#F57F17" stroke-width="1" rx="3"/>
+  <text x="935" y="228" font-size="9" font-weight="bold" text-anchor="middle">Transformation</text>
+  <text x="935" y="240" font-size="8" text-anchor="middle">(Shared)</text>
+  
+  <rect x="790" y="260" width="90" height="40" fill="#FFF9C4" stroke="#F57F17" stroke-width="1" rx="3"/>
+  <text x="835" y="278" font-size="9" font-weight="bold" text-anchor="middle">Accounting</text>
+  <text x="835" y="290" font-size="8" text-anchor="middle">(Analytics)</text>
+  
+  <rect x="890" y="260" width="90" height="40" fill="#FFF9C4" stroke="#F57F17" stroke-width="1" rx="3"/>
+  <text x="935" y="278" font-size="9" font-weight="bold" text-anchor="middle">Operations</text>
+  <text x="935" y="290" font-size="8" text-anchor="middle">(Analytics)</text>
+  
+  <rect x="790" y="310" width="90" height="40" fill="#FFF9C4" stroke="#F57F17" stroke-width="1" rx="3"/>
+  <text x="835" y="328" font-size="9" font-weight="bold" text-anchor="middle">Client Reports</text>
+  <text x="835" y="340" font-size="8" text-anchor="middle">(External)</text>
+  
+  <rect x="890" y="310" width="90" height="40" fill="#FFF9C4" stroke="#F57F17" stroke-width="1" rx="3"/>
+  <text x="935" y="328" font-size="9" font-weight="bold" text-anchor="middle">Dev/Test</text>
+  <text x="935" y="340" font-size="8" text-anchor="middle">(Clones)</text>
+  
+  <!-- Processing Features -->
+  <rect x="540" y="390" width="220" height="100" fill="#FFF3E0" stroke="#E65100" stroke-width="2" rx="5"/>
+  <text x="650" y="410" font-size="11" font-weight="bold" text-anchor="middle">Processing</text>
+  <text x="650" y="430" font-size="9" text-anchor="middle">• Dynamic Tables</text>
+  <text x="650" y="445" font-size="9" text-anchor="middle">• Streams &amp; Tasks</text>
+  <text x="650" y="460" font-size="9" text-anchor="middle">• Zero-Copy Cloning</text>
+  <text x="650" y="475" font-size="9" text-anchor="middle">• Time Travel</text>
+  
+  <!-- AI/ML Features -->
+  <rect x="780" y="390" width="210" height="100" fill="#F3E5F5" stroke="#7B1FA2" stroke-width="2" rx="5"/>
+  <text x="885" y="410" font-size="11" font-weight="bold" text-anchor="middle">AI/ML Capabilities</text>
+  <text x="885" y="430" font-size="9" text-anchor="middle">• Cortex AI Functions</text>
+  <text x="885" y="445" font-size="9" text-anchor="middle">• ML Models (Python/Java)</text>
+  <text x="885" y="460" font-size="9" text-anchor="middle">• LLM Integration</text>
+  <text x="885" y="475" font-size="9" text-anchor="middle">• Sentiment Analysis</text>
+  
+  <!-- Security/Governance -->
+  <rect x="540" y="500" width="460" height="90" fill="#FFEBEE" stroke="#C62828" stroke-width="2" rx="5"/>
+  <text x="770" y="520" font-size="11" font-weight="bold" text-anchor="middle">Security &amp; Governance</text>
+  <text x="650" y="540" font-size="9" text-anchor="middle">• RBAC</text>
+  <text x="650" y="555" font-size="9" text-anchor="middle">• Dynamic Masking</text>
+  <text x="650" y="570" font-size="9" text-anchor="middle">• Row Access Policies</text>
+  <text x="890" y="540" font-size="9" text-anchor="middle">• Data Lineage</text>
+  <text x="890" y="555" font-size="9" text-anchor="middle">• Tags &amp; Classification</text>
+  <text x="890" y="570" font-size="9" text-anchor="middle">• Audit Logging</text>
+  
+  <!-- Data Governance -->
+  <rect x="1070" y="100" width="160" height="80" fill="#FFF9E6" stroke="#FF9800" stroke-width="2" rx="5"/>
+  <text x="1150" y="125" font-size="12" font-weight="bold" text-anchor="middle">Atakama</text>
+  <text x="1150" y="140" font-size="9" text-anchor="middle">Data Quality</text>
+  <text x="1150" y="155" font-size="9" text-anchor="middle">Data Catalog</text>
+  <text x="1150" y="170" font-size="9" text-anchor="middle">CDEs Management</text>
+  
+  <!-- Consumption Layer -->
+  <rect x="1070" y="220" width="160" height="50" fill="#F0E6FF" stroke="#8B008B" stroke-width="2" rx="5"/>
+  <text x="1150" y="240" font-size="12" font-weight="bold" text-anchor="middle">Power BI</text>
+  <text x="1150" y="255" font-size="9" text-anchor="middle">Live Query</text>
+  
+  <rect x="1070" y="290" width="160" height="50" fill="#F0E6FF" stroke="#8B008B" stroke-width="2" rx="5"/>
+  <text x="1150" y="310" font-size="12" font-weight="bold" text-anchor="middle">Snowflake Intelligence</text>
+  <text x="1150" y="325" font-size="9" text-anchor="middle">AI Agents</text>
+  
+  <rect x="1070" y="360" width="160" height="50" fill="#F0E6FF" stroke="#8B008B" stroke-width="2" rx="5"/>
+  <text x="1150" y="380" font-size="12" font-weight="bold" text-anchor="middle">Sigma Analytics</text>
+  <text x="1150" y="395" font-size="9" text-anchor="middle">(Potential)</text>
+  
+  <rect x="1070" y="430" width="160" height="50" fill="#F0E6FF" stroke="#8B008B" stroke-width="2" rx="5"/>
+  <text x="1150" y="450" font-size="12" font-weight="bold" text-anchor="middle">External APIs</text>
+  <text x="1150" y="465" font-size="9" text-anchor="middle">Microservices</text>
+  
+  <rect x="1070" y="500" width="160" height="50" fill="#F0E6FF" stroke="#8B008B" stroke-width="2" rx="5"/>
+  <text x="1150" y="520" font-size="12" font-weight="bold" text-anchor="middle">Client Portals</text>
+  <text x="1150" y="535" font-size="9" text-anchor="middle">Embedded iFrames</text>
+  
+  <!-- Users -->
+  <ellipse cx="1300" cy="360" rx="70" ry="80" fill="#FFE6E6" stroke="#CC0000" stroke-width="2"/>
+  <text x="1300" y="340" font-size="11" font-weight="bold" text-anchor="middle">End Users</text>
+  <text x="1300" y="355" font-size="9" text-anchor="middle">Management</text>
+  <text x="1300" y="370" font-size="9" text-anchor="middle">Accounting</text>
+  <text x="1300" y="385" font-size="9" text-anchor="middle">Operations</text>
+  <text x="1300" y="400" font-size="9" text-anchor="middle">Clients (20-25)</text>
+  <text x="1300" y="415" font-size="9" text-anchor="middle">Developers</text>
+  
+  <!-- Arrows -->
+  <defs>
+    <marker id="arrowhead2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#666"/>
+    </marker>
+  </defs>
+  
+  <!-- Source to Integration -->
+  <line x1="210" y1="110" x2="280" y2="120" stroke="#666" stroke-width="2" marker-end="url(#arrowhead2)"/>
+  <line x1="210" y1="185" x2="280" y2="210" stroke="#666" stroke-width="2" marker-end="url(#arrowhead2)"/>
+  <line x1="210" y1="255" x2="280" y2="220" stroke="#666" stroke-width="2" marker-end="url(#arrowhead2)"/>
+  <line x1="210" y1="325" x2="280" y2="230" stroke="#666" stroke-width="2" marker-end="url(#arrowhead2)"/>
+  
+  <!-- Integration to Snowflake -->
+  <line x1="440" y1="120" x2="520" y2="265" stroke="#666" stroke-width="2" marker-end="url(#arrowhead2)"/>
+  <line x1="440" y1="220" x2="520" y2="265" stroke="#666" stroke-width="2" marker-end="url(#arrowhead2)"/>
+  
+  <!-- Snowflake to Atakama -->
+  <line x1="1020" y1="130" x2="1070" y2="140" stroke="#666" stroke-width="2" stroke-dasharray="5,5"/>
+  <line x1="1070" y1="150" x2="1020" y2="140" stroke="#666" stroke-width="2" stroke-dasharray="5,5"/>
+  
+  <!-- Snowflake to Consumption -->
+  <line x1="1020" y1="245" x2="1070" y2="245" stroke="#666" stroke-width="2" marker-end="url(#arrowhead2)"/>
+  <line x1="1020" y1="315" x2="1070" y2="315" stroke="#666" stroke-width="2" marker-end="url(#arrowhead2)"/>
+  <line x1="1020" y1="385" x2="1070" y2="385" stroke="#666" stroke-width="2" marker-end="url(#arrowhead2)"/>
+  <line x1="1020" y1="455" x2="1070" y2="455" stroke="#666" stroke-width="2" marker-end="url(#arrowhead2)"/>
+  <line x1="1020" y1="525" x2="1070" y2="525" stroke="#666" stroke-width="2" marker-end="url(#arrowhead2)"/>
+  
+  <!-- Consumption to Users -->
+  <line x1="1230" y1="245" x2="1260" y2="310" stroke="#666" stroke-width="2" marker-end="url(#arrowhead2)"/>
+  <line x1="1230" y1="315" x2="1260" y2="340" stroke="#666" stroke-width="2" marker-end="url(#arrowhead2)"/>
+  <line x1="1230" y1="385" x2="1260" y2="360" stroke="#666" stroke-width="2" marker-end="url(#arrowhead2)"/>
+  <line x1="1230" y1="455" x2="1260" y2="380" stroke="#666" stroke-width="2" marker-end="url(#arrowhead2)"/>
+  <line x1="1230" y1="525" x2="1260" y2="400" stroke="#666" stroke-width="2" marker-end="url(#arrowhead2)"/>
+  
+  <!-- Legend -->
+  <text x="50" y="680" font-size="14" font-weight="bold" fill="#333">Key Features:</text>
+  <text x="50" y="700" font-size="10" fill="#333">• Medallion Architecture (Bronze → Silver → Gold)</text>
+  <text x="50" y="715" font-size="10" fill="#333">• Multi-cluster warehouses for workload isolation</text>
+  <text x="50" y="730" font-size="10" fill="#333">• 5:1+ compression (~32TB from 160TB)</text>
+  <text x="50" y="745" font-size="10" fill="#333">• Storage: ~$8,800/year for all data</text>
+  <text x="50" y="760" font-size="10" fill="#333">• Zero-copy cloning for dev/test environments</text>
+  <text x="50" y="775" font-size="10" fill="#333">• Native CDC with OpenFlow</text>
+  <text x="50" y="790" font-size="10" fill="#333">• KPMG partnership for Phase 1 &amp; 2 migration</text>
+  
+  <text x="700" y="700" font-size="10" fill="#333">• Dynamic tables for real-time transformations</text>
+  <text x="700" y="715" font-size="10" fill="#333">• Integrated AI/ML for data products</text>
+  <text x="700" y="730" font-size="10" fill="#333">• Built-in governance with tags &amp; lineage</text>
+  <text x="700" y="745" font-size="10" fill="#333">• Time travel for data recovery</text>
+  <text x="700" y="760" font-size="10" fill="#333">• Secure data sharing for clients</text>
+  <text x="700" y="775" font-size="10" fill="#333">• Consumption-based pricing model</text>
+  <text x="700" y="790" font-size="10" fill="#333">• Cost monitoring &amp; resource management</text>
+</svg>
+

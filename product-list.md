@@ -2,7 +2,7 @@
   <img src="Snowflake_Logo.svg" alt="Snowflake Logo" width="400"/>
 </div>
 
-# Loretta Data Architecture - Complete Product List
+# Lereta Data Architecture - Complete Product List
 
 Based on meeting notes from November 5, 2025
 
@@ -16,7 +16,7 @@ Based on meeting notes from November 5, 2025
 - **SQL Server** - On-premises deployment
 - **Azure SQL** - Cloud-based SQL Server
   - **Elevate** - New front-end application replacing mainframe
-  - **LorettaNet Platform** - Core operational platform
+  - **LeretaNet Platform** - Core operational platform
 - **Oracle Database** - On-premises, limited use (<10-15 sources)
 - **Text Files** - Flat file sources for limited integrations
 
@@ -176,7 +176,7 @@ Based on meeting notes from November 5, 2025
 
 ### External / Custom
 
-- **Loretta GPT (Neo)** - Internal AI assistant
+- **Lereta GPT (Neo)** - Internal AI assistant
   - Collection of domain-aware models
   - Built with Claude models via GitHub
   - Hosted internally (not using public APIs)
@@ -204,7 +204,7 @@ Based on meeting notes from November 5, 2025
 
 - **Azure SQL** - Managed SQL Server
   - Elevate application backend
-  - LorettaNet platform
+  - LeretaNet platform
   
 - **Azure Blob Storage** - Object storage
   - Staging area for data integration

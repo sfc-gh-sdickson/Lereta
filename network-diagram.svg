@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <svg viewBox="0 0 1600 1200" xmlns="http://www.w3.org/2000/svg">
   <!-- Title -->
   <text x="800" y="40" font-size="24" font-weight="bold" text-anchor="middle" fill="#333">Lereta Data Platform - Network Diagram</text>
@@ -18,12 +19,6 @@
     <marker id="arrowpurple" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
       <polygon points="0 0, 10 3, 0 6" fill="#8B008B"/>
     </marker>
-    
-    <!-- Gradient for Snowflake -->
-    <radialGradient id="snowflakeGradient" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" style="stop-color:#E0F7FF;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#29B5E8;stop-opacity:1" />
-    </radialGradient>
   </defs>
   
   <!-- SOURCE SYSTEMS LAYER (Top Left) -->
@@ -76,7 +71,7 @@
   <!-- SNOWFLAKE PLATFORM (Center) -->
   <g id="snowflake">
     <!-- Main Snowflake Platform -->
-    <ellipse cx="800" cy="420" rx="180" ry="250" fill="url(#snowflakeGradient)" stroke="#29B5E8" stroke-width="4"/>
+    <ellipse cx="800" cy="420" rx="180" ry="250" fill="#B3E5FC" stroke="#29B5E8" stroke-width="4"/>
     <text x="800" y="220" font-size="18" font-weight="bold" text-anchor="middle" fill="#0277BD">SNOWFLAKE</text>
     <text x="800" y="242" font-size="11" text-anchor="middle" fill="#0277BD">Business Critical Edition</text>
     
@@ -192,7 +187,7 @@
     <rect x="900" y="900" width="130" height="70" rx="10" fill="#E8F5E9" stroke="#4CAF50" stroke-width="2"/>
     <text x="965" y="925" font-size="12" font-weight="bold" text-anchor="middle">KPMG</text>
     <text x="965" y="943" font-size="9" text-anchor="middle">Migration Partner</text>
-    <text x="965" y="958" font-size="8" text-anchor="middle">Phase 1 & 2</text>
+    <text x="965" y="958" font-size="8" text-anchor="middle">Phase 1 &amp; 2</text>
     
     <rect x="1050" y="900" width="130" height="70" rx="10" fill="#E8F5E9" stroke="#4CAF50" stroke-width="2"/>
     <text x="1115" y="925" font-size="12" font-weight="bold" text-anchor="middle">Snowflake PS</text>
@@ -248,7 +243,7 @@
     <rect x="68" y="970" width="24" height="20" rx="3" fill="#FFF4E6" stroke="#FF8C00" stroke-width="2"/>
     <text x="105" y="983" font-size="10">Integration/ETL</text>
     
-    <ellipse cx="80" cy="1015" rx="15" ry="12" fill="url(#snowflakeGradient)" stroke="#29B5E8" stroke-width="2"/>
+    <ellipse cx="80" cy="1015" rx="15" ry="12" fill="#B3E5FC" stroke="#29B5E8" stroke-width="2"/>
     <text x="105" y="1019" font-size="10">Snowflake Platform</text>
     
     <circle cx="80" cy="1045" r="12" fill="#F0E6FF" stroke="#8B008B" stroke-width="2"/>
@@ -286,4 +281,3 @@
   <!-- Footer -->
   <text x="800" y="1180" font-size="11" text-anchor="middle" fill="#666">Lereta Data Modernization Initiative | November 2025</text>
 </svg>
-

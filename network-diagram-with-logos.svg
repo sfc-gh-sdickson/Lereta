@@ -53,7 +53,7 @@
   <!-- Mainframe -->
   <g id="mainframe" filter="url(#shadow)">
     <rect x="80" y="170" width="200" height="80" fill="white" stroke="#5D6D7E" stroke-width="2" rx="8"/>
-    <image x="90" y="180" width="60" height="60" xlink:href="/Users/sdickson/TestCode/Logos/IBM Mainframe Logo.png"/>
+    <image x="90" y="180" width="60" height="60" xlink:href="logos/IBM Mainframe Logo.png"/>
     <text x="190" y="205" font-size="13" font-weight="bold" text-anchor="middle">IBM Mainframe</text>
     <text x="190" y="225" font-size="10" text-anchor="middle">Database</text>
     <text x="190" y="240" font-size="9" text-anchor="middle" fill="#7F8C8D">→ Linux/Containers</text>
@@ -62,7 +62,7 @@
   <!-- SQL Server -->
   <g id="sqlserver" filter="url(#shadow)">
     <rect x="80" y="270" width="200" height="80" fill="white" stroke="#5D6D7E" stroke-width="2" rx="8"/>
-    <image x="90" y="280" width="60" height="60" xlink:href="/Users/sdickson/TestCode/Logos/microsoft-sql-server-logo.svg"/>
+    <image x="90" y="280" width="60" height="60" xlink:href="logos/microsoft-sql-server-logo.svg"/>
     <text x="190" y="305" font-size="13" font-weight="bold" text-anchor="middle">SQL Server</text>
     <text x="190" y="325" font-size="10" text-anchor="middle">On-Premises</text>
   </g>
@@ -70,7 +70,7 @@
   <!-- Azure SQL -->
   <g id="azuresql" filter="url(#shadow)">
     <rect x="80" y="370" width="200" height="80" fill="white" stroke="#5D6D7E" stroke-width="2" rx="8"/>
-    <image x="90" y="380" width="60" height="60" xlink:href="/Users/sdickson/TestCode/Logos/Microsoft Azure SQL.png"/>
+    <image x="90" y="380" width="60" height="60" xlink:href="logos/Microsoft Azure SQL.png"/>
     <text x="190" y="400" font-size="13" font-weight="bold" text-anchor="middle">Azure SQL</text>
     <text x="190" y="418" font-size="9" text-anchor="middle">Elevate Platform</text>
     <text x="190" y="433" font-size="9" text-anchor="middle">LorettaNet</text>
@@ -79,7 +79,7 @@
   <!-- Oracle -->
   <g id="oracle" filter="url(#shadow)">
     <rect x="80" y="470" width="200" height="80" fill="white" stroke="#5D6D7E" stroke-width="2" rx="8"/>
-    <image x="90" y="480" width="60" height="60" xlink:href="/Users/sdickson/TestCode/Logos/Oracle_DB_Logo.svg"/>
+    <image x="90" y="480" width="60" height="60" xlink:href="logos/Oracle_DB_Logo.svg"/>
     <text x="190" y="505" font-size="13" font-weight="bold" text-anchor="middle">Oracle Database</text>
     <text x="190" y="525" font-size="10" text-anchor="middle">On-Premises (Limited)</text>
   </g>
@@ -100,7 +100,7 @@
     <text x="510" y="310" font-size="13" font-weight="bold" text-anchor="middle">SSIS</text>
     <text x="510" y="328" font-size="10" text-anchor="middle">Current ETL</text>
     <line x1="425" y1="345" x2="595" y2="345" stroke="#E67E22" stroke-width="2" stroke-dasharray="5,5"/>
-    <image x="430" y="355" width="40" height="35" xlink:href="/Users/sdickson/TestCode/Logos/OpenFlow_Logo.svg"/>
+    <image x="430" y="355" width="40" height="35" xlink:href="logos/OpenFlow_Logo.svg"/>
     <text x="535" y="370" font-size="13" font-weight="bold" text-anchor="middle">OpenFlow</text>
     <text x="535" y="388" font-size="10" text-anchor="middle">Future CDC</text>
   </g>
@@ -108,7 +108,7 @@
   <!-- Azure Cloud Storage -->
   <g id="azurestorage" filter="url(#shadow)">
     <rect x="410" y="420" width="200" height="90" fill="white" stroke="#E67E22" stroke-width="2" rx="8"/>
-    <image x="420" y="430" width="60" height="60" xlink:href="/Users/sdickson/TestCode/Logos/Azure Data Lake Storage.png"/>
+    <image x="420" y="430" width="60" height="60" xlink:href="logos/Azure Data Lake Storage.png"/>
     <text x="530" y="455" font-size="12" font-weight="bold" text-anchor="middle">Azure Cloud</text>
     <text x="530" y="473" font-size="10" text-anchor="middle">Blob / ADLS</text>
     <text x="530" y="490" font-size="9" text-anchor="middle" fill="#7F8C8D">Iceberg Tables</text>
@@ -120,7 +120,7 @@
     <rect x="740" y="160" width="340" height="460" fill="white" stroke="#29B5E8" stroke-width="3" rx="12"/>
     
     <!-- Snowflake Logo -->
-    <image x="850" y="175" width="120" height="40" xlink:href="/Users/sdickson/TestCode/Logos/Snowflake_Logo.svg"/>
+    <image x="850" y="175" width="120" height="40" xlink:href="logos/Snowflake_Logo.svg"/>
     <text x="910" y="235" font-size="11" text-anchor="middle" fill="#0277BD">Business Critical Edition</text>
     
     <!-- Medallion Architecture -->
@@ -178,7 +178,7 @@
   <!-- GOVERNANCE -->
   <g id="atacama" filter="url(#shadow)">
     <rect x="740" y="690" width="170" height="90" fill="white" stroke="#FF9800" stroke-width="2" rx="8"/>
-    <image x="750" y="700" width="60" height="60" xlink:href="/Users/sdickson/TestCode/Logos/atacama_logo.png"/>
+    <image x="750" y="700" width="60" height="60" xlink:href="logos/atacama_logo.png"/>
     <text x="865" y="720" font-size="12" font-weight="bold" text-anchor="middle">Atacama</text>
     <text x="865" y="738" font-size="9" text-anchor="middle">Data Quality</text>
     <text x="865" y="753" font-size="9" text-anchor="middle">Data Catalog</text>
@@ -189,7 +189,7 @@
   <!-- Power BI -->
   <g id="powerbi" filter="url(#shadow)">
     <rect x="1190" y="180" width="220" height="80" fill="white" stroke="#8B008B" stroke-width="2" rx="8"/>
-    <image x="1200" y="190" width="60" height="60" xlink:href="/Users/sdickson/TestCode/Logos/Powerbi logo.avif"/>
+    <image x="1200" y="190" width="60" height="60" xlink:href="logos/Powerbi logo.avif"/>
     <text x="1330" y="215" font-size="13" font-weight="bold" text-anchor="middle">Power BI</text>
     <text x="1330" y="235" font-size="10" text-anchor="middle">Live Query</text>
   </g>
@@ -197,7 +197,7 @@
   <!-- Snowflake Intelligence -->
   <g id="snowflake-intelligence" filter="url(#shadow)">
     <rect x="1190" y="280" width="220" height="80" fill="white" stroke="#8B008B" stroke-width="2" rx="8"/>
-    <image x="1200" y="290" width="50" height="50" xlink:href="/Users/sdickson/TestCode/Logos/Snowflake.svg"/>
+    <image x="1200" y="290" width="50" height="50" xlink:href="logos/Snowflake.svg"/>
     <text x="1330" y="310" font-size="12" font-weight="bold" text-anchor="middle">Snowflake</text>
     <text x="1330" y="328" font-size="12" font-weight="bold" text-anchor="middle">Intelligence</text>
     <text x="1330" y="346" font-size="9" text-anchor="middle">AI Agents / Cortex</text>
@@ -206,7 +206,7 @@
   <!-- Sigma Analytics -->
   <g id="sigma" filter="url(#shadow)">
     <rect x="1190" y="380" width="220" height="80" fill="white" stroke="#8B008B" stroke-width="2" rx="8"/>
-    <image x="1200" y="390" width="60" height="60" xlink:href="/Users/sdickson/TestCode/Logos/Sigma logo.png"/>
+    <image x="1200" y="390" width="60" height="60" xlink:href="logos/Sigma logo.png"/>
     <text x="1330" y="415" font-size="13" font-weight="bold" text-anchor="middle">Sigma Analytics</text>
     <text x="1330" y="435" font-size="10" text-anchor="middle">(Potential)</text>
   </g>
@@ -234,7 +234,7 @@
   <!-- PARTNERS (Bottom) -->
   <g id="kpmg" filter="url(#shadow)">
     <rect x="740" y="820" width="170" height="90" fill="white" stroke="#4CAF50" stroke-width="2" rx="8"/>
-    <image x="750" y="830" width="60" height="60" xlink:href="/Users/sdickson/TestCode/Logos/KPMG Logo.png"/>
+    <image x="750" y="830" width="60" height="60" xlink:href="logos/KPMG Logo.png"/>
     <text x="865" y="855" font-size="12" font-weight="bold" text-anchor="middle">KPMG</text>
     <text x="865" y="873" font-size="9" text-anchor="middle">Migration Partner</text>
     <text x="865" y="888" font-size="9" text-anchor="middle">$1.02M / 20-22 weeks</text>
@@ -317,7 +317,7 @@
   </g>
   
   <!-- Lereta Logo -->
-  <image x="1520" y="1310" width="220" height="60" xlink:href="/Users/sdickson/TestCode/Logos/LERETA_Logo_02_09_18.png"/>
+  <image x="1520" y="1310" width="220" height="60" xlink:href="logos/LERETA_Logo_02_09_18.png"/>
   
   <!-- Footer -->
   <text x="900" y="1380" font-size="12" text-anchor="middle" fill="#7F8C8D">Lereta Data Modernization Initiative | November 2025 | Powered by Snowflake</text>

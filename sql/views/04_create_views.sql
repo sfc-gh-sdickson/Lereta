@@ -419,7 +419,6 @@ WITH client_metrics AS (
         s.property_count_limit::FLOAT as property_count_limit,
         s.user_licenses::FLOAT as user_licenses,
         s.advanced_analytics,
-        s.subscription_status,
         DATEDIFF('day', s.start_date, COALESCE(s.end_date, CURRENT_DATE()))::FLOAT AS subscription_duration_days,
         COUNT(DISTINCT st.ticket_id)::FLOAT AS total_support_tickets,
         AVG(st.satisfaction_rating)::FLOAT AS avg_satisfaction_rating,
@@ -427,7 +426,17 @@ WITH client_metrics AS (
         SUM(CASE WHEN st.ticket_status = 'OPEN' THEN 1 ELSE 0 END)::FLOAT AS open_tickets,
         COUNT(DISTINCT t.transaction_id)::FLOAT AS total_transactions,
         SUM(t.total_amount)::FLOAT AS total_revenue,
-        AVG(t.total_amount)::FLOAT AS avg_transaction_amount
+        AVG(t.total_amount)::FLOAT AS avg_transaction_amount,
+        s.subscription_status,
+        -- Label Generation: Numeric churn risk (0=Low, 1=Medium, 2=High)
+        CASE 
+            WHEN s.subscription_status IN ('EXPIRED', 'PENDING_RENEWAL') 
+                OR c.service_quality_score < 80 
+                OR (DATEDIFF('day', CURRENT_DATE(), s.end_date) <= 30 AND s.subscription_status = 'ACTIVE') THEN 2
+            WHEN c.service_quality_score < 85 
+                OR (DATEDIFF('day', CURRENT_DATE(), s.end_date) <= 90 AND s.subscription_status = 'ACTIVE') THEN 1
+            ELSE 0
+        END as churn_risk_label
     FROM RAW.CLIENTS c
     LEFT JOIN RAW.SERVICE_SUBSCRIPTIONS s ON c.client_id = s.client_id
     LEFT JOIN RAW.SUPPORT_TICKETS st ON c.client_id = st.client_id

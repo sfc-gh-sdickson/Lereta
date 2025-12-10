@@ -147,13 +147,28 @@ CREATE OR REPLACE AGENT LERETA_INTELLIGENCE_AGENT
 
     # ML Function Resources
     PredictTaxDelinquencyRisk:
-      function: "LERETA_INTELLIGENCE.ML_MODELS.PREDICT_TAX_DELINQUENCY_RISK"
+      type: "function"
+      identifier: "LERETA_INTELLIGENCE.ML_MODELS.PREDICT_TAX_DELINQUENCY_RISK"
+      execution_environment:
+        type: "warehouse"
+        warehouse: "LERETA_WH"
+        query_timeout: 60
     
     PredictClientChurnRisk:
-      function: "LERETA_INTELLIGENCE.ML_MODELS.PREDICT_CLIENT_CHURN_RISK"
+      type: "function"
+      identifier: "LERETA_INTELLIGENCE.ML_MODELS.PREDICT_CLIENT_CHURN_RISK"
+      execution_environment:
+        type: "warehouse"
+        warehouse: "LERETA_WH"
+        query_timeout: 60
     
     ClassifyLoanRisk:
-      function: "LERETA_INTELLIGENCE.ML_MODELS.CLASSIFY_LOAN_RISK"
+      type: "function"
+      identifier: "LERETA_INTELLIGENCE.ML_MODELS.CLASSIFY_LOAN_RISK"
+      execution_environment:
+        type: "warehouse"
+        warehouse: "LERETA_WH"
+        query_timeout: 60
   $$;
 
 -- ============================================================================

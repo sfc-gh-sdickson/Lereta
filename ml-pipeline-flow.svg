@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400">
+  <defs>
+    <linearGradient id="mlgrad1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#6FCF97;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#27AE60;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="mlgrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#F2994A;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#EB5757;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Title -->
+  <text x="450" y="30" font-family="Arial, sans-serif" font-size="22" font-weight="bold" text-anchor="middle" fill="#333">
+    ML Model Pipeline
+  </text>
+  
+  <!-- Step 1: Data Preparation -->
+  <rect x="50" y="80" width="180" height="240" rx="10" fill="url(#mlgrad1)" opacity="0.15" stroke="#27AE60" stroke-width="2"/>
+  <text x="140" y="105" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#27AE60">
+    1. Data Preparation
+  </text>
+  
+  <rect x="70" y="120" width="140" height="50" rx="5" fill="white" stroke="#27AE60" stroke-width="1.5"/>
+  <text x="140" y="140" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#333">
+    Synthetic Data
+  </text>
+  <text x="140" y="155" font-family="Arial, sans-serif" font-size="9" text-anchor="middle" fill="#666">
+    10K clients, 500K properties
+  </text>
+  
+  <text x="140" y="185" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="#666">
+    ↓
+  </text>
+  
+  <rect x="70" y="195" width="140" height="50" rx="5" fill="white" stroke="#27AE60" stroke-width="1.5"/>
+  <text x="140" y="215" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#333">
+    Feature Engineering
+  </text>
+  <text x="140" y="230" font-family="Arial, sans-serif" font-size="9" text-anchor="middle" fill="#666">
+    18-23 features per model
+  </text>
+  
+  <text x="140" y="260" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="#666">
+    ↓
+  </text>
+  
+  <rect x="70" y="270" width="140" height="40" rx="5" fill="white" stroke="#27AE60" stroke-width="1.5"/>
+  <text x="140" y="290" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#333">
+    Train/Test Split
+  </text>
+  <text x="140" y="302" font-family="Arial, sans-serif" font-size="9" text-anchor="middle" fill="#666">
+    80/20 split
+  </text>
+  
+  <!-- Arrow to Step 2 -->
+  <line x1="230" y1="200" x2="280" y2="200" stroke="#666" stroke-width="2" marker-end="url(#arrowgray)"/>
+  
+  <!-- Step 2: Model Training -->
+  <rect x="280" y="80" width="180" height="240" rx="10" fill="url(#mlgrad2)" opacity="0.15" stroke="#EB5757" stroke-width="2"/>
+  <text x="370" y="105" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#EB5757">
+    2. Model Training
+  </text>
+  
+  <rect x="300" y="120" width="140" height="50" rx="5" fill="white" stroke="#EB5757" stroke-width="1.5"/>
+  <text x="370" y="135" font-family="Arial, sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="#333">
+    Tax Delinquency
+  </text>
+  <text x="370" y="149" font-family="Arial, sans-serif" font-size="9" text-anchor="middle" fill="#666">
+    Random Forest
+  </text>
+  <text x="370" y="161" font-family="Arial, sans-serif" font-size="8" text-anchor="middle" fill="#999">
+    F1: 0.85 | Recall: 0.82
+  </text>
+  
+  <rect x="300" y="180" width="140" height="50" rx="5" fill="white" stroke="#EB5757" stroke-width="1.5"/>
+  <text x="370" y="195" font-family="Arial, sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="#333">
+    Client Churn
+  </text>
+  <text x="370" y="209" font-family="Arial, sans-serif" font-size="9" text-anchor="middle" fill="#666">
+    XGBoost
+  </text>
+  <text x="370" y="221" font-family="Arial, sans-serif" font-size="8" text-anchor="middle" fill="#999">
+    F1: 0.78 | Recall: 0.75
+  </text>
+  
+  <rect x="300" y="240" width="140" height="50" rx="5" fill="white" stroke="#EB5757" stroke-width="1.5"/>
+  <text x="370" y="255" font-family="Arial, sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="#333">
+    Loan Risk
+  </text>
+  <text x="370" y="269" font-family="Arial, sans-serif" font-size="9" text-anchor="middle" fill="#666">
+    Random Forest
+  </text>
+  <text x="370" y="281" font-family="Arial, sans-serif" font-size="8" text-anchor="middle" fill="#999">
+    Accuracy: 0.89
+  </text>
+  
+  <text x="370" y="305" font-family="Arial, sans-serif" font-size="9" text-anchor="middle" fill="#666">
+    Snowflake ML + Snowpark
+  </text>
+  
+  <!-- Arrow to Step 3 -->
+  <line x1="460" y1="200" x2="510" y2="200" stroke="#666" stroke-width="2" marker-end="url(#arrowgray)"/>
+  
+  <!-- Step 3: Model Registry -->
+  <rect x="510" y="80" width="160" height="240" rx="10" fill="#29B5E8" opacity="0.1" stroke="#29B5E8" stroke-width="2"/>
+  <text x="590" y="105" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#29B5E8">
+    3. Model Registry
+  </text>
+  
+  <rect x="530" y="130" width="120" height="45" rx="5" fill="white" stroke="#29B5E8" stroke-width="1.5"/>
+  <text x="590" y="147" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="#333">
+    Model Versioning
+  </text>
+  <text x="590" y="163" font-family="Arial, sans-serif" font-size="8" text-anchor="middle" fill="#666">
+    v1, v2, v3...
+  </text>
+  
+  <rect x="530" y="185" width="120" height="45" rx="5" fill="white" stroke="#29B5E8" stroke-width="1.5"/>
+  <text x="590" y="202" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="#333">
+    Metadata
+  </text>
+  <text x="590" y="218" font-family="Arial, sans-serif" font-size="8" text-anchor="middle" fill="#666">
+    Metrics, Features
+  </text>
+  
+  <rect x="530" y="240" width="120" height="45" rx="5" fill="white" stroke="#29B5E8" stroke-width="1.5"/>
+  <text x="590" y="257" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="#333">
+    Model Artifacts
+  </text>
+  <text x="590" y="273" font-family="Arial, sans-serif" font-size="8" text-anchor="middle" fill="#666">
+    Serialized Models
+  </text>
+  
+  <!-- Arrow to Step 4 -->
+  <line x1="670" y1="200" x2="720" y2="200" stroke="#666" stroke-width="2" marker-end="url(#arrowgray)"/>
+  
+  <!-- Step 4: Deployment -->
+  <rect x="720" y="80" width="140" height="240" rx="10" fill="#6FCF97" opacity="0.15" stroke="#27AE60" stroke-width="2"/>
+  <text x="790" y="105" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#27AE60">
+    4. Deployment
+  </text>
+  
+  <rect x="735" y="130" width="110" height="40" rx="5" fill="white" stroke="#27AE60" stroke-width="1.5"/>
+  <text x="790" y="147" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="#333">
+    SQL UDFs
+  </text>
+  <text x="790" y="160" font-family="Arial, sans-serif" font-size="8" text-anchor="middle" fill="#666">
+    PREDICT_*()
+  </text>
+  
+  <rect x="735" y="180" width="110" height="40" rx="5" fill="white" stroke="#27AE60" stroke-width="1.5"/>
+  <text x="790" y="197" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="#333">
+    Feature Views
+  </text>
+  <text x="790" y="210" font-family="Arial, sans-serif" font-size="8" text-anchor="middle" fill="#666">
+    V_*_FEATURES
+  </text>
+  
+  <rect x="735" y="230" width="110" height="40" rx="5" fill="white" stroke="#27AE60" stroke-width="1.5"/>
+  <text x="790" y="247" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="#333">
+    AI Agent
+  </text>
+  <text x="790" y="260" font-family="Arial, sans-serif" font-size="8" text-anchor="middle" fill="#666">
+    Integration
+  </text>
+  
+  <text x="790" y="290" font-family="Arial, sans-serif" font-size="9" text-anchor="middle" fill="#666">
+    Production Ready
+  </text>
+  
+  <!-- Bottom timeline -->
+  <line x1="50" y1="350" x2="860" y2="350" stroke="#CCC" stroke-width="2"/>
+  <text x="140" y="370" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="#666">
+    15-30 min
+  </text>
+  <text x="370" y="370" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="#666">
+    10-20 min
+  </text>
+  <text x="590" y="370" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="#666">
+    &lt; 1 min
+  </text>
+  <text x="790" y="370" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="#666">
+    5-10 min
+  </text>
+  
+  <!-- Arrow marker -->
+  <defs>
+    <marker id="arrowgray" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#666" />
+    </marker>
+  </defs>
+</svg>
+

@@ -1,8 +1,8 @@
-<img src="..\Snowflake_Logo.svg" width="200">
+<img src="../Snowflake_Logo.svg" width="200">
 
-# Lereta Intelligence Agent - Complex Questions
+# Lereta Intelligence Agent - Sample Questions
 
-These 10 complex questions demonstrate the intelligence agent's ability to analyze Lereta's tax monitoring, flood certification, loan portfolio, revenue metrics, and support operations across multiple dimensions.
+This guide demonstrates the agent's comprehensive capabilities across structured analytics, unstructured document search, and machine learning predictions. Questions are organized by intelligence type and business function.
 
 ---
 
@@ -293,29 +293,221 @@ These questions test the agent's ability to search and retrieve insights from un
 
 ---
 
-## Question Complexity Summary
+---
 
-These questions test the agent's ability to:
+## Machine Learning Predictions
 
+These questions demonstrate the agent's predictive analytics capabilities using trained ML models.
+
+### 21. Tax Delinquency Prediction (Preventive Action)
+
+**Question:** "Predict which properties will become delinquent on property taxes in the next 90 days. Show properties predicted as high risk with days since last payment over 60, breakdown by client type, and estimated penalty amounts if delinquency occurs."
+
+**Why Complex:**
+- ML model prediction integration
+- Risk level classification
+- Time-based filtering
+- Client segmentation
+- Financial impact calculation
+
+**Data Sources:** V_TAX_DELINQUENCY_FEATURES, PREDICT_TAX_DELINQUENCY()
+
+**Business Value:** Prevent $500-$5,000 in penalties per property through proactive intervention
+
+---
+
+### 22. Client Churn Risk Assessment
+
+**Question:** "Identify clients at high risk of canceling their subscriptions. Show clients with churn probability over 70%, their lifetime value, key risk factors (support tickets, satisfaction ratings, usage patterns), and recommended retention actions."
+
+**Why Complex:**
+- ML churn prediction
+- Risk factor extraction
+- Lifetime value prioritization
+- Actionable recommendation generation
+- Multi-dimensional analysis
+
+**Data Sources:** V_CLIENT_CHURN_FEATURES, PREDICT_CLIENT_CHURN()
+
+**Business Value:** Retain clients worth $50K-$5M in lifetime value
+
+---
+
+### 23. Loan Risk Classification (Portfolio Monitoring)
+
+**Question:** "Classify all active loans by risk level (LOW/MEDIUM/HIGH). Show high-risk loans by state, breakdown by risk factors (flood zones, tax delinquency, LTV ratio), and recommended monitoring actions for each risk category."
+
+**Why Complex:**
+- Multi-class ML classification
+- Risk factor identification
+- Geographic segmentation
+- Recommendation engine
+- Priority-based actionability
+
+**Data Sources:** V_LOAN_RISK_FEATURES, CLASSIFY_LOAN_RISK()
+
+**Business Value:** Reduce monitoring costs 30-50% through risk-based prioritization
+
+---
+
+### 24. Predictive Tax Compliance Analysis
+
+**Question:** "For properties with tax amounts over $10,000, predict delinquency risk and search tax dispute documents for similar cases. What resolution strategies were successful? What proactive steps should we recommend?"
+
+**Why Complex:**
+- ML prediction + document search hybrid
+- Financial threshold filtering
+- Historical pattern matching
+- Success factor extraction
+- Proactive recommendation synthesis
+
+**Data Sources:** V_TAX_DELINQUENCY_FEATURES, PREDICT_TAX_DELINQUENCY(), TAX_DISPUTE_DOCUMENTS_SEARCH
+
+**Business Value:** Prevent high-value delinquencies with documented resolution strategies
+
+---
+
+### 25. Client Retention Campaign Targeting
+
+**Question:** "Identify clients predicted to churn in next 6 months with lifetime value over $100K. What are their support transcript patterns? What concerns have they raised? Design a targeted retention campaign."
+
+**Why Complex:**
+- ML churn prediction with filters
+- Value-based prioritization
+- Support transcript analysis
+- Concern pattern identification
+- Campaign strategy design
+
+**Data Sources:** V_CLIENT_CHURN_FEATURES, PREDICT_CLIENT_CHURN(), SUPPORT_TRANSCRIPTS_SEARCH
+
+**Business Value:** Targeted retention for highest-value clients
+
+---
+
+### 26. High-Risk Loan Portfolio Review
+
+**Question:** "Show loans classified as HIGH risk with predicted tax delinquency. Include property details, borrower names, current tax status, flood zone requirements, and search for similar cases in support transcripts. What intervention steps are recommended?"
+
+**Why Complex:**
+- Dual ML predictions (risk + delinquency)
+- Multi-dimensional data enrichment
+- Historical case retrieval
+- Intervention recommendation
+- Comprehensive risk assessment
+
+**Data Sources:** V_LOAN_RISK_FEATURES, V_TAX_DELINQUENCY_FEATURES, CLASSIFY_LOAN_RISK(), PREDICT_TAX_DELINQUENCY(), SUPPORT_TRANSCRIPTS_SEARCH
+
+**Business Value:** Comprehensive risk management with documented intervention strategies
+
+---
+
+### 27. Predictive Client Health Dashboard
+
+**Question:** "Create a health dashboard for top 50 clients by revenue. Include: predicted churn probability, high-risk loan count, properties with predicted tax delinquency, support satisfaction ratings, and renewal likelihood. Which clients need immediate attention?"
+
+**Why Complex:**
+- Multiple ML predictions per client
+- Revenue-based ranking
+- Cross-functional health metrics
+- Priority alert generation
+- Executive dashboard synthesis
+
+**Data Sources:** All feature views, all ML functions, semantic views
+
+**Business Value:** Executive visibility into client portfolio health
+
+---
+
+### 28. Proactive Risk Mitigation Strategy
+
+**Question:** "For loans classified as MEDIUM or HIGH risk, predict tax delinquency probability. Show breakdown by flood zone and tax jurisdiction. Search flood reports and tax dispute documents for relevant guidance. Create a prioritized action plan."
+
+**Why Complex:**
+- Risk classification filtering
+- Delinquency prediction layering
+- Multi-dimensional breakdown
+- Document guidance retrieval
+- Action plan prioritization
+
+**Data Sources:** CLASSIFY_LOAN_RISK(), PREDICT_TAX_DELINQUENCY(), FLOOD_DETERMINATION_REPORTS_SEARCH, TAX_DISPUTE_DOCUMENTS_SEARCH
+
+**Business Value:** Data-driven risk mitigation with regulatory guidance
+
+---
+
+### 29. ML Model Performance Validation
+
+**Question:** "For properties that became delinquent last quarter, what was the prediction accuracy? Show prediction vs. actual delinquency by state and property type. Identify where the model performs best and where it needs improvement."
+
+**Why Complex:**
+- Historical prediction validation
+- Accuracy calculation
+- Segmented performance analysis
+- Model quality assessment
+- Improvement area identification
+
+**Data Sources:** V_TAX_DELINQUENCY_FEATURES, PREDICT_TAX_DELINQUENCY(), TAX_RECORDS
+
+**Business Value:** Continuous model improvement and trust building
+
+---
+
+### 30. Comprehensive Risk Intelligence Report
+
+**Question:** "Generate a complete risk intelligence report combining: 1) Predicted tax delinquencies by client, 2) Clients at risk of churning, 3) High-risk loan portfolio summary, 4) Support transcript analysis of common issues, 5) Flood insurance compliance gaps. Prioritize by financial impact and urgency."
+
+**Why Complex:**
+- All three ML models
+- Document search integration
+- Financial impact quantification
+- Priority ranking algorithm
+- Executive report synthesis
+- Multi-source intelligence fusion
+
+**Data Sources:** All ML functions, all search services, all semantic views
+
+**Business Value:** Comprehensive risk management for C-level decision making
+
+---
+
+## Question Complexity & Capabilities Summary
+
+The Lereta Intelligence Agent handles complex queries across three intelligence types:
+
+### Structured Analytics (Cortex Analyst)
 1. **Multi-table joins** - connecting clients, properties, loans, tax records, flood certifications
 2. **Temporal analysis** - delinquency tracking, trend analysis, expiration monitoring
 3. **Segmentation & classification** - client types, property types, flood zones
 4. **Derived metrics** - rates, percentages, ratios, growth calculations
-5. **Risk assessment** - delinquency risk, flood risk, churn risk
-6. **Pattern recognition** - support issues, tax disputes, resolution strategies
-7. **Comparative analysis** - benchmarking, performance comparison, rankings
-8. **Opportunity identification** - cross-sell, at-risk clients, service gaps
-9. **Aggregation at multiple levels** - property, loan, client, jurisdiction
-10. **Quality metrics** - satisfaction ratings, resolution times, service quality scores
-11. **Semantic search** - understanding intent in unstructured data
-12. **Information synthesis** - combining insights from multiple sources
+5. **Aggregation at multiple levels** - property, loan, client, jurisdiction
 
-These questions reflect realistic business intelligence needs for Lereta's tax monitoring, flood certification, and compliance operations.
+### Unstructured Search (Cortex Search)
+6. **Semantic search** - understanding intent in unstructured data
+7. **Pattern recognition** - support issues, tax disputes, resolution strategies
+8. **Information retrieval** - finding relevant procedures and documentation
+9. **Historical context** - learning from past successful resolutions
+10. **Best practice extraction** - identifying what works
+
+### Predictive Analytics (ML Models)
+11. **Risk prediction** - tax delinquency, client churn, loan risk classification
+12. **Risk factor identification** - explaining what drives predictions
+13. **Proactive recommendations** - suggesting preventive actions
+14. **Model performance** - validation and continuous improvement
+15. **Financial impact quantification** - calculating business value
+
+### Hybrid Intelligence
+16. **Multi-source synthesis** - combining predictions with documents
+17. **Contextual enrichment** - enhancing predictions with historical data
+18. **Comprehensive reporting** - executive-level intelligence fusion
+19. **Priority ranking** - sorting by business impact and urgency
+20. **Actionable insights** - converting analysis into specific next steps
+
+These 30 questions reflect realistic business intelligence needs for Lereta's tax monitoring, flood certification, and compliance operations, spanning descriptive analytics, diagnostic search, and predictive modeling.
 
 ---
 
-**Version:** 1.0  
 **Created:** October 2025  
-**Based on:** MedTrainer Intelligence Template
+**Based on:** Microchip Intelligence Template  
+**Intelligence Types:** Structured Analytics • Semantic Search • Predictive ML
 
 

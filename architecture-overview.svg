@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#29B5E8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1E88C7;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="grad2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#56CCF2;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2F80ED;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="grad3" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#6FCF97;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#27AE60;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Title -->
+  <text x="400" y="30" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#333">
+    Lereta Intelligence Agent Architecture
+  </text>
+  
+  <!-- Agent Container -->
+  <rect x="50" y="60" width="700" height="380" rx="10" fill="none" stroke="#29B5E8" stroke-width="3"/>
+  <text x="400" y="85" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#29B5E8">
+    Snowflake Intelligence Agent
+  </text>
+  
+  <!-- Cortex Analyst Box -->
+  <rect x="70" y="110" width="200" height="120" rx="8" fill="url(#grad1)" opacity="0.9"/>
+  <text x="170" y="135" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="white">
+    Cortex Analyst
+  </text>
+  <text x="170" y="155" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="white">
+    Structured Data Analytics
+  </text>
+  <text x="170" y="180" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="white">
+    • Property/Loan/Tax Intelligence
+  </text>
+  <text x="170" y="195" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="white">
+    • Subscription/Revenue Intelligence
+  </text>
+  <text x="170" y="210" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="white">
+    • Client Support Intelligence
+  </text>
+  
+  <!-- Cortex Search Box -->
+  <rect x="300" y="110" width="200" height="120" rx="8" fill="url(#grad2)" opacity="0.9"/>
+  <text x="400" y="135" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="white">
+    Cortex Search
+  </text>
+  <text x="400" y="155" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="white">
+    Unstructured Data Search
+  </text>
+  <text x="400" y="180" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="white">
+    • Support Transcripts (25K)
+  </text>
+  <text x="400" y="195" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="white">
+    • Tax Dispute Documents (15K)
+  </text>
+  <text x="400" y="210" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="white">
+    • Flood Reports (20K)
+  </text>
+  
+  <!-- ML Models Box -->
+  <rect x="530" y="110" width="200" height="120" rx="8" fill="url(#grad3)" opacity="0.9"/>
+  <text x="630" y="135" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="white">
+    ML Models
+  </text>
+  <text x="630" y="155" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="white">
+    Predictive Analytics
+  </text>
+  <text x="630" y="180" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="white">
+    • Tax Delinquency Predictor
+  </text>
+  <text x="630" y="195" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="white">
+    • Client Churn Predictor
+  </text>
+  <text x="630" y="210" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="white">
+    • Loan Risk Classifier
+  </text>
+  
+  <!-- Arrows from components to data layer -->
+  <line x1="170" y1="230" x2="170" y2="270" stroke="#29B5E8" stroke-width="2" marker-end="url(#arrowblue)"/>
+  <line x1="400" y1="230" x2="400" y2="270" stroke="#56CCF2" stroke-width="2" marker-end="url(#arrowblue)"/>
+  <line x1="630" y1="230" x2="630" y2="270" stroke="#6FCF97" stroke-width="2" marker-end="url(#arrowblue)"/>
+  
+  <!-- Data Layer Box -->
+  <rect x="70" y="270" width="660" height="150" rx="8" fill="#F8F9FA" stroke="#666" stroke-width="2"/>
+  <text x="400" y="295" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#333">
+    Snowflake Data Platform
+  </text>
+  
+  <!-- Left Column - Tables -->
+  <text x="85" y="320" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#555">
+    RAW Schema (24 Tables):
+  </text>
+  <text x="85" y="340" font-family="Arial, sans-serif" font-size="9" fill="#666">
+    • Clients (10K records)
+  </text>
+  <text x="85" y="355" font-family="Arial, sans-serif" font-size="9" fill="#666">
+    • Properties (500K)
+  </text>
+  <text x="85" y="370" font-family="Arial, sans-serif" font-size="9" fill="#666">
+    • Loans (750K)
+  </text>
+  <text x="85" y="385" font-family="Arial, sans-serif" font-size="9" fill="#666">
+    • Tax Records (2M)
+  </text>
+  <text x="85" y="400" font-family="Arial, sans-serif" font-size="9" fill="#666">
+    • Flood Certifications (500K)
+  </text>
+  
+  <!-- Middle Column - Views -->
+  <text x="280" y="320" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#555">
+    ANALYTICS Schema:
+  </text>
+  <text x="280" y="340" font-family="Arial, sans-serif" font-size="9" fill="#666">
+    • Semantic Views (3)
+  </text>
+  <text x="280" y="355" font-family="Arial, sans-serif" font-size="9" fill="#666">
+    • Analytical Views (8)
+  </text>
+  <text x="280" y="370" font-family="Arial, sans-serif" font-size="9" fill="#666">
+    • Feature Views (3)
+  </text>
+  <text x="280" y="385" font-family="Arial, sans-serif" font-size="9" fill="#666">
+    • ML Functions (3)
+  </text>
+  
+  <!-- Right Column - Services -->
+  <text x="490" y="320" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#555">
+    Services:
+  </text>
+  <text x="490" y="340" font-family="Arial, sans-serif" font-size="9" fill="#666">
+    • Cortex Search (3)
+  </text>
+  <text x="490" y="355" font-family="Arial, sans-serif" font-size="9" fill="#666">
+    • ML Model Registry
+  </text>
+  <text x="490" y="370" font-family="Arial, sans-serif" font-size="9" fill="#666">
+    • Change Data Capture
+  </text>
+  <text x="490" y="385" font-family="Arial, sans-serif" font-size="9" fill="#666">
+    • LERETA_WH Warehouse
+  </text>
+  
+  <!-- Bottom - User Interaction -->
+  <rect x="200" y="470" width="400" height="60" rx="8" fill="#29B5E8" opacity="0.1" stroke="#29B5E8" stroke-width="2"/>
+  <text x="400" y="495" font-family="Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#29B5E8">
+    Natural Language Queries
+  </text>
+  <text x="400" y="515" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="#666">
+    "Which properties are predicted to become delinquent on taxes?"
+  </text>
+  
+  <!-- Arrow from user to agent -->
+  <line x1="400" y1="470" x2="400" y2="445" stroke="#29B5E8" stroke-width="2" marker-end="url(#arrowblue)"/>
+  
+  <!-- Arrow marker definition -->
+  <defs>
+    <marker id="arrowblue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#29B5E8" />
+    </marker>
+  </defs>
+  
+  <!-- Bottom stats -->
+  <text x="400" y="570" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="#999">
+    Integrated Intelligence: Structured Analytics • Semantic Search • Predictive ML
+  </text>
+</svg>
+

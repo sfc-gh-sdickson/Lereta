@@ -28,14 +28,12 @@ $$
     FROM (
         SELECT 
             TAX_DELINQUENCY_PREDICTOR!PREDICT(
-                property_type, assessed_value, flood_zone, tax_amount, tax_rate,
-                jurisdiction_type, penalty_amount, days_since_due, days_since_last_payment,
-                loan_type, loan_amount, escrow_account, loan_status, client_type,
-                service_quality_score, client_status, has_unpaid_taxes, current_paid_status
+                PROPERTY_TYPE, ASSESSED_VALUE, FLOOD_ZONE, TAX_AMOUNT, TAX_RATE,
+                JURISDICTION_TYPE, PENALTY_AMOUNT, DAYS_SINCE_DUE, DAYS_SINCE_LAST_PAYMENT,
+                LOAN_TYPE, LOAN_AMOUNT, ESCROW_ACCOUNT, LOAN_STATUS, CLIENT_TYPE,
+                SERVICE_QUALITY_SCORE, CLIENT_STATUS, HAS_UNPAID_TAXES, CURRENT_PAID_STATUS
             ) as pred
-        FROM LERETA_INTELLIGENCE.ANALYTICS.V_TAX_DELINQUENCY_FEATURES f
-        JOIN LERETA_INTELLIGENCE.RAW.PROPERTIES p ON f.tax_record_id = p.property_id
-        WHERE property_state_filter IS NULL OR p.property_state = property_state_filter
+        FROM LERETA_INTELLIGENCE.ANALYTICS.V_TAX_DELINQUENCY_FEATURES
         LIMIT 100
     )
 $$;
@@ -53,20 +51,21 @@ AS
 $$
     SELECT 
         'Total Clients: ' || COUNT(*) ||
-        ', Active: ' || SUM(CASE WHEN pred:PREDICTED_STATUS = 'ACTIVE' THEN 1 ELSE 0 END) ||
-        ', At Risk: ' || SUM(CASE WHEN pred:PREDICTED_STATUS IN ('EXPIRED', 'PENDING_RENEWAL') THEN 1 ELSE 0 END)
+        ', Low Risk: ' || SUM(CASE WHEN pred:PREDICTED_RISK::INT = 0 THEN 1 ELSE 0 END) ||
+        ', Medium Risk: ' || SUM(CASE WHEN pred:PREDICTED_RISK::INT = 1 THEN 1 ELSE 0 END) ||
+        ', High Risk: ' || SUM(CASE WHEN pred:PREDICTED_RISK::INT = 2 THEN 1 ELSE 0 END)
     FROM (
         SELECT 
             CLIENT_CHURN_PREDICTOR!PREDICT(
-                client_type, service_quality_score, total_properties, lifetime_value,
-                months_as_client, service_type, subscription_tier, billing_cycle,
-                monthly_price, property_count_limit, user_licenses, advanced_analytics,
-                subscription_duration_days, total_support_tickets, avg_satisfaction_rating,
-                avg_resolution_time, open_tickets, total_transactions, total_revenue,
-                avg_transaction_amount
+                CLIENT_TYPE, SERVICE_QUALITY_SCORE, TOTAL_PROPERTIES, LIFETIME_VALUE,
+                MONTHS_AS_CLIENT, SERVICE_TYPE, SUBSCRIPTION_TIER, BILLING_CYCLE,
+                MONTHLY_PRICE, PROPERTY_COUNT_LIMIT, USER_LICENSES, ADVANCED_ANALYTICS,
+                SUBSCRIPTION_DURATION_DAYS, TOTAL_SUPPORT_TICKETS, AVG_SATISFACTION_RATING,
+                AVG_RESOLUTION_TIME, OPEN_TICKETS, TOTAL_TRANSACTIONS, TOTAL_REVENUE,
+                AVG_TRANSACTION_AMOUNT
             ) as pred
         FROM LERETA_INTELLIGENCE.ANALYTICS.V_CLIENT_CHURN_FEATURES
-        WHERE client_type_filter IS NULL OR client_type = client_type_filter
+        WHERE client_type_filter IS NULL OR CLIENT_TYPE = client_type_filter
         LIMIT 100
     )
 $$;
@@ -90,14 +89,14 @@ $$
     FROM (
         SELECT 
             LOAN_RISK_CLASSIFIER!PREDICT(
-                loan_type, loan_amount, loan_status, escrow_account, loan_age_months,
-                loan_to_value_ratio, property_type, assessed_value, flood_zone,
-                property_state, insurance_required, life_of_loan_tracking, high_flood_risk,
-                tax_amount, delinquent, penalty_amount, tax_rate, jurisdiction_type,
-                tax_paid_on_time, days_payment_delay, client_type, service_quality_score
+                LOAN_TYPE, LOAN_AMOUNT, LOAN_STATUS, ESCROW_ACCOUNT, LOAN_AGE_MONTHS,
+                LOAN_TO_VALUE_RATIO, PROPERTY_TYPE, ASSESSED_VALUE, FLOOD_ZONE,
+                PROPERTY_STATE, INSURANCE_REQUIRED, LIFE_OF_LOAN_TRACKING, HIGH_FLOOD_RISK,
+                TAX_AMOUNT, DELINQUENT, PENALTY_AMOUNT, TAX_RATE, JURISDICTION_TYPE,
+                TAX_PAID_ON_TIME, DAYS_PAYMENT_DELAY, CLIENT_TYPE, SERVICE_QUALITY_SCORE
             ) as pred
         FROM LERETA_INTELLIGENCE.ANALYTICS.V_LOAN_RISK_FEATURES
-        WHERE loan_type_filter IS NULL OR loan_type = loan_type_filter
+        WHERE loan_type_filter IS NULL OR LOAN_TYPE = loan_type_filter
         LIMIT 100
     )
 $$;

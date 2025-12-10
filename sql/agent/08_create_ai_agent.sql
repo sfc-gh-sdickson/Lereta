@@ -83,7 +83,7 @@ CREATE OR REPLACE AGENT LERETA_INTELLIGENCE_AGENT
 
     # ML Model Functions
     - tool_spec:
-        type: "function"
+        type: "generic"
         name: "PredictTaxDelinquencyRisk"
         description: "Predicts tax delinquency risk for properties. Returns risk distribution. Use when users ask to predict delinquencies, assess tax payment risk, or identify at-risk properties. Input: property_state filter or NULL for all."
         input_schema:
@@ -95,7 +95,7 @@ CREATE OR REPLACE AGENT LERETA_INTELLIGENCE_AGENT
           required: []
 
     - tool_spec:
-        type: "function"
+        type: "generic"
         name: "PredictClientChurnRisk"
         description: "Predicts client churn risk. Returns distribution of active vs at-risk clients. Use when users ask about client retention, churn prediction, or at-risk accounts. Input: client_type filter or NULL."
         input_schema:
@@ -107,7 +107,7 @@ CREATE OR REPLACE AGENT LERETA_INTELLIGENCE_AGENT
           required: []
 
     - tool_spec:
-        type: "function"
+        type: "generic"
         name: "ClassifyLoanRisk"
         description: "Classifies loans by risk level (LOW/MEDIUM/HIGH). Returns risk distribution. Use when users ask about loan risk classification, portfolio risk assessment, or risk-based prioritization. Input: loan_type filter or NULL."
         input_schema:

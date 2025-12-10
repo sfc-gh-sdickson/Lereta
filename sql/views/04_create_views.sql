@@ -368,7 +368,115 @@ GROUP BY
     mc.campaign_status, mc.created_at;
 
 -- ============================================================================
+-- ML Feature Views (for model training)
+-- ============================================================================
+
+-- Tax Delinquency Prediction Features
+CREATE OR REPLACE VIEW V_TAX_DELINQUENCY_FEATURES AS
+SELECT 
+    t.tax_record_id,
+    t.delinquent AS actual_delinquent,
+    p.property_type,
+    p.assessed_value,
+    p.flood_zone,
+    t.tax_amount,
+    tj.tax_rate,
+    tj.jurisdiction_type,
+    t.penalty_amount,
+    DATEDIFF('day', t.due_date, CURRENT_DATE()) AS days_since_due,
+    DATEDIFF('day', COALESCE(t.payment_date, CURRENT_DATE()), CURRENT_DATE()) AS days_since_last_payment,
+    l.loan_type,
+    l.loan_amount,
+    l.escrow_account,
+    l.loan_status,
+    c.client_type,
+    c.service_quality_score,
+    c.client_status,
+    CASE WHEN t.payment_date IS NULL THEN 1 ELSE 0 END AS has_unpaid_taxes,
+    CASE WHEN t.payment_status = 'PAID' THEN 1 ELSE 0 END AS current_paid_status
+FROM RAW.TAX_RECORDS t
+JOIN RAW.PROPERTIES p ON t.property_id = p.property_id
+JOIN RAW.LOANS l ON t.loan_id = l.loan_id
+JOIN RAW.CLIENTS c ON t.client_id = c.client_id
+JOIN RAW.TAX_JURISDICTIONS tj ON t.jurisdiction_id = tj.jurisdiction_id
+WHERE p.property_status = 'ACTIVE'
+    AND l.loan_status = 'ACTIVE';
+
+-- Client Churn Prediction Features
+CREATE OR REPLACE VIEW V_CLIENT_CHURN_FEATURES AS
+WITH client_metrics AS (
+    SELECT 
+        c.client_id,
+        c.client_type,
+        c.service_quality_score,
+        c.total_properties,
+        c.lifetime_value,
+        DATEDIFF('month', c.onboarding_date, CURRENT_DATE()) AS months_as_client,
+        s.service_type,
+        s.subscription_tier,
+        s.billing_cycle,
+        s.monthly_price,
+        s.property_count_limit,
+        s.user_licenses,
+        s.advanced_analytics,
+        s.subscription_status,
+        DATEDIFF('day', s.start_date, COALESCE(s.end_date, CURRENT_DATE())) AS subscription_duration_days,
+        COUNT(DISTINCT st.ticket_id) AS total_support_tickets,
+        AVG(st.satisfaction_rating) AS avg_satisfaction_rating,
+        AVG(st.resolution_time_hours) AS avg_resolution_time,
+        SUM(CASE WHEN st.ticket_status = 'OPEN' THEN 1 ELSE 0 END) AS open_tickets,
+        COUNT(DISTINCT t.transaction_id) AS total_transactions,
+        SUM(t.total_amount) AS total_revenue,
+        AVG(t.total_amount) AS avg_transaction_amount
+    FROM RAW.CLIENTS c
+    LEFT JOIN RAW.SERVICE_SUBSCRIPTIONS s ON c.client_id = s.client_id
+    LEFT JOIN RAW.SUPPORT_TICKETS st ON c.client_id = st.client_id
+    LEFT JOIN RAW.TRANSACTIONS t ON c.client_id = t.client_id
+    WHERE c.client_status IN ('ACTIVE', 'SUSPENDED')
+        AND s.subscription_id IS NOT NULL
+    GROUP BY ALL
+)
+SELECT * FROM client_metrics;
+
+-- Loan Risk Classification Features
+CREATE OR REPLACE VIEW V_LOAN_RISK_FEATURES AS
+SELECT 
+    l.loan_id,
+    l.loan_type,
+    l.loan_amount,
+    l.loan_status,
+    l.escrow_account,
+    DATEDIFF('month', l.loan_date, CURRENT_DATE()) AS loan_age_months,
+    (l.loan_amount / NULLIF(p.assessed_value, 0))::DOUBLE AS loan_to_value_ratio,
+    p.property_type,
+    p.assessed_value,
+    p.flood_zone,
+    p.property_state,
+    fc.insurance_required,
+    fc.life_of_loan_tracking,
+    CASE WHEN fz.risk_level = 'HIGH_RISK' THEN 1 ELSE 0 END AS high_flood_risk,
+    t.tax_amount,
+    t.delinquent,
+    t.penalty_amount,
+    tj.tax_rate,
+    tj.jurisdiction_type,
+    CASE WHEN t.payment_status = 'PAID' THEN 1 ELSE 0 END AS tax_paid_on_time,
+    DATEDIFF('day', t.due_date, COALESCE(t.payment_date, CURRENT_DATE())) AS days_payment_delay,
+    c.client_type,
+    c.service_quality_score
+FROM RAW.LOANS l
+JOIN RAW.PROPERTIES p ON l.property_id = p.property_id
+LEFT JOIN RAW.FLOOD_CERTIFICATIONS fc ON l.loan_id = fc.loan_id
+LEFT JOIN RAW.FLOOD_ZONES fz ON p.flood_zone = fz.zone_id
+LEFT JOIN RAW.TAX_RECORDS t ON l.loan_id = t.loan_id
+LEFT JOIN RAW.TAX_JURISDICTIONS tj ON t.jurisdiction_id = tj.jurisdiction_id
+LEFT JOIN RAW.CLIENTS c ON l.client_id = c.client_id
+WHERE l.loan_status = 'ACTIVE'
+    AND p.property_status = 'ACTIVE';
+
+-- ============================================================================
 -- Display confirmation
 -- ============================================================================
-SELECT 'All analytical views created successfully' AS status;
+SELECT 'All analytical views created successfully' AS status,
+       'Includes 3 ML feature views for model training' AS ml_features;
 

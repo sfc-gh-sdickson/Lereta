@@ -445,3 +445,4 @@ SELECT
     'Follow docs/AGENT_SETUP.md for Snowsight UI configuration' AS next_steps,
     CURRENT_TIMESTAMP() AS completed_at;
 
+

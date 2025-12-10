@@ -52,7 +52,7 @@ CREATE OR REPLACE TABLE PROPERTIES (
     property_status VARCHAR(30) DEFAULT 'ACTIVE',
     created_at TIMESTAMP_NTZ DEFAULT CURRENT_TIMESTAMP(),
     updated_at TIMESTAMP_NTZ DEFAULT CURRENT_TIMESTAMP()
-);
+) CHANGE_TRACKING = TRUE;
 
 -- ============================================================================
 -- LOANS TABLE (NEW - Core Lereta Entity)
@@ -78,7 +78,7 @@ CREATE OR REPLACE TABLE LOANS (
     updated_at TIMESTAMP_NTZ DEFAULT CURRENT_TIMESTAMP(),
     FOREIGN KEY (client_id) REFERENCES CLIENTS(client_id),
     FOREIGN KEY (property_id) REFERENCES PROPERTIES(property_id)
-);
+) CHANGE_TRACKING = TRUE;
 
 -- ============================================================================
 -- SERVICE_SUBSCRIPTIONS TABLE (from HOSTING_PLANS/SUBSCRIPTIONS)
@@ -101,7 +101,7 @@ CREATE OR REPLACE TABLE SERVICE_SUBSCRIPTIONS (
     created_at TIMESTAMP_NTZ DEFAULT CURRENT_TIMESTAMP(),
     updated_at TIMESTAMP_NTZ DEFAULT CURRENT_TIMESTAMP(),
     FOREIGN KEY (client_id) REFERENCES CLIENTS(client_id)
-);
+) CHANGE_TRACKING = TRUE;
 
 -- ============================================================================
 -- TAX_JURISDICTIONS TABLE
@@ -118,7 +118,7 @@ CREATE OR REPLACE TABLE TAX_JURISDICTIONS (
     contact_info VARCHAR(500),
     created_at TIMESTAMP_NTZ DEFAULT CURRENT_TIMESTAMP(),
     updated_at TIMESTAMP_NTZ DEFAULT CURRENT_TIMESTAMP()
-);
+) CHANGE_TRACKING = TRUE;
 
 -- ============================================================================
 -- TAX_RECORDS TABLE
@@ -145,7 +145,7 @@ CREATE OR REPLACE TABLE TAX_RECORDS (
     FOREIGN KEY (loan_id) REFERENCES LOANS(loan_id),
     FOREIGN KEY (client_id) REFERENCES CLIENTS(client_id),
     FOREIGN KEY (jurisdiction_id) REFERENCES TAX_JURISDICTIONS(jurisdiction_id)
-);
+) CHANGE_TRACKING = TRUE;
 
 -- ============================================================================
 -- TAX_BILLS TABLE
@@ -165,7 +165,7 @@ CREATE OR REPLACE TABLE TAX_BILLS (
     created_at TIMESTAMP_NTZ DEFAULT CURRENT_TIMESTAMP(),
     FOREIGN KEY (tax_record_id) REFERENCES TAX_RECORDS(tax_record_id),
     FOREIGN KEY (property_id) REFERENCES PROPERTIES(property_id)
-);
+) CHANGE_TRACKING = TRUE;
 
 -- ============================================================================
 -- TAX_PAYMENTS TABLE
@@ -183,7 +183,7 @@ CREATE OR REPLACE TABLE TAX_PAYMENTS (
     created_at TIMESTAMP_NTZ DEFAULT CURRENT_TIMESTAMP(),
     FOREIGN KEY (tax_record_id) REFERENCES TAX_RECORDS(tax_record_id),
     FOREIGN KEY (bill_id) REFERENCES TAX_BILLS(bill_id)
-);
+) CHANGE_TRACKING = TRUE;
 
 -- ============================================================================
 -- FLOOD_ZONES TABLE
@@ -196,7 +196,7 @@ CREATE OR REPLACE TABLE FLOOD_ZONES (
     risk_level VARCHAR(30) NOT NULL,
     insurance_required BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMP_NTZ DEFAULT CURRENT_TIMESTAMP()
-);
+) CHANGE_TRACKING = TRUE;
 
 -- ============================================================================
 -- FLOOD_CERTIFICATIONS TABLE
@@ -221,7 +221,7 @@ CREATE OR REPLACE TABLE FLOOD_CERTIFICATIONS (
     FOREIGN KEY (property_id) REFERENCES PROPERTIES(property_id),
     FOREIGN KEY (loan_id) REFERENCES LOANS(loan_id),
     FOREIGN KEY (client_id) REFERENCES CLIENTS(client_id)
-);
+) CHANGE_TRACKING = TRUE;
 
 -- ============================================================================
 -- FLOOD_MAP_CHANGES TABLE
@@ -239,7 +239,7 @@ CREATE OR REPLACE TABLE FLOOD_MAP_CHANGES (
     recertification_required BOOLEAN DEFAULT TRUE,
     created_at TIMESTAMP_NTZ DEFAULT CURRENT_TIMESTAMP(),
     FOREIGN KEY (property_id) REFERENCES PROPERTIES(property_id)
-);
+) CHANGE_TRACKING = TRUE;
 
 -- ============================================================================
 -- ESCROW_ACCOUNTS TABLE
@@ -260,7 +260,7 @@ CREATE OR REPLACE TABLE ESCROW_ACCOUNTS (
     updated_at TIMESTAMP_NTZ DEFAULT CURRENT_TIMESTAMP(),
     FOREIGN KEY (loan_id) REFERENCES LOANS(loan_id),
     FOREIGN KEY (client_id) REFERENCES CLIENTS(client_id)
-);
+) CHANGE_TRACKING = TRUE;
 
 -- ============================================================================
 -- DISBURSEMENTS TABLE
@@ -279,7 +279,7 @@ CREATE OR REPLACE TABLE DISBURSEMENTS (
     created_at TIMESTAMP_NTZ DEFAULT CURRENT_TIMESTAMP(),
     FOREIGN KEY (escrow_id) REFERENCES ESCROW_ACCOUNTS(escrow_id),
     FOREIGN KEY (tax_record_id) REFERENCES TAX_RECORDS(tax_record_id)
-);
+) CHANGE_TRACKING = TRUE;
 
 -- ============================================================================
 -- COMPLIANCE_CHECKS TABLE
@@ -299,7 +299,7 @@ CREATE OR REPLACE TABLE COMPLIANCE_CHECKS (
     created_at TIMESTAMP_NTZ DEFAULT CURRENT_TIMESTAMP(),
     FOREIGN KEY (client_id) REFERENCES CLIENTS(client_id),
     FOREIGN KEY (loan_id) REFERENCES LOANS(loan_id)
-);
+) CHANGE_TRACKING = TRUE;
 
 -- ============================================================================
 -- TRANSACTIONS TABLE
@@ -321,7 +321,7 @@ CREATE OR REPLACE TABLE TRANSACTIONS (
     total_amount NUMBER(12,2) NOT NULL,
     created_at TIMESTAMP_NTZ DEFAULT CURRENT_TIMESTAMP(),
     FOREIGN KEY (client_id) REFERENCES CLIENTS(client_id)
-);
+) CHANGE_TRACKING = TRUE;
 
 -- ============================================================================
 -- SUPPORT_TICKETS TABLE
@@ -345,7 +345,7 @@ CREATE OR REPLACE TABLE SUPPORT_TICKETS (
     created_at TIMESTAMP_NTZ DEFAULT CURRENT_TIMESTAMP(),
     updated_at TIMESTAMP_NTZ DEFAULT CURRENT_TIMESTAMP(),
     FOREIGN KEY (client_id) REFERENCES CLIENTS(client_id)
-);
+) CHANGE_TRACKING = TRUE;
 
 -- ============================================================================
 -- SUPPORT_AGENTS TABLE
@@ -363,7 +363,7 @@ CREATE OR REPLACE TABLE SUPPORT_AGENTS (
     agent_status VARCHAR(30) DEFAULT 'ACTIVE',
     created_at TIMESTAMP_NTZ DEFAULT CURRENT_TIMESTAMP(),
     updated_at TIMESTAMP_NTZ DEFAULT CURRENT_TIMESTAMP()
-);
+) CHANGE_TRACKING = TRUE;
 
 -- ============================================================================
 -- PRODUCTS TABLE
@@ -381,7 +381,7 @@ CREATE OR REPLACE TABLE PRODUCTS (
     is_active BOOLEAN DEFAULT TRUE,
     created_at TIMESTAMP_NTZ DEFAULT CURRENT_TIMESTAMP(),
     updated_at TIMESTAMP_NTZ DEFAULT CURRENT_TIMESTAMP()
-);
+) CHANGE_TRACKING = TRUE;
 
 -- ============================================================================
 -- MARKETING_CAMPAIGNS TABLE
@@ -398,7 +398,7 @@ CREATE OR REPLACE TABLE MARKETING_CAMPAIGNS (
     channel VARCHAR(50),
     campaign_status VARCHAR(30) DEFAULT 'ACTIVE',
     created_at TIMESTAMP_NTZ DEFAULT CURRENT_TIMESTAMP()
-);
+) CHANGE_TRACKING = TRUE;
 
 -- ============================================================================
 -- CLIENT_CAMPAIGN_INTERACTIONS TABLE
@@ -415,7 +415,7 @@ CREATE OR REPLACE TABLE CLIENT_CAMPAIGN_INTERACTIONS (
     created_at TIMESTAMP_NTZ DEFAULT CURRENT_TIMESTAMP(),
     FOREIGN KEY (client_id) REFERENCES CLIENTS(client_id),
     FOREIGN KEY (campaign_id) REFERENCES MARKETING_CAMPAIGNS(campaign_id)
-);
+) CHANGE_TRACKING = TRUE;
 
 -- ============================================================================
 -- Display confirmation

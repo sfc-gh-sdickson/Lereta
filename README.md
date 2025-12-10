@@ -165,29 +165,30 @@ USE ROLE ACCOUNTADMIN;
 -- Step 2: Data Generation (10-20 minutes)
 @sql/data/03_generate_synthetic_data.sql
 
--- Step 3: Analytics Layer (< 1 minute)
+-- Step 3: Create Views (< 1 minute)
+-- This creates analytical views AND ML feature views
 @sql/views/04_create_views.sql
+
+-- Step 4: Train ML Models (15-30 minutes)
+-- Open notebooks/ML_Models_Lereta.ipynb in Snowflake Notebooks
+-- Upload environment.yml
+-- Run all cells to train and register 3 models
+
+-- Step 5: Create Semantic Views (< 1 minute)
 @sql/views/05_create_semantic_views.sql
 
--- Step 4: Search Services (5-10 minutes)
+-- Step 6: Create Search Services (5-10 minutes)
 @sql/search/06_create_cortex_search.sql
 
--- Step 5: ML Deployment (< 1 minute)
+-- Step 7: Create ML Functions (< 1 minute)
+-- Wraps trained models as SQL functions
 @sql/ml/07_ml_model_wrappers.sql
 
--- Step 6: Agent Configuration (< 1 minute)
+-- Step 8: Create Agent (< 1 minute)
 @sql/agent/08_create_ai_agent.sql
 ```
 
-### ML Model Training
-
-Open and execute the Jupyter notebook to train the three ML models:
-
-```bash
-jupyter notebook notebooks/ML_Models_Lereta.ipynb
-```
-
-Update connection parameters and run all cells (15-30 minutes). Models will be automatically registered in the Snowflake Model Registry.
+**Critical**: ML feature views are created in Step 3 (file 04), models trained in Step 4 (notebook), then wrapped in Step 7 (file 07).
 
 ### Agent Configuration
 

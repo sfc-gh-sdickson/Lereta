@@ -27,128 +27,85 @@ This comprehensive guide walks through the complete setup of the Lereta Intellig
 
 Execute SQL scripts sequentially to build the data foundation.
 
-### Step 1: Database Setup
+### Step 1: Database Setup (< 1 minute)
 
 ```sql
 USE ROLE ACCOUNTADMIN;
-
--- Create database and schemas
 @sql/setup/01_database_and_schema.sql
-
--- Create all tables (24 tables)
 @sql/setup/02_create_tables.sql
 ```
 
-**Time**: < 1 minute
+**Creates**:
+- Database: LERETA_INTELLIGENCE
+- Schemas: RAW, ANALYTICS, ML_MODELS
+- 20 tables with CHANGE_TRACKING enabled
 
-### Step 2: Generate Sample Data
+### Step 2: Generate Sample Data (10-20 minutes)
 
 ```sql
--- Generate 3.8M+ records
 @sql/data/03_generate_synthetic_data.sql
 ```
 
 **Generates**:
-- 10,000 clients
-- 500,000 properties
-- 750,000 loans
-- 2,000,000 tax records
-- 500,000 flood certifications
-- 1,500,000 transactions
-- 75,000 support tickets
+- 10,000 clients, 500,000 properties, 750,000 loans
+- 2,000,000 tax records, 500,000 flood certifications
+- 1,500,000 transactions, 75,000 support tickets
 
-**Time**: 10-20 minutes
-
-### Step 3: Create Analytics Layer
+### Step 3: Create Views (< 1 minute)
 
 ```sql
--- Create analytical views
 @sql/views/04_create_views.sql
-
--- Create semantic views for AI
-@sql/views/05_create_semantic_views.sql
 ```
 
 **Creates**:
 - 8 analytical views
-- 3 semantic views
+- 3 ML feature views (V_TAX_DELINQUENCY_FEATURES, V_CLIENT_CHURN_FEATURES, V_LOAN_RISK_FEATURES)
 
-**Time**: < 1 minute
+**Important**: ML feature views are created HERE, before training models.
 
-### Step 4: Enable Document Search
+### Step 4: Train ML Models (15-30 minutes)
+
+1. Open Snowflake Notebooks in Snowsight
+2. Upload `notebooks/ML_Models_Lereta.ipynb`
+3. Upload `notebooks/environment.yml`
+4. Run all cells
+
+**Trains and registers**:
+- TAX_DELINQUENCY_PREDICTOR
+- CLIENT_CHURN_PREDICTOR
+- LOAN_RISK_CLASSIFIER
+
+### Step 5: Create Semantic Views (< 1 minute)
 
 ```sql
--- Create search services and documents
+@sql/views/05_create_semantic_views.sql
+```
+
+**Creates**: 3 semantic views for Cortex Analyst
+
+### Step 6: Enable Document Search (5-10 minutes)
+
+```sql
 @sql/search/06_create_cortex_search.sql
 ```
 
-**Generates**:
-- 25,000 support transcripts
-- 15,000 tax dispute documents
-- 20,000 flood determination reports
-- 3 Cortex Search services
+**Creates**: 3 Cortex Search services with 60K documents
 
-**Time**: 5-10 minutes
-
----
-
-## Part 2: Machine Learning Models
-
-### Step 5: Train ML Models
-
-Open the Jupyter notebook and execute all cells:
-
-```bash
-cd notebooks
-jupyter notebook ML_Models_Lereta.ipynb
-```
-
-**Configuration** (Cell 2):
-```python
-connection_params = {
-    "account": "<your_account>",
-    "user": "<your_user>",
-    "password": "<your_password>",
-    "role": "ACCOUNTADMIN",
-    "warehouse": "LERETA_WH",
-    "database": "LERETA_INTELLIGENCE",
-    "schema": "RAW"
-}
-```
-
-**Trains**:
-- Tax Delinquency Predictor (Random Forest, F1: 0.85)
-- Client Churn Predictor (XGBoost, F1: 0.78)
-- Loan Risk Classifier (Random Forest, Accuracy: 0.89)
-
-**Time**: 15-30 minutes
-
-### Step 6: Deploy ML Wrappers
+### Step 7: Create ML Functions (< 1 minute)
 
 ```sql
--- Deploy ML functions and feature views
 @sql/ml/07_ml_model_wrappers.sql
 ```
 
-**Creates**:
-- 3 SQL UDFs (PREDICT_TAX_DELINQUENCY, PREDICT_CLIENT_CHURN, CLASSIFY_LOAN_RISK)
-- 3 feature preparation views
+**Creates**: 3 SQL functions that wrap the trained models using MODEL!PREDICT() syntax
 
-**Time**: < 1 minute
-
-### Step 7: Configure Agent Infrastructure
+### Step 8: Create Agent (< 1 minute)
 
 ```sql
--- Set up agent configuration and permissions
 @sql/agent/08_create_ai_agent.sql
 ```
 
-**Configures**:
-- Permission grants for all services
-- Agent metadata and monitoring
-- Sample questions and test queries
-
-**Time**: < 1 minute
+**Creates**: LERETA_INTELLIGENCE_AGENT with all tools configured
 
 ---
 

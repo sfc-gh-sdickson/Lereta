@@ -34,7 +34,7 @@ $$
                 SERVICE_QUALITY_SCORE, CLIENT_STATUS, HAS_UNPAID_TAXES, CURRENT_PAID_STATUS
             ) as pred
         FROM LERETA_INTELLIGENCE.ANALYTICS.V_TAX_DELINQUENCY_FEATURES
-        LIMIT 100
+        LIMIT 25
     )
 $$;
 
@@ -66,7 +66,7 @@ $$
             ) as pred
         FROM LERETA_INTELLIGENCE.ANALYTICS.V_CLIENT_CHURN_FEATURES
         WHERE client_type_filter IS NULL OR CLIENT_TYPE = client_type_filter
-        LIMIT 100
+        LIMIT 25
     )
 $$;
 
@@ -97,7 +97,7 @@ $$
             ) as pred
         FROM LERETA_INTELLIGENCE.ANALYTICS.V_LOAN_RISK_FEATURES
         WHERE loan_type_filter IS NULL OR LOAN_TYPE = loan_type_filter
-        LIMIT 100
+        LIMIT 25
     )
 $$;
 

@@ -31,7 +31,7 @@ CREATE OR REPLACE TABLE CLIENTS (
     total_properties NUMBER(10,0) DEFAULT 0,
     created_at TIMESTAMP_NTZ DEFAULT CURRENT_TIMESTAMP(),
     updated_at TIMESTAMP_NTZ DEFAULT CURRENT_TIMESTAMP()
-);
+) CHANGE_TRACKING = TRUE;
 
 -- ============================================================================
 -- PROPERTIES TABLE (from DOMAINS concept)

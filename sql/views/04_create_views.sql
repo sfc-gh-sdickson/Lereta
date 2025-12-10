@@ -463,7 +463,16 @@ SELECT
     CASE WHEN t.payment_status = 'PAID' THEN 1 ELSE 0 END AS tax_paid_on_time,
     DATEDIFF('day', t.due_date, COALESCE(t.payment_date, CURRENT_DATE())) AS days_payment_delay,
     c.client_type,
-    c.service_quality_score
+    c.service_quality_score,
+    -- Label: Computed risk level for training
+    CASE 
+        WHEN (p.flood_zone IN ('AE', 'A', 'VE') AND fc.insurance_required = FALSE) 
+            OR (t.delinquent = TRUE AND t.penalty_amount > 500) THEN 'HIGH'
+        WHEN (p.flood_zone IN ('AE', 'A', 'VE') AND fc.insurance_required = TRUE) 
+            OR (t.payment_status = 'PENDING' AND DATEDIFF('day', t.due_date, CURRENT_DATE()) > 30)
+            OR (l.escrow_account = FALSE AND t.delinquent = TRUE) THEN 'MEDIUM'
+        ELSE 'LOW'
+    END AS risk_level
 FROM RAW.LOANS l
 JOIN RAW.PROPERTIES p ON l.property_id = p.property_id
 LEFT JOIN RAW.FLOOD_CERTIFICATIONS fc ON l.loan_id = fc.loan_id

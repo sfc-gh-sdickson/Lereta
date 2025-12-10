@@ -29,6 +29,7 @@ This Snowflake Intelligence solution demonstrates how Lereta can leverage AI age
 - **Revenue Intelligence**: Transaction trends, service performance, pricing optimization
 - **Support Operations**: Ticket resolution, agent performance, customer satisfaction
 - **Unstructured Data Search**: Semantic search over support transcripts, tax dispute documents, and flood determination reports using Cortex Search
+- **🆕 Predictive ML Models**: Tax delinquency prediction, client churn prediction, loan risk classification
 
 ## Database Schema
 
@@ -73,24 +74,49 @@ The solution includes:
    - TAX_DISPUTE_DOCUMENTS_SEARCH: Search tax dispute and appeal documentation
    - FLOOD_DETERMINATION_REPORTS_SEARCH: Search flood determination reports and FEMA documentation
 
+4. **🆕 ML Models and Predictive Analytics**:
+   - TAX_DELINQUENCY_PREDICTOR: Random Forest model predicting tax delinquency risk
+   - CLIENT_CHURN_PREDICTOR: XGBoost model identifying clients at risk of cancellation
+   - LOAN_RISK_CLASSIFIER: Random Forest model classifying loans by risk level (LOW/MEDIUM/HIGH)
+   - ML Model Registry: Centralized model versioning and deployment
+   - SQL UDFs: Easy-to-use wrappers for ML predictions
+
 ## Files
 
+### Core SQL Scripts
 - `sql/setup/01_database_and_schema.sql`: Database and schema creation
 - `sql/setup/02_create_tables.sql`: Table definitions with proper constraints (24 tables)
 - `sql/data/03_generate_synthetic_data.sql`: Realistic sample data generation
 - `sql/views/04_create_views.sql`: Analytical views
 - `sql/views/05_create_semantic_views.sql`: Semantic views for AI agents (verified syntax)
 - `sql/search/06_create_cortex_search.sql`: Unstructured data tables and Cortex Search services
+
+### 🆕 ML and AI Agent Files
+- `notebooks/ML_Models_Lereta.ipynb`: ML model training notebook (3 models)
+- `sql/ml/07_ml_model_wrappers.sql`: SQL UDFs wrapping ML models for agent integration
+- `sql/agent/08_create_ai_agent.sql`: AI Agent creation and configuration script
+
+### Documentation
 - `docs/questions.md`: 10 complex questions the agent can answer
 - `docs/AGENT_SETUP.md`: Configuration instructions for Snowflake agents
+- `docs/ML_MODELS_GUIDE.md`: 🆕 Complete guide to ML models and predictive analytics
 - `MAPPING_DOCUMENT.md`: Entity mapping from GoDaddy template to Lereta
 
 ## Setup Instructions
 
+### Basic Setup (Files 01-06)
 1. Execute SQL files in order (01 through 06)
 2. Follow AGENT_SETUP.md for agent configuration
 3. Test with questions from questions.md
 4. Test Cortex Search with sample queries in AGENT_SETUP.md Step 5
+
+### 🆕 ML Models Setup (Files 07-08)
+5. Train ML models using `notebooks/ML_Models_Lereta.ipynb` (15-30 min)
+6. Deploy ML wrappers: Execute `sql/ml/07_ml_model_wrappers.sql`
+7. Create AI Agent: Execute `sql/agent/08_create_ai_agent.sql`
+8. Test ML predictions with queries from `docs/ML_MODELS_GUIDE.md`
+
+**For detailed ML setup**: See `docs/ML_MODELS_GUIDE.md`
 
 ## Data Model Highlights
 
@@ -115,6 +141,9 @@ The solution includes:
 ✅ **Hybrid Data Architecture**: Combines structured tables with unstructured text data  
 ✅ **Semantic Search**: Find similar issues and solutions by meaning, not just keywords  
 ✅ **RAG-Ready**: Agent can retrieve context from support transcripts, tax disputes, and flood reports  
+✅ **🆕 Predictive ML Models**: Tax delinquency, client churn, and loan risk prediction  
+✅ **🆕 Model Registry**: Centralized ML model versioning and deployment  
+✅ **🆕 SQL ML Integration**: Easy-to-use UDFs for ML predictions in SQL queries  
 ✅ **Production-Ready Syntax**: All SQL verified against Snowflake documentation  
 ✅ **Comprehensive Demo**: 10K clients, 500K properties, 750K loans, 2M+ tax records, 500K flood certs  
 ✅ **Verified Syntax**: CREATE SEMANTIC VIEW and CREATE CORTEX SEARCH SERVICE syntax verified against official Snowflake documentation
@@ -135,6 +164,15 @@ The agent can answer sophisticated questions like:
 10. **Service Performance**: Analyze service delivery quality by client segment
 
 Plus unstructured data questions for semantic search over transcripts, tax disputes, and flood reports.
+
+### 🆕 ML Model Questions
+
+11. **Tax Delinquency Prediction**: Predict which properties will become delinquent in next 90 days
+12. **Client Churn Risk**: Identify clients at risk of canceling subscriptions
+13. **Loan Risk Assessment**: Classify loans by risk level with recommendations
+14. **Hybrid ML Queries**: Combine predictions with document search for comprehensive analysis
+
+**See `docs/ML_MODELS_GUIDE.md` for complete ML documentation and examples.**
 
 ## Semantic Views
 
@@ -219,6 +257,15 @@ Key verification points:
 
 -- 6. Create Cortex Search services (5-10 minutes)
 @sql/search/06_create_cortex_search.sql
+
+-- 🆕 7. Train ML models (15-30 minutes)
+-- Open notebooks/ML_Models_Lereta.ipynb in Jupyter/Snowsight and run all cells
+
+-- 🆕 8. Deploy ML model wrappers
+@sql/ml/07_ml_model_wrappers.sql
+
+-- 🆕 9. Create AI Agent with ML integration
+@sql/agent/08_create_ai_agent.sql
 ```
 
 ### Configure Agent
@@ -226,8 +273,9 @@ Follow the detailed instructions in `docs/AGENT_SETUP.md` to:
 1. Create the Snowflake Intelligence Agent
 2. Add semantic views as data sources
 3. Configure Cortex Search services
-4. Set up system prompts
-5. Test with sample questions
+4. 🆕 Integrate ML model functions
+5. Set up system prompts with ML capabilities
+6. Test with sample questions including ML predictions
 
 ## Testing
 
@@ -249,10 +297,22 @@ SELECT PARSE_JSON(
 ```
 
 ### Sample Test Questions
+
+**Structured Data (Cortex Analyst)**:
 1. "How many properties have delinquent property taxes?"
 2. "Which properties require flood insurance due to high-risk zones?"
+
+**Unstructured Data (Cortex Search)**:
 3. "Show me tax dispute documents about assessment appeals"
 4. "Find flood determination reports for Zone AE properties"
+
+**🆕 ML Predictions**:
+5. "Predict which properties will become delinquent on taxes"
+6. "Which clients are at risk of churning?"
+7. "Classify all active loans by risk level"
+
+**🆕 Hybrid Queries (Combined)**:
+8. "Show high-risk loans with predicted tax delinquency and search for similar support cases"
 
 ## Data Volumes
 

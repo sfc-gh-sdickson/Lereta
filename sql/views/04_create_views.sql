@@ -427,7 +427,6 @@ WITH client_metrics AS (
         COUNT(DISTINCT t.transaction_id)::FLOAT AS total_transactions,
         SUM(t.total_amount)::FLOAT AS total_revenue,
         AVG(t.total_amount)::FLOAT AS avg_transaction_amount,
-        s.subscription_status,
         -- Label Generation: Numeric churn risk (0=Low, 1=Medium, 2=High)
         CASE 
             WHEN s.subscription_status IN ('EXPIRED', 'PENDING_RENEWAL') 

@@ -139,7 +139,6 @@ The solution integrates three intelligence layers:
 
 - **`docs/AGENT_SETUP.md`** - Complete setup guide with UI configuration
 - **`docs/questions.md`** - Sample questions and use cases
-- **`MAPPING_DOCUMENT.md`** - Entity mapping reference
 
 ---
 
@@ -395,6 +394,136 @@ All SQL syntax verified against official Snowflake documentation:
 - ✅ Change tracking enabled for search tables
 - ✅ Correct ATTRIBUTES syntax for filterable columns
 - ✅ ML model registry integration
+
+---
+
+## Business Context
+
+### Lereta's Current Architecture
+
+**Current State**:
+- **SQL Server EDW**: ~160TB total (8TB PSA with 13.7B records)
+- **Source Systems**: Mainframe, SQL Server, Azure SQL (Elevate/LeretaNet), Oracle
+- **ETL**: SSIS packages with stored procedures, SQL Gateway for mainframe extraction
+- **Reporting**: Power BI (500+ reports), SSRS being deprecated
+- **Team**: 2 data engineers + 1 lead
+
+**Modernization Goals**:
+- Replace mainframe with containerized Linux environment
+- Migrate to Snowflake Business Critical Edition
+- Implement OpenFlow for CDC (replacing SSIS)
+- Enable AI/ML capabilities with Cortex
+- Create revenue-generating data products
+- Compete with CoreLogic in data services market
+
+### Migration Strategy
+
+**Phase 1** (December 2025 - January 2026):
+- Current state assessment with KPMG
+- Future state architecture design
+- POC use case identification (2 pilots)
+- Data migration roadmap
+
+**Phase 2** (January - June 2026):
+- Bronze/Silver/Gold layer implementation
+- Data migration execution
+- Atacama governance integration
+- OpenFlow CDC deployment
+
+**Target Architecture**:
+- **Storage**: ~32TB (5:1 compression from 160TB)
+- **Compute**: Multiple warehouses by workload (loading, transformation, analytics, client reports)
+- **Governance**: Atacama + Snowflake Horizon
+- **Integration**: OpenFlow for CDC, Azure Blob Storage staging
+
+### Data Architecture Overview
+
+**Current State Data Flow**:
+<img src="current-state-data-flow.svg" width="100%">
+
+**Future State with Snowflake**:
+<img src="future-state-architecture.svg" width="100%">
+
+**Key Systems**:
+- **Source Systems**: Mainframe (containerized), SQL Server, Azure SQL, Oracle
+- **Integration Layer**: OpenFlow CDC, Azure Blob Storage, Iceberg tables
+- **Snowflake Platform**: Bronze/Silver/Gold medallion architecture
+- **Analytics**: Power BI, Snowflake Intelligence (Cortex AI), Sigma (potential)
+- **Governance**: Atacama for data quality, Snowflake Horizon for lineage
+
+---
+
+## Entity Mapping
+
+This solution was designed specifically for Lereta's business model, mapping core entities to support tax and flood services:
+
+### Core Business Entities
+
+| Entity | Purpose | Key Relationships |
+|--------|---------|-------------------|
+| **CLIENTS** | Financial institutions (lenders, servicers) | Parent to LOANS, SUBSCRIPTIONS, TRANSACTIONS |
+| **PROPERTIES** | Real estate properties monitored for taxes/flood | Linked to LOANS, TAX_RECORDS, FLOOD_CERTIFICATIONS |
+| **LOANS** | Mortgage loans requiring monitoring | Links CLIENTS to PROPERTIES, drives monitoring requirements |
+| **TAX_RECORDS** | Property tax payment tracking | Monitors PROPERTIES for CLIENTS via LOANS |
+| **FLOOD_CERTIFICATIONS** | FEMA flood zone determinations | Certifies PROPERTIES for insurance requirements |
+| **SERVICE_SUBSCRIPTIONS** | Lereta service subscriptions | CLIENT subscriptions for tax/flood monitoring |
+
+### Client Types
+- **NATIONAL_SERVICER**: Large servicers (e.g., Mr. Cooper, Rocket Mortgage)
+- **REGIONAL_LENDER**: Regional banks and mortgage companies
+- **CREDIT_UNION**: Credit unions with mortgage portfolios
+
+### Service Types
+- **TAX_MONITORING**: Property tax tracking, payment monitoring, delinquency alerts
+- **FLOOD_CERTIFICATION**: FEMA zone determinations, life-of-loan tracking, insurance requirements
+- **COMPLIANCE_REPORTING**: Regulatory compliance, audit support, custom reporting
+- **FULL_SUITE**: All services bundled (tax + flood + compliance)
+
+### Supporting Entities
+- **TAX_JURISDICTIONS**: County, city, school district tax authorities
+- **TAX_BILLS/PAYMENTS**: Individual tax bills and payment transactions
+- **FLOOD_ZONES/MAP_CHANGES**: FEMA zone designations and map revisions
+- **ESCROW_ACCOUNTS/DISBURSEMENTS**: Escrow balance tracking and tax payment disbursements
+- **COMPLIANCE_CHECKS**: Regulatory compliance monitoring
+
+---
+
+## Implementation Validation
+
+### Pattern Compliance
+
+All code verified against working examples (Hootsuite, Origence):
+
+| Component | Pattern Source | Status |
+|-----------|---------------|--------|
+| Database structure | Hootsuite/Origence | ✅ Verified |
+| CHANGE_TRACKING | All 24 tables | ✅ Verified |
+| TRUNCATE statements | Data generation | ✅ Verified |
+| ::FLOAT casts | ML feature views (32 casts) | ✅ Verified |
+| MODEL!PREDICT syntax | ML functions | ✅ Verified |
+| CREATE AGENT syntax | Agent definition | ✅ Verified |
+| Semantic view ordering | TABLES→RELATIONSHIPS→DIMENSIONS→METRICS | ✅ Verified |
+
+### Verification Results
+
+```bash
+✅ CHANGE_TRACKING: 24 tables
+✅ ::FLOAT casts: 32 in ML feature views
+✅ MODEL!PREDICT: 3 functions
+✅ CREATE AGENT: 1 agent definition
+✅ ML_MODELS schema: 4 references
+✅ XGBClassifier: imported
+✅ OneHotEncoder: 4 uses
+✅ Simple models: n_estimators=3, max_depth=3
+✅ All 3 models: TAX_DELINQUENCY_PREDICTOR, CLIENT_CHURN_PREDICTOR, LOAN_RISK_CLASSIFIER
+```
+
+### Critical Data Elements (CDEs)
+
+Lereta's data governance focuses on three primary domains:
+- **Agency Domain**: CLIENTS, SERVICE_SUBSCRIPTIONS, TRANSACTIONS
+- **Customer Domain**: PROPERTIES, ESCROW_ACCOUNTS, COMPLIANCE_CHECKS
+- **Loan Domain**: LOANS, TAX_RECORDS, FLOOD_CERTIFICATIONS
 
 ---
 

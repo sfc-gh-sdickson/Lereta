@@ -35,13 +35,13 @@
     Structured Data Analytics
   </text>
   <text x="170" y="180" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="white">
-    • Property/Loan/Tax Intelligence
+    &#x2022; Property/Loan/Tax Intelligence
   </text>
   <text x="170" y="195" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="white">
-    • Subscription/Revenue Intelligence
+    &#x2022; Subscription/Revenue Intelligence
   </text>
   <text x="170" y="210" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="white">
-    • Client Support Intelligence
+    &#x2022; Client Support Intelligence
   </text>
   
   <!-- Cortex Search Box -->
@@ -53,13 +53,13 @@
     Unstructured Data Search
   </text>
   <text x="400" y="180" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="white">
-    • Support Transcripts (25K)
+    &#x2022; Support Transcripts (25K)
   </text>
   <text x="400" y="195" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="white">
-    • Tax Dispute Documents (15K)
+    &#x2022; Tax Dispute Documents (15K)
   </text>
   <text x="400" y="210" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="white">
-    • Flood Reports (20K)
+    &#x2022; Flood Reports (20K)
   </text>
   
   <!-- ML Models Box -->
@@ -71,13 +71,13 @@
     Predictive Analytics
   </text>
   <text x="630" y="180" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="white">
-    • Tax Delinquency Predictor
+    &#x2022; Tax Delinquency Predictor
   </text>
   <text x="630" y="195" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="white">
-    • Client Churn Predictor
+    &#x2022; Client Churn Predictor
   </text>
   <text x="630" y="210" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="white">
-    • Loan Risk Classifier
+    &#x2022; Loan Risk Classifier
   </text>
   
   <!-- Arrows from components to data layer -->
@@ -96,19 +96,19 @@
     RAW Schema (24 Tables):
   </text>
   <text x="85" y="340" font-family="Arial, sans-serif" font-size="9" fill="#666">
-    • Clients (10K records)
+    &#x2022; Clients (10K records)
   </text>
   <text x="85" y="355" font-family="Arial, sans-serif" font-size="9" fill="#666">
-    • Properties (500K)
+    &#x2022; Properties (500K)
   </text>
   <text x="85" y="370" font-family="Arial, sans-serif" font-size="9" fill="#666">
-    • Loans (750K)
+    &#x2022; Loans (750K)
   </text>
   <text x="85" y="385" font-family="Arial, sans-serif" font-size="9" fill="#666">
-    • Tax Records (2M)
+    &#x2022; Tax Records (2M)
   </text>
   <text x="85" y="400" font-family="Arial, sans-serif" font-size="9" fill="#666">
-    • Flood Certifications (500K)
+    &#x2022; Flood Certifications (500K)
   </text>
   
   <!-- Middle Column - Views -->
@@ -116,16 +116,16 @@
     ANALYTICS Schema:
   </text>
   <text x="280" y="340" font-family="Arial, sans-serif" font-size="9" fill="#666">
-    • Semantic Views (3)
+    &#x2022; Semantic Views (3)
   </text>
   <text x="280" y="355" font-family="Arial, sans-serif" font-size="9" fill="#666">
-    • Analytical Views (8)
+    &#x2022; Analytical Views (8)
   </text>
   <text x="280" y="370" font-family="Arial, sans-serif" font-size="9" fill="#666">
-    • Feature Views (3)
+    &#x2022; Feature Views (3)
   </text>
   <text x="280" y="385" font-family="Arial, sans-serif" font-size="9" fill="#666">
-    • ML Functions (3)
+    &#x2022; ML Functions (3)
   </text>
   
   <!-- Right Column - Services -->
@@ -133,16 +133,16 @@
     Services:
   </text>
   <text x="490" y="340" font-family="Arial, sans-serif" font-size="9" fill="#666">
-    • Cortex Search (3)
+    &#x2022; Cortex Search (3)
   </text>
   <text x="490" y="355" font-family="Arial, sans-serif" font-size="9" fill="#666">
-    • ML Model Registry
+    &#x2022; ML Model Registry
   </text>
   <text x="490" y="370" font-family="Arial, sans-serif" font-size="9" fill="#666">
-    • Change Data Capture
+    &#x2022; Change Data Capture
   </text>
   <text x="490" y="385" font-family="Arial, sans-serif" font-size="9" fill="#666">
-    • LERETA_WH Warehouse
+    &#x2022; LERETA_WH Warehouse
   </text>
   
   <!-- Bottom - User Interaction -->
@@ -166,7 +166,7 @@
   
   <!-- Bottom stats -->
   <text x="400" y="570" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="#999">
-    Integrated Intelligence: Structured Analytics • Semantic Search • Predictive ML
+    Integrated Intelligence: Structured Analytics &#x2022; Semantic Search &#x2022; Predictive ML
   </text>
 </svg>
 

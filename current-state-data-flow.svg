@@ -117,10 +117,10 @@
   
   <!-- Legend -->
   <text x="50" y="500" font-size="14" font-weight="bold" fill="#333">Key Characteristics:</text>
-  <text x="50" y="520" font-size="11" fill="#333">• PSA: Delta tracking with Hub/Stack architecture</text>
-  <text x="50" y="540" font-size="11" fill="#333">• SSIS: Template-based ETL with stored procedures</text>
-  <text x="50" y="560" font-size="11" fill="#333">• Daily refresh (90%+), some 8x daily for critical data</text>
-  <text x="50" y="580" font-size="11" fill="#333">• Mainframe: Full loads due to unreliable timestamps</text>
-  <text x="50" y="600" font-size="11" fill="#333">• ~160TB total (includes indexes)</text>
+  <text x="50" y="520" font-size="11" fill="#333">&#x2022; PSA: Delta tracking with Hub/Stack architecture</text>
+  <text x="50" y="540" font-size="11" fill="#333">&#x2022; SSIS: Template-based ETL with stored procedures</text>
+  <text x="50" y="560" font-size="11" fill="#333">&#x2022; Daily refresh (90%+), some 8x daily for critical data</text>
+  <text x="50" y="580" font-size="11" fill="#333">&#x2022; Mainframe: Full loads due to unreliable timestamps</text>
+  <text x="50" y="600" font-size="11" fill="#333">&#x2022; ~160TB total (includes indexes)</text>
 </svg>
 
